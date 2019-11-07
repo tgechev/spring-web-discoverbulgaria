@@ -9,16 +9,26 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
+    @Column(name = "username", nullable = false, unique = true, updatable = false)
     private String username;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
     private Set<Role> authorities;
 
 
     public User() {
     }
 
-    @Column(name = "username", nullable = false, unique = true, updatable = false)
+
     public String getUsername() {
         return username;
     }
@@ -27,7 +37,7 @@ public class User extends BaseEntity implements UserDetails {
         this.username = username;
     }
 
-    @Column(name = "password", nullable = false)
+
     public String getPassword() {
         return password;
     }
@@ -36,7 +46,7 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    @Column(name = "email", nullable = false, unique = true)
+
     public String getEmail() {
         return email;
     }
@@ -45,14 +55,7 @@ public class User extends BaseEntity implements UserDetails {
         this.email = email;
     }
 
-
     @Override
-    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
     public Set<Role> getAuthorities() {
         return authorities;
     }
@@ -84,6 +87,4 @@ public class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }

@@ -1,12 +1,13 @@
-package com.gechev.discoverbulgaria.util;
+package com.gechev.discoverbulgaria.util.impl;
 
+import com.gechev.discoverbulgaria.util.ValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.Set;
 
-public class ValidatorUtilImpl implements ValidatorUtil  {
+public class ValidatorUtilImpl implements ValidatorUtil {
 
     private final Validator validator;
 

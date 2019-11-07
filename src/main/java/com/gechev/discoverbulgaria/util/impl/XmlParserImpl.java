@@ -1,4 +1,6 @@
-package com.gechev.discoverbulgaria.util;
+package com.gechev.discoverbulgaria.util.impl;
+
+import com.gechev.discoverbulgaria.util.XmlParser;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -6,7 +8,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
-public class XmlParserImpl implements XmlParser{
+public class XmlParserImpl implements XmlParser {
     @Override
     @SuppressWarnings(value = "unchecked")
     public <O> O importXMl(Class<O> objectClass, String path) throws JAXBException {

@@ -1,8 +1,10 @@
-package com.gechev.discoverbulgaria.util;
+package com.gechev.discoverbulgaria.util.impl;
+
+import com.gechev.discoverbulgaria.util.FileUtil;
 
 import java.io.*;
 
-public class FileUtilImpl implements FileUtil{
+public class FileUtilImpl implements FileUtil {
     @Override
     public String readFile(String path) throws IOException {
         StringBuilder sb = new StringBuilder();

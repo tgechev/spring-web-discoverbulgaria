@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "poi")
@@ -19,8 +17,14 @@ public class Poi extends BaseEntity {
     @Column
     private String address;
     @Column
+    @Enumerated(value = EnumType.STRING)
+    private Type type;
+
+    @OneToOne(targetEntity = Coordinates.class)
+    @JoinColumn(name = "coordinates_id", referencedColumnName = "id")
     private Coordinates coordinates;
-    @Column
-    private PoiType type;
+
+    @ManyToOne(targetEntity = Region.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
 }

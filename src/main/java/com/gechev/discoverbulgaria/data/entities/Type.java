@@ -1,4 +1,5 @@
 package com.gechev.discoverbulgaria.data.entities;
 
-public enum FactType {
+public enum Type {
+    HISTORY, NATURE
 }
