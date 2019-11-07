@@ -1,4 +1,4 @@
-package com.gechev.discoverbulgaria.data.entities;
+package com.gechev.discoverbulgaria.data.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
