@@ -7,4 +7,5 @@ public interface FactService {
     FactServiceModel findByType(String type);
     FactServiceModel findByRegion(RegionServiceModel region);
     FactServiceModel findByRegionAndType(RegionServiceModel region, String type);
+    void seedFacts(FactServiceModel[] factServiceModels);
 }

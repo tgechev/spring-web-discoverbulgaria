@@ -12,15 +12,21 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class Poi extends BaseEntity {
-    @Column
+
+    @Column(nullable = false)
     private String name;
+
     @Column
     private String address;
-    @Column
+
+    @Column(nullable = false, columnDefinition="TEXT")
+    private String description;
+
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Type type;
 
-    @OneToOne(targetEntity = Coordinates.class)
+    @OneToOne(targetEntity = Coordinates.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinates_id", referencedColumnName = "id")
     private Coordinates coordinates;
 

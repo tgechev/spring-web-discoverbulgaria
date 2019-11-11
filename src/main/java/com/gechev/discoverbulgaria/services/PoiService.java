@@ -7,4 +7,5 @@ import java.util.Set;
 public interface PoiService {
     Set<PoiServiceModel> findAll();
     PoiServiceModel findByName(String name);
+    void seedPoi(PoiServiceModel[] poiServiceModels);
 }

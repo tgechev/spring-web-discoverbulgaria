@@ -12,10 +12,11 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class Fact extends BaseEntity {
-    @Column
+
+    @Column(nullable = false, columnDefinition="TEXT")
     private String description;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Type type;
 

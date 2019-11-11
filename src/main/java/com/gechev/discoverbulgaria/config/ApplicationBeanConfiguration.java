@@ -18,6 +18,7 @@ import javax.validation.Validator;
 
 @Configuration
 public class ApplicationBeanConfiguration {
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

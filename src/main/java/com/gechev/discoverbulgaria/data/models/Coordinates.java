@@ -14,8 +14,10 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 public class Coordinates extends BaseEntity {
-    @Column
+
+    @Column(nullable = false)
     private Double longitude;
-    @Column
+
+    @Column(nullable = false)
     private Double latitude;
 }

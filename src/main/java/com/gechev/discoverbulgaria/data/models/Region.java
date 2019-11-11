@@ -13,11 +13,17 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class Region extends BaseEntity {
-    @Column
+
+    @Column(name = "region_id", nullable = false)
+    private String regionId;
+
+    @Column(nullable = false)
     private String name;
-    @Column
+
+    @Column(nullable = false)
     private Integer population;
-    @Column
+
+    @Column(nullable = false)
     private Double area;
 
     @OneToMany(mappedBy = "region")

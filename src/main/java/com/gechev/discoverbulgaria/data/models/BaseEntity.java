@@ -14,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 @Setter
 @NoArgsConstructor
 public class BaseEntity {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

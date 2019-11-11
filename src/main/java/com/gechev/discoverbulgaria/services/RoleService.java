@@ -8,4 +8,5 @@ import java.util.Set;
 public interface RoleService {
     Set<RoleServiceModel> findAllRoles();
     RoleServiceModel findByAuthority(String role);
+    void seedRoles(RoleServiceModel[] roleServiceModels);
 }

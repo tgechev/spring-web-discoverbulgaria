@@ -7,4 +7,6 @@ import java.util.Set;
 public interface RegionService {
     Set<RegionServiceModel> findAll();
     RegionServiceModel findByName(String name);
+    RegionServiceModel findByRegionId(String regionId);
+    void seedRegions(RegionServiceModel[] regionServiceModels);
 }

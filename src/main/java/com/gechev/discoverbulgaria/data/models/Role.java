@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "roles")
 public class Role extends BaseEntity implements GrantedAuthority {
 
-    @Column
+    @Column(nullable = false)
     private String authority;
 
     public Role() {
