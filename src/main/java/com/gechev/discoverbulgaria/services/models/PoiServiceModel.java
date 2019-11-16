@@ -24,7 +24,7 @@ public class PoiServiceModel {
 
     @Expose
     @NotNull(message = "POI description cannot be empty.")
-    @Size(min = 100, max = 500, message = "POI description should be between 100 and 500 symbols:")
+    @Size(min = 100, max = 1000, message = "POI description should be between 100 and 1000 symbols:")
     private String description;
 
     @Expose

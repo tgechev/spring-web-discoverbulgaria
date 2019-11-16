@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}" />
+
+<body>
+<th:block th:include="~{fragments/header}"/>
+    <div class="row login-row">
+        <div class="col-md-6 mx-auto">
+            <!-- Material form login -->
+            <div class="card user-form">
+                <h5 class="card-header success-color-dark white-text text-center py-4">
+                    <strong>Вход</strong>
+                </h5>
+                <!--Card content-->
+                <div class="card-body px-lg-5 pt-0">
+                    <!-- Form -->
+                    <form class="text-center" style="color: #757575;" th:action="@{/users/login}" th:method="post">
+                        <!-- Email -->
+                        <div class="md-form">
+                            <input type="text" id="username" class="form-control">
+                            <label for="username">Потребителско име</label>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="md-form">
+                            <input type="password" id="password" class="form-control">
+                            <label for="password">Парола</label>
+                        </div>
+
+                        <!-- Sign in button -->
+                        <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Вход</button>
+                        <!-- Register -->
+                        <p>Нямате профил?
+                            <a th:href="@{/users/register}">Регистрация</a>
+                        </p>
+                    </form>
+                    <!-- Form -->
+                </div>
+            </div>
+            <!-- Material form login -->
+        </div>
+    </div>
+
+<th:block th:include="~{fragments/footer}" />
+</body>
+</html>

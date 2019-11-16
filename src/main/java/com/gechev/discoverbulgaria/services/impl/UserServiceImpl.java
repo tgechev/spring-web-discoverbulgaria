@@ -9,7 +9,7 @@ import com.gechev.discoverbulgaria.services.models.RoleServiceModel;
 import com.gechev.discoverbulgaria.services.models.UserServiceModel;
 import com.gechev.discoverbulgaria.util.ValidatorUtil;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -23,14 +23,14 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final ModelMapper mapper;
-    private final BCryptPasswordEncoder passwordEncoder;
+    //private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(ValidatorUtil validatorUtil, RoleRepository roleRepository, UserRepository userRepository, ModelMapper mapper, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(ValidatorUtil validatorUtil, RoleRepository roleRepository, UserRepository userRepository, ModelMapper mapper  /*,BCryptPasswordEncoder passwordEncoder*/) {
         this.validatorUtil = validatorUtil;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.mapper = mapper;
-        this.passwordEncoder = passwordEncoder;
+        //this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -76,7 +76,8 @@ public class UserServiceImpl implements UserService {
                     //If no exceptions are thrown, create user.
                     User user = this.mapper.map(userServiceModel, User.class);
                     user.setAuthorities(roles);
-                    user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
+                    //user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
+                    user.setPassword(userServiceModel.getPassword());
                     this.userRepository.saveAndFlush(user);
                     System.out.println(String.format("User %s successfully added.", user.getUsername()));
                 }

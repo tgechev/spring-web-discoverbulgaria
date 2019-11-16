@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}" />
+
+<body>
+        <th:block th:include="~{fragments/header}"/>
+        <!--Main Layout-->
+        <main class="text-center py-4 main main-raised">
+
+            <div class="container">
+                <div class="row">
+                <th:block th:include="~{fragments/svgMap}" />
+
+                    <div class="col-md-6">
+                        <div class="card bg-primary mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the first card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-warning mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the second card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-success mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the third card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-danger mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the fourth card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-light mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the fifth card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-info mb-1 ">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the sixth card</p>
+                            </div>
+                        </div>
+
+                        <div class="card bg-primary mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the first card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-warning mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the second card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-success mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the third card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-danger mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the fourth card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-light mb-1">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the fifth card</p>
+                            </div>
+                        </div>
+                        <div class="card bg-info mb-1 ">
+                            <div class="card-body text-center">
+                                <p class="card-text">Some text inside the sixth card</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--Main Layout-->
+        <th:block th:include="~{fragments/footer}" />
+</body>
+</html>

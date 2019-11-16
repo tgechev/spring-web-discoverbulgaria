@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}" />
+
+<body>
+<th:block th:include="~{fragments/header}"/>
+<div class="row login-row">
+    <div class="col-md-6 mx-auto">
+        <!-- Material form register -->
+        <div class="card user-form">
+
+            <h5 class="card-header success-color-dark white-text text-center py-4">
+                <strong>Регистрация</strong>
+            </h5>
+
+            <!--Card content-->
+            <div class="card-body px-lg-5 pt-0">
+
+                <!-- Form -->
+                <form class="text-center" style="color: #757575;" th:action="@{/users/register}" th:method="post">
+
+                    <!-- First name -->
+                    <div class="md-form">
+                        <input type="text" id="username" class="form-control">
+                        <label for="username">Потребителско име</label>
+                    </div>
+
+                    <!-- E-mail -->
+                    <div class="md-form mt-1">
+                        <input type="email" id="email" class="form-control">
+                        <label for="email">Имейл</label>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="md-form mt-1">
+                        <input type="password" id="password" class="form-control" >
+                        <label for="password">Парола</label>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="md-form mt-1">
+                        <input type="password" id="confirmPassword" class="form-control">
+                        <label for="confirmPassword">Потвърди парола</label>
+                    </div>
+
+                    <!-- Sign up button -->
+                    <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Регистрация</button>
+
+                    <p>Вече имате профил?
+                        <a th:href="@{/users/login}">Вход</a>
+                    </p>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!-- Material form register -->
+    </div>
+</div>
+
+<th:block th:include="~{fragments/footer}" />
+</body>
+</html>
