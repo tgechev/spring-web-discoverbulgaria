@@ -1,0 +1,24 @@
+<th:block th:fragment th:each="fact, iStat: ${facts}" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <!-- Card Light -->
+    <div class="card">
+        <!-- Card image -->
+        <div class="view overlay">
+            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%28131%29.jpg" alt="Card image cap">
+            <a>
+                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+            </a>
+        </div>
+        <!-- Card content -->
+        <div class="card-body">
+            <!-- Title -->
+            <h4 class="card-title">Card title</h4>
+            <hr>
+            <!-- Text -->
+            <p class="card-text" th:text="${fact.description}"></p>
+            <!-- Link -->
+            <a href="#!" class="black-text d-flex justify-content-end"><h5>Read more <i class="fas fa-angle-double-right"></i></h5></a>
+        </div>
+    </div>
+    <!-- Card Light -->
+    <div class="w-100 d-none d-block" th:if="${iStat.even}"><!-- wrap every 2 on sm--></div>
+</th:block>

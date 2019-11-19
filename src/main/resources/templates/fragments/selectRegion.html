@@ -1,0 +1,8 @@
+<th:block th:fragment>
+    <div class="md-form">
+        <select class="browser-default custom-select" id="selectRegion">
+            <option value="" disabled selected>Избери област</option>
+            <option th:each="model : ${regionViewModels}" th:id="${model.regionId}" th:text="${model.name}"></option>
+        </select>
+    </div>
+</th:block>

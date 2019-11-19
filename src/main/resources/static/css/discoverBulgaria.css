@@ -66,13 +66,13 @@ body:after{
 .nav-link{
     margin-bottom: 0;
 }
-.view {
+.header-view {
     background-color: green;
 	height: 40vh;
 	overflow: hidden;
 }
 
-.view h1 {
+.header-view h1 {
 	font-size: 4.2rem;
 	font-weight: 500;
 }
@@ -89,7 +89,7 @@ body:after{
     box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
 }
 
-.login-row{
+.db-form-row{
     margin-left: 0;
     margin-right: 0;
 }
@@ -132,7 +132,7 @@ path {
 }
 
 path:hover{
-	fill: rgba(0, 0, 255, 1);
+	fill: #ffd54f;
 	
 }
 
@@ -316,7 +316,6 @@ path:hover{
         -ms-flex-direction: column;
         flex-direction: column;
         margin-right: 15px;
-        margin-bottom: 0;
         margin-left: 15px;
     }
 }
@@ -393,6 +392,10 @@ path:hover{
     }
 }
 
+.card-body h5{
+    line-height: 1.6;
+}
+
 /* Card css end */
 
 /* Buttons start */
@@ -401,11 +404,188 @@ path:hover{
     border-radius: 10em;
 }
 
+.md-pills {
+    border: 0;
+}
+
+.md-pills li {
+    padding: .6rem;
+}
+
+.md-pills .nav-link {
+    color: #666;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.rgba-grey-light, .md-pills .nav-link:hover, .rgba-grey-light:after, .md-pills .nav-link:hover:after {
+    background-color: rgba(158,158,158,0.3);
+}
+
+.md-pills .nav-link.active {
+    color: #fff;
+    background-color: #00C851;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.md-pills .nav-link.active:hover {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.pills-label h4{
+    font-weight: 500;
+}
+
 /* Buttons end */
 
 @media (min-width: 1360px) {
-    .login-row .col-md-6 {
+    .db-form-row .col-md-6 {
         flex: 0 0 30%;
         max-width: 30%;
     }
 }
+
+/* Form start */
+
+
+@media (min-width: 576px) {
+    .form-inline label {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    .form-inline .form-group {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-bottom: 0;
+    }
+    .form-inline .form-control {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
+    .form-inline .form-control-plaintext {
+        display: inline-block;
+    }
+    .form-inline .input-group,
+    .form-inline .custom-select {
+        width: auto;
+    }
+    .form-inline .form-check {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: auto;
+        padding-left: 0;
+    }
+    .form-inline .form-check-input {
+        position: relative;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        margin-top: 0;
+        margin-right: 0.25rem;
+        margin-left: 0;
+    }
+    .form-inline .custom-control {
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+    .form-inline .custom-control-label {
+        margin-bottom: 0;
+    }
+}
+
+
+
+/* Radio buttons start */
+
+[type="radio"]:not(:checked), [type="radio"]:checked {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+}
+input[type="radio"], input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+.form-check-input {
+    position: absolute;
+    margin-top: 0.3rem;
+    margin-left: -1.25rem;
+}
+
+.form-check-input[type="radio"]:not(:checked)+label:before, .form-check-input[type="radio"]:not(:checked)+label:after, label.btn input[type="radio"]:not(:checked)+label:before, label.btn input[type="radio"]:not(:checked)+label:after {
+    border: 2px solid #5a5a5a;
+}
+
+.form-check-input[type="radio"]:checked+label:before, label.btn input[type="radio"]:checked+label:before {
+    border: 2px solid transparent;
+}
+
+.form-check-input[type="radio"]:checked+label:after, label.btn input[type="radio"]:checked+label:after {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+.form-check-input[type="radio"]:checked+label:after, .form-check-input[type="radio"].with-gap:checked+label:after, label.btn input[type="radio"]:checked+label:after, label.btn input[type="radio"].with-gap:checked+label:after {
+    background-color: #007e33;
+}
+
+.form-check-input[type="radio"]:checked+label:after, .form-check-input[type="radio"].with-gap:checked+label:before, .form-check-input[type="radio"].with-gap:checked+label:after, label.btn input[type="radio"]:checked+label:after, label.btn input[type="radio"].with-gap:checked+label:before, label.btn input[type="radio"].with-gap:checked+label:after {
+    border: 2px solid #007e33;
+}
+
+.form-check-input[type="radio"]:not(:checked)+label:before, .form-check-input[type="radio"]:not(:checked)+label:after, .form-check-input[type="radio"]:checked+label:before, .form-check-input[type="radio"]:checked+label:after, .form-check-input[type="radio"].with-gap:checked+label:before, .form-check-input[type="radio"].with-gap:checked+label:after, label.btn input[type="radio"]:not(:checked)+label:before, label.btn input[type="radio"]:not(:checked)+label:after, label.btn input[type="radio"]:checked+label:before, label.btn input[type="radio"]:checked+label:after, label.btn input[type="radio"].with-gap:checked+label:before, label.btn input[type="radio"].with-gap:checked+label:after {
+    border-radius: 50%;
+}
+
+.form-check-input[type="radio"]:not(:checked)+label, .form-check-input[type="radio"]:checked+label, label.btn input[type="radio"]:not(:checked)+label, label.btn input[type="radio"]:checked+label {
+    position: relative;
+    display: inline-block;
+    height: 1.5625rem;
+    padding-left: 35px;
+    line-height: 1.5625rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: 0.28s ease;
+    transition: 0.28s ease;
+}
+
+.form-check-input[type="radio"]+label:before, .form-check-input[type="radio"]+label:after, label.btn input[type="radio"]+label:before, label.btn input[type="radio"]+label:after {
+    position: absolute;
+    top: 0.15rem;
+    left: 0.4rem;
+    z-index: 0;
+    width: 16px;
+    height: 16px;
+    margin: 4px;
+    content: "";
+    -webkit-transition: 0.28s ease;
+    transition: 0.28s ease;
+}
+
+/* Radio buttons end */
+
+/* Form end */

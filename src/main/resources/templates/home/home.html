@@ -13,65 +13,80 @@
                 <th:block th:include="~{fragments/svgMap}" />
 
                     <div class="col-md-6">
-                        <div class="card bg-primary mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the first card</p>
+
+                        <div class="row">
+                            <div class="col-md-6 d-block">
+                                <div class="mx-auto pills-label">
+                                    <h4>Покажи:</h4>
+                                </div>
+
+                                <div class="d-flex">
+                                    <ul class="nav md-pills pills-secondary mx-auto">
+                                        <li class="nav-item">
+                                            <a class="cat nav-link active" data-toggle="tab" id="poi">Забележителности</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="cat nav-link" data-toggle="tab" id="facts">Факти</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="cat nav-link" data-toggle="tab" id="all">Всичко</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card bg-warning mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the second card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-success mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the third card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-danger mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the fourth card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-light mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the fifth card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-info mb-1 ">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the sixth card</p>
+
+                            <div class="col-md-6 d-block">
+                                <div class="mx-auto pills-label">
+                                    <h4>От тип:</h4>
+                                </div>
+                                <div class="d-flex">
+                                    <ul class="nav md-pills pills-secondary mx-auto">
+                                        <li class="nav-item">
+                                            <a class="type nav-link active" data-toggle="tab" id="history">Исторически</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="type nav-link" data-toggle="tab" id="nature">Природонаучни</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="type nav-link" data-toggle="tab" id="type-all">Всичко</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="card bg-primary mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the first card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-warning mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the second card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-success mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the third card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-danger mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the fourth card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-light mb-1">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the fifth card</p>
-                            </div>
-                        </div>
-                        <div class="card bg-info mb-1 ">
-                            <div class="card-body text-center">
-                                <p class="card-text">Some text inside the sixth card</p>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-deck">
+
+                                    <!-- Card Light -->
+                                    <div class="card">
+                                        <!-- Card content -->
+                                        <div class="card-body">
+                                            <!-- Title -->
+                                            <h3 class="card-title "> <i class="fas fa-arrow-up"></i> Избери критерии</h3>
+                                            <hr>
+                                            <!-- Text -->
+                                            <h5>Разглеждай забележителности или чети интересни факти за избрана област. Можеш да избираш между забележителности и факти свързани с нашата история или природа. Ако не можеш да избереш, имаш възможност да видиш всичко за избраната от теб област.</h5>
+                                        </div>
+                                    </div>
+                                    <!-- Card Light -->
+
+                                    <div class="w-100 d-none d-block"></div>
+
+                                    <!-- Card Light -->
+                                    <div class="card">
+                                        <!-- Card content -->
+                                        <div class="card-body">
+                                            <!-- Title -->
+                                            <h3 class="card-title "> <i class="fas fa-arrow-left"></i> Избери област</h3>
+                                            <hr>
+                                            <!-- Text -->
+                                            <p class="h5">Избери област от картата вляво и цъкни върху нея, за да я опознаеш.</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}" />
+
+<body>
+    <th:block th:include="~{fragments/header}"/>
+        <div class="row db-form-row">
+            <div class="col-md-7 mx-auto">
+                <!-- Material form add fact -->
+                <div class="card user-form">
+                    <h5 class="card-header success-color-dark white-text text-center py-4">
+                        <strong>Добави факт</strong>
+                    </h5>
+                    <!--Card content-->
+                    <div class="card-body px-lg-5 pt-0">
+                        <!-- Form -->
+                        <form style="color: #757575;" th:action="@{/facts/add}" th:method="post" th:object="${addFactModel}">
+
+                            <!-- Fact type -->
+                            <div class="md-form mx-auto text-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="history-check" value="HISTORY" th:field="*{type}">
+                                    <label class="form-check-label" for="history-check">Исторически</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="nature-check" value="NATURE" th:field="*{type}">
+                                    <label class="form-check-label" for="nature-check">Природонаучен</label>
+                                </div>
+                            </div>
+
+                            <!-- Fact region select -->
+                            <th:block th:include="~{fragments/selectRegion}" />
+
+                            <!-- Fact Description -->
+                            <div class="md-form">
+
+                                <i class="fas fa-pencil-alt prefix"></i>
+                                <textarea id="description" class="md-textarea form-control" rows="3" th:field="*{description}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('description').isEmpty()} ? 'is-valid' : 'is-invalid')"></textarea>
+                                <label for="description">Описание</label>
+
+                                <div class="invalid-feedback">
+                                    <span th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="regionId" th:field="*{regionId}">
+
+                            <!-- Add button -->
+                            <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Добави</button>
+
+                        </form>
+                        <!-- Form -->
+                    </div>
+                </div>
+                <!-- Material form edit region -->
+            </div>
+        </div>
+
+    <th:block th:include="~{fragments/footer}" />
+</body>
+</html>

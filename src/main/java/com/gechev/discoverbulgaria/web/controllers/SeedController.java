@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
-//@Controller
+@Controller
 public class SeedController implements CommandLineRunner {
     private final static String ROLES_JSON = "\\src\\main\\resources\\files\\json\\roles.json";
     private final static String USERS_JSON = "\\src\\main\\resources\\files\\json\\users.json";
@@ -41,6 +41,8 @@ public class SeedController implements CommandLineRunner {
 //        seedRegions();
 //        seedFacts();
 //        seedPoi();
+//        System.out.println(regionService.regionsViewJson());
+        //regionService.getRegionNames().forEach(System.out::println);
     }
 
     private void seedRoles() throws IOException {

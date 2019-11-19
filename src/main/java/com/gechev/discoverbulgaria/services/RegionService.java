@@ -1,6 +1,8 @@
 package com.gechev.discoverbulgaria.services;
 
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
+import com.gechev.discoverbulgaria.web.models.EditRegionModel;
+import com.gechev.discoverbulgaria.web.models.RegionViewModel;
 
 import java.util.Set;
 
@@ -9,4 +11,6 @@ public interface RegionService {
     RegionServiceModel findByName(String name);
     RegionServiceModel findByRegionId(String regionId);
     void seedRegions(RegionServiceModel[] regionServiceModels);
+    boolean editRegion(EditRegionModel editRegionModel);
+    Set<RegionViewModel> getRegionViewModels();
 }

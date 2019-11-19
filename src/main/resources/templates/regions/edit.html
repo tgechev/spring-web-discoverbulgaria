@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <th:block th:include="~{fragments/head}" />
+
+    <body>
+        <th:block th:include="~{fragments/header}"/>
+
+        <div class="row db-form-row">
+            <div class="col-md-6 mx-auto">
+                <!-- Material form edit region -->
+                <div class="card user-form">
+                    <h5 class="card-header success-color-dark white-text text-center py-4">
+                        <strong>Редактирай област</strong>
+                    </h5>
+                    <!--Card content-->
+                    <div class="card-body px-lg-5 pt-0">
+                        <!-- Form -->
+                        <form class="text-center" style="color: #757575;" th:action="@{/regions/edit}" th:method="post" th:object="${editRegionModel}">
+
+                            <!-- Region select -->
+                            <th:block th:include="~{fragments/selectRegion}" />
+
+                            <!-- Name -->
+                            <div class="md-form">
+                                <input type="text" id="name" class="form-control" th:field="*{name}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('name').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <label class="edit-region-label" for="name">Име</label>
+
+                                <div class="invalid-feedback">
+                                    <span th:each="error : ${#fields.errors('name')}" th:text="${error}"></span>
+                                </div>
+                            </div>
+
+                            <!-- RegionId -->
+                            <div class="md-form">
+                                <input type="text" id="regionId" class="form-control" th:field="*{regionId}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <label class="edit-region-label" for="regionId">ID номер</label>
+
+                                <div class="invalid-feedback">
+                                    <span th:each="error : ${#fields.errors('regionId')}" th:text="${error}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Area -->
+                            <div class="md-form">
+                                <input type="text" id="area" class="form-control" th:field="*{area}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <label class="edit-region-label" for="area">Площ в км<sup>2</sup></label>
+
+                                <div class="invalid-feedback">
+                                    <span th:each="error : ${#fields.errors('area')}" th:text="${error}"></span>
+                                </div>
+                            </div>
+
+                            <!-- Population -->
+                            <div class="md-form">
+                                <input type="text" id="population" class="form-control" th:field="*{population}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <label class="edit-region-label" for="population">Население</label>
+
+                                <div class="invalid-feedback">
+                                    <span th:each="error : ${#fields.errors('population')}" th:text="${error}"></span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="theId" th:field="*{theId}">
+
+                            <!-- Add button -->
+                            <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Готово</button>
+
+                        </form>
+                        <!-- Form -->
+                    </div>
+                </div>
+                <!-- Material form edit region -->
+            </div>
+        </div>
+
+
+
+        <th:block th:include="~{fragments/footer}" />
+    </body>
+</html>

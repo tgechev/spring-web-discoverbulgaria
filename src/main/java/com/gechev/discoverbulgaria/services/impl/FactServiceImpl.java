@@ -5,28 +5,40 @@ import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.repositories.FactRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.services.FactService;
+import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
-import com.gechev.discoverbulgaria.util.ValidatorUtil;
+import com.gechev.discoverbulgaria.web.models.AddFactModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FactServiceImpl implements FactService {
 
-    private final ValidatorUtil validatorUtil;
+    private final ValidationService validationService;
     private final ModelMapper mapper;
     private final FactRepository factRepository;
     private final RegionRepository regionRepository;
 
-    public FactServiceImpl(ValidatorUtil validatorUtil, ModelMapper mapper, FactRepository factRepository, RegionRepository regionRepository) {
-        this.validatorUtil = validatorUtil;
+    public FactServiceImpl(ValidationService validationService, ModelMapper mapper, FactRepository factRepository, RegionRepository regionRepository) {
+        this.validationService = validationService;
         this.mapper = mapper;
         this.factRepository = factRepository;
         this.regionRepository = regionRepository;
+    }
+
+    @Override
+    @Transactional
+    public Set<FactServiceModel> findAll(){
+        return this.factRepository.findAll()
+                .stream()
+                .map(r -> this.mapper.map(r, FactServiceModel.class))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -45,12 +57,20 @@ public class FactServiceImpl implements FactService {
     }
 
     @Override
+    public void addFact(AddFactModel addFactModel) {
+        Fact fact = mapper.map(addFactModel, Fact.class);
+        Region region = regionRepository.findByRegionId(addFactModel.getRegionId()).orElseThrow();
+        fact.setRegion(region);
+        factRepository.save(fact);
+    }
+
+    @Override
     @Transactional
     public void seedFacts(FactServiceModel[] factServiceModels) {
         for (FactServiceModel factServiceModel : factServiceModels) {
             //Validate fact model and print message if not valid
-            if(!validatorUtil.isValid(factServiceModel)){
-                this.validatorUtil.violations(factServiceModel)
+            if(!validationService.isValid(factServiceModel)){
+                this.validationService.violations(factServiceModel)
                         .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
                 continue;
             }
