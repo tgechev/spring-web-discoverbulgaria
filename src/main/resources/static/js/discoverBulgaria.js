@@ -1,3 +1,4 @@
+//SVG map hover tooltip
 $(function(){
 	$("path").tooltip(
 		{
@@ -18,7 +19,9 @@ $(function(){
 		}
 	);
 });
+//Tooltip end
 
+//Navbar update active button
 $(function(){
 	let url = window.location.pathname;
 	let navLinks = $(".nav-link").map(function() {
@@ -33,12 +36,17 @@ $(function(){
 		}
 	});
 });
+//Active button end
 
-$("path").on("click", function(){
-	var cat = $(".cat.active").attr("id");
-	var type = $(".type.active").attr("id");
+//Get facts and pois in home ajax
+$("path").on("click", function(event){
+	event.preventDefault();
+	let regionId = $(event.target).attr("id");
+	let cat = $(".cat.active").attr("id");
+	let type = $(".type.active").attr("id");
 
-	var url = "/home/" + cat + "/" + type;
+	let url = "/home/" + regionId + "/" + cat + "/" + type;
+
 	$.ajax({
 		url : url,
 		type : 'get',
@@ -48,7 +56,9 @@ $("path").on("click", function(){
 	});
 
 });
+//Home ajax end
 
+//Edit region form update fields on region select
 $("#selectRegion").on("click", function(){
     $.get("/regions/json", function (data) {
         const theId = $("#selectRegion option:selected").attr("id");
@@ -63,4 +73,9 @@ $("#selectRegion").on("click", function(){
         }
     });
 });
+//End region select
+
+
+
+
 

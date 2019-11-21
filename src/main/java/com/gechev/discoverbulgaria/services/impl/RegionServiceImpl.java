@@ -1,5 +1,7 @@
 package com.gechev.discoverbulgaria.services.impl;
 
+import com.cloudinary.Cloudinary;
+import com.gechev.discoverbulgaria.constants.Constants;
 import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.services.RegionService;
@@ -11,6 +13,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
@@ -22,11 +27,13 @@ public class RegionServiceImpl implements RegionService {
     private  final RegionRepository regionRepository;
     private final ModelMapper mapper;
     private final ValidationService validationService;
+    private final Cloudinary cloudinary;
 
-    public RegionServiceImpl(RegionRepository regionRepository, ModelMapper mapper, ValidationService validationService) {
+    public RegionServiceImpl(RegionRepository regionRepository, ModelMapper mapper, ValidationService validationService, Cloudinary cloudinary) {
         this.regionRepository = regionRepository;
         this.mapper = mapper;
         this.validationService = validationService;
+        this.cloudinary = cloudinary;
     }
 
     @Override
@@ -49,7 +56,7 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public void seedRegions(RegionServiceModel[] regionServiceModels) {
+    public void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException {
         for (RegionServiceModel regionServiceModel : regionServiceModels) {
             //Validate region model and print message if not valid
             if(!validationService.isValid(regionServiceModel)){
@@ -67,6 +74,9 @@ public class RegionServiceImpl implements RegionService {
             //If region does not exist, create it.
             catch (NoSuchElementException e){
                 Region region = mapper.map(regionServiceModel, Region.class);
+                File regionImg = new File(Constants.RESOURCES_DIR + regionServiceModel.getImageUrl());
+                String cloudinaryUrl = cloudinary.uploader().upload(regionImg, new HashMap()).get("secure_url").toString();
+                region.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
                 this.regionRepository.saveAndFlush(region);
                 System.out.println(String.format("Region %s successfully created.", region.getName()));
             }

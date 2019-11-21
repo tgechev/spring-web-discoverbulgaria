@@ -8,5 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class FactViewModel {
+    private String title;
     private String description;
+    private String imageUrl;
+    private String readMore;
 }

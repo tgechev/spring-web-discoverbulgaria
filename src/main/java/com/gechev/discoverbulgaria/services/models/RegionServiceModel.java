@@ -30,6 +30,10 @@ public class RegionServiceModel {
     private Double area;
 
     @Expose
+    @NotNull(message = "Image url is required.")
+    private String imageUrl;
+
+    @Expose
     private Set<PoiServiceModel> poi;
     @Expose
     private Set<FactServiceModel> facts;

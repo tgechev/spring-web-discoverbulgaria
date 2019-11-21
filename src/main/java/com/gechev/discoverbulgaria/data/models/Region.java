@@ -26,6 +26,9 @@ public class Region extends BaseEntity {
     @Column(nullable = false)
     private Double area;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     @OneToMany(mappedBy = "region")
     private Set<Poi> poi;
 

@@ -4,7 +4,7 @@
             <!-- Card -->
             <div class="card svgCard">
                 <!-- Card image -->
-                <img class="card-img-top mt-2 mx-auto" th:src="@{'/img/regions/' + ${region.regionId}} + '.gif'">
+                <img class="card-img-top mt-2 mx-auto" th:src="@{${region.imageUrl}}">
                 <!-- Card content -->
                 <div class="card-body text-center">
                     <!-- Title -->

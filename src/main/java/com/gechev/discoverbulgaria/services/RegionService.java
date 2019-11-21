@@ -4,13 +4,14 @@ import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
 import com.gechev.discoverbulgaria.web.models.EditRegionModel;
 import com.gechev.discoverbulgaria.web.models.RegionViewModel;
 
+import java.io.IOException;
 import java.util.Set;
 
 public interface RegionService {
     Set<RegionServiceModel> findAll();
     RegionServiceModel findByName(String name);
     RegionServiceModel findByRegionId(String regionId);
-    void seedRegions(RegionServiceModel[] regionServiceModels);
+    void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException;
     boolean editRegion(EditRegionModel editRegionModel);
     Set<RegionViewModel> getRegionViewModels();
 }

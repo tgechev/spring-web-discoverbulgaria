@@ -12,4 +12,5 @@ public class RegionViewModel {
     private String regionId;
     private Double area;
     private Integer population;
+    private String imageUrl;
 }

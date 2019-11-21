@@ -9,7 +9,7 @@ public class FileUtilImpl implements FileUtil {
     public String readFile(String path) throws IOException {
         StringBuilder sb = new StringBuilder();
 
-        File file = new File(System.getProperty("user.dir") + path);
+        File file = new File(path);
         BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
         String line;

@@ -27,4 +27,6 @@ public class EditRegionModel {
     private Integer population;
 
     private String theId;
+
+    private String imageUrl;
 }
