@@ -7,19 +7,19 @@ import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.data.repositories.FactRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
+import com.gechev.discoverbulgaria.events.FactEvent;
 import com.gechev.discoverbulgaria.services.FactService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
 import com.gechev.discoverbulgaria.web.models.AddFactModel;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,22 +30,25 @@ public class FactServiceImpl implements FactService {
     private final FactRepository factRepository;
     private final RegionRepository regionRepository;
     private final Cloudinary cloudinary;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public FactServiceImpl(ValidationService validationService, ModelMapper mapper, FactRepository factRepository, RegionRepository regionRepository, Cloudinary cloudinary) {
+    public FactServiceImpl(ValidationService validationService, ModelMapper mapper, FactRepository factRepository, RegionRepository regionRepository, Cloudinary cloudinary, ApplicationEventPublisher applicationEventPublisher) {
         this.validationService = validationService;
         this.mapper = mapper;
         this.factRepository = factRepository;
         this.regionRepository = regionRepository;
         this.cloudinary = cloudinary;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
     @Transactional
-    public Set<FactServiceModel> findAll(){
+    public List<FactServiceModel> findAll(){
         return this.factRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Fact::getTitle))
                 .map(r -> this.mapper.map(r, FactServiceModel.class))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -58,6 +61,7 @@ public class FactServiceImpl implements FactService {
     public Set<FactServiceModel> findAllByRegionId(String regionId) {
         Region region = regionRepository.findByRegionId(regionId).orElseThrow();
         return factRepository.findAllByRegion(region).stream()
+                .sorted(Comparator.comparing(Fact::getTitle))
                 .map(fact -> mapper.map(fact, FactServiceModel.class))
                 .collect(Collectors.toSet());
     }
@@ -67,6 +71,7 @@ public class FactServiceImpl implements FactService {
     public Set<FactServiceModel> findAllByRegionAndType(String regionId, Type type) {
         Region region = regionRepository.findByRegionId(regionId).orElseThrow();
         return factRepository.findAllByRegionAndType(region, type).stream()
+                .sorted(Comparator.comparing(Fact::getTitle))
                 .map(fact -> mapper.map(fact, FactServiceModel.class))
                 .collect(Collectors.toSet());
     }
@@ -77,12 +82,15 @@ public class FactServiceImpl implements FactService {
         Region region = regionRepository.findByRegionId(addFactModel.getRegionId()).orElseThrow();
         fact.setRegion(region);
         factRepository.save(fact);
+
+        applicationEventPublisher.publishEvent(new FactEvent(this));
     }
 
     @Override
     @Transactional
     public void seedFacts(FactServiceModel[] factServiceModels) {
         for (FactServiceModel factServiceModel : factServiceModels) {
+
             //Validate fact model and print message if not valid
             if(!validationService.isValid(factServiceModel)){
                 this.validationService.violations(factServiceModel)

@@ -3,7 +3,6 @@ package com.gechev.discoverbulgaria.web.controllers;
 import com.gechev.discoverbulgaria.services.RegionService;
 import com.gechev.discoverbulgaria.web.models.EditRegionModel;
 import com.gechev.discoverbulgaria.web.models.RegionViewModel;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Set;
+import java.util.List;
 
 @Controller
 @RequestMapping("/regions")
@@ -32,13 +31,15 @@ public class RegionsController {
     public ModelAndView editRegion(ModelAndView modelAndView, @ModelAttribute("editRegionModel") EditRegionModel editRegionModel, HttpServletRequest request){
         request.setAttribute("isPost", false);
         modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("editRegion", true);
+        modelAndView.addObject("isEdit", true);
         modelAndView.setViewName("regions/edit.html");
         return modelAndView;
     }
 
     @GetMapping("/json")
     @ResponseBody
-    public Set<RegionViewModel> getRegionsJson(){
+    public List<RegionViewModel> getRegionsJson(){
         return regionService.getRegionViewModels();
     }
 
@@ -47,6 +48,8 @@ public class RegionsController {
         if(bindingResult.hasErrors() || !regionService.editRegion(editRegionModel)){
             request.setAttribute("isPost", true);
             modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+            modelAndView.addObject("editRegion", true);
+            modelAndView.addObject("isEdit", true);
             modelAndView.setViewName("regions/edit.html");
             return modelAndView;
         }

@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,21 +35,22 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     @Transactional
-    public Set<RegionServiceModel> findAll() {
+    public List<RegionServiceModel> findAll() {
         return this.regionRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Region::getName))
                 .map(r -> this.mapper.map(r, RegionServiceModel.class))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     @Override
     public RegionServiceModel findByName(String name) {
-        return this.mapper.map(this.regionRepository.findByName(name), RegionServiceModel.class);
+        return this.mapper.map(this.regionRepository.findByName(name).orElseThrow(), RegionServiceModel.class);
     }
 
     @Override
     public RegionServiceModel findByRegionId(String regionId){
-        return this.mapper.map(this.regionRepository.findByRegionId(regionId), RegionServiceModel.class);
+        return this.mapper.map(this.regionRepository.findByRegionId(regionId).orElseThrow(), RegionServiceModel.class);
     }
 
     @Override
@@ -113,10 +111,11 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public Set<RegionViewModel> getRegionViewModels(){
+    public List<RegionViewModel> getRegionViewModels(){
         return this.regionRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Region::getName))
                 .map(r-> mapper.map(r, RegionViewModel.class))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -12,14 +14,19 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 public class AddFactModel {
-    @Size(min = 3, max = 30, message = "Заглавието трябва да бъде между 3 и 30 символа.")
+    @Size(min = 3, max = 100, message = "Заглавието трябва да бъде между 3 и 100 символа.")
     private String title;
+
+    @NotNull(message = "Моля изберете тип.")
     private Type type;
+
+    @NotEmpty(message = "Моля изберете област.")
     private String regionId;
 
-    @Size(min = 100, max = 500, message = "Описанието на факта трябва да бъде между 100 и 500 символа.")
+    @Size(min = 100, max = 500, message = "Описанието трябва да бъде между 100 и 500 символа.")
     private String description;
 
+    @NotNull(message = "Моля прикачете снимка.")
     private String imageUrl;
 
     @Pattern(regexp = "^(https?|ftp)://[^\\s/$.?#].[^\\s]*$", message = "Невалидна интернет връзка")

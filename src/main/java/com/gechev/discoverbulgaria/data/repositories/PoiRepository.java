@@ -14,5 +14,5 @@ public interface PoiRepository extends JpaRepository<Poi, String> {
     Set<Poi> findAllByType(Type type);
     Set<Poi> findAllByRegion(Region region);
     Set<Poi> findAllByRegionAndType(Region region, Type type);
-    Optional<Poi> findByName(String name);
+    Optional<Poi> findByTitle(String name);
 }

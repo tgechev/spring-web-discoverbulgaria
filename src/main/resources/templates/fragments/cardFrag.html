@@ -1,24 +1,48 @@
-<th:block th:fragment th:each="card, iStat: ${cards}" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <!-- Card Light -->
-    <div class="card">
-        <!-- Card image -->
-        <div class="view overlay">
-            <img class="card-img-top" th:src="@{${card.imageUrl}}" alt="Card image cap">
-            <a th:href="@{${card.readMore}}" target="_blank">
-                <div class="mask rgba-white-slight waves-effect waves-light"></div>
-            </a>
-        </div>
-        <!-- Card content -->
-        <div class="card-body">
-            <!-- Title -->
-            <h4 class="card-title" th:text="${card.title}"></h4>
-            <hr>
-            <!-- Text -->
-            <p class="card-text" th:text="${card.description}"></p>
-            <!-- Link -->
-            <a th:href="@{${card.readMore}}" class="black-text d-flex justify-content-end" target="_blank"><h5>Прочети повече <i class="fas fa-angle-double-right"></i></h5></a>
+<th:block th:fragment xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="card-deck">
+        <th:block th:each="card, iStat: ${cards.content}" >
+            <!-- Card Light -->
+            <div class="card">
+                <!-- Card image -->
+                <div class="view overlay">
+                    <img class="card-img-top" th:src="@{${card.imageUrl}}" alt="Card image cap">
+                    <a th:if="${card.readMore != ''}" th:href="@{${card.readMore}}" target="_blank">
+                        <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                    </a>
+                </div>
+                <!-- Card content -->
+                <div class="card-body">
+                    <!-- Title -->
+                    <h4 class="card-title" th:text="${card.title}"></h4>
+                    <hr>
+                    <th:block th:if="${card.address != 'no-data'}">
+                        <h6 class="card-address" th:text="${card.address}"></h6>
+                        <hr>
+                    </th:block>
+                    <!-- Text -->
+                    <p class="card-text" th:text="${card.description}"></p>
+                    <!-- Link -->
+                    <a th:if="${card.readMore != ''}" th:href="@{${card.readMore}}" class="black-text d-flex justify-content-end" target="_blank"><h5>Прочети повече <i class="fas fa-angle-double-right"></i></h5></a>
+                </div>
+            </div>
+
+            <!-- Card Light -->
+            <div class="w-100 d-none d-block" th:if="${byRegion && iStat.even}"><!-- wrap every 2 --></div>
+
+            <th:block th:unless="${byRegion}">
+                <div class="w-100 d-none d-sm-block d-md-none" th:if="${iStat.count % 2 == 0}"><!-- wrap every 2 on sm--></div>
+                <div class="w-100 d-none d-md-block d-lg-none" th:if="${iStat.count % 3 == 0}"><!-- wrap every 3 on md--></div>
+                <div class="w-100 d-none d-lg-block d-xl-none" th:if="${iStat.count % 4 == 0}"><!-- wrap every 4 on lg--></div>
+                <div class="w-100 d-none d-xl-block" th:if="${iStat.count % 5 == 0}"><!-- wrap every 5 on xl--></div>
+            </th:block>
+        </th:block>
+    </div>
+
+    <div th:if="${byRegion}" class="row">
+        <div class="col-sm-12">
+            <th:block th:include="~{fragments/pagination}" />
         </div>
     </div>
-    <!-- Card Light -->
-    <div class="w-100 d-none d-block" th:if="${iStat.even}"><!-- wrap every 2 on sm--></div>
+
 </th:block>

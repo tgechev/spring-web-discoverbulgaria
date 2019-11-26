@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
 public class PoiServiceModel {
 
     @Expose
-    @NotNull(message = "POI name cannot be empty.")
-    private String name;
+    @NotNull(message = "POI title cannot be empty.")
+    private String title;
 
     @Expose
     private String address;
@@ -38,4 +38,11 @@ public class PoiServiceModel {
     @Expose
     @NotNull(message = "POI region cannot be empty.")
     private RegionServiceModel region;
+
+    @Expose
+    @NotNull(message = "Image url is required.")
+    private String imageUrl;
+
+    @Expose
+    private String readMore;
 }

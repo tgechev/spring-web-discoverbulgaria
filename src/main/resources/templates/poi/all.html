@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}" />
+
+<body>
+<th:block th:include="~{fragments/header}"/>
+<!--Main Layout-->
+<main class="text-center py-4 main main-raised">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-deck">
+                    <th:block th:include="~{fragments/cardFrag}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <th:block th:include="~{fragments/pagination}" />
+            </div>
+        </div>
+    </div>
+</main>
+<!--Main Layout-->
+<th:block th:include="~{fragments/footer}" />
+</body>
+</html>

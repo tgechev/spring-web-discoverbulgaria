@@ -24,7 +24,7 @@
                             <!-- Name -->
                             <div class="md-form">
                                 <input type="text" id="name" class="form-control" th:field="*{name}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('name').isEmpty()} ? 'is-valid' : 'is-invalid')">
-                                <label class="edit-region-label" for="name">Име</label>
+                                <label class="label-edit" for="name">Име <span>*</span></label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('name')}" th:text="${error}"></span>
@@ -34,7 +34,7 @@
                             <!-- RegionId -->
                             <div class="md-form">
                                 <input type="text" id="regionId" class="form-control" th:field="*{regionId}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')">
-                                <label class="edit-region-label" for="regionId">ID номер</label>
+                                <label class="label-edit" for="regionId">ID номер <span>*</span></label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('regionId')}" th:text="${error}"></span>
@@ -44,7 +44,7 @@
                             <!-- Area -->
                             <div class="md-form">
                                 <input type="text" id="area" class="form-control" th:field="*{area}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')">
-                                <label class="edit-region-label" for="area">Площ в км<sup>2</sup></label>
+                                <label class="label-edit" for="area">Площ в км<sup>2</sup> <span>*</span></label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('area')}" th:text="${error}"></span>
@@ -54,7 +54,7 @@
                             <!-- Population -->
                             <div class="md-form">
                                 <input type="text" id="population" class="form-control" th:field="*{population}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')">
-                                <label class="edit-region-label" for="population">Население</label>
+                                <label class="label-edit" for="population">Население <span>*</span></label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('population')}" th:text="${error}"></span>
@@ -62,6 +62,7 @@
                             </div>
 
                             <input type="hidden" id="theId" th:field="*{theId}">
+                            <input type="hidden" id="isEdit" th:value="${isEdit}">
 
                             <!-- Add button -->
                             <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Готово</button>

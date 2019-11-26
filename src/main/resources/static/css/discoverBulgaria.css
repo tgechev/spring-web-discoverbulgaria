@@ -453,6 +453,10 @@ path:hover{
 
 /* Form start */
 
+label span {
+    color:red;
+}
+
 
 @media (min-width: 576px) {
     .form-inline label {
@@ -590,6 +594,10 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Radio buttons end */
 
+.file-field{
+    border: 0;
+}
+
 .file-field input[type="file"] {
     position: absolute;
     top: 0;
@@ -616,3 +624,9 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 /* Form end */
+
+/* Pagination start */
+.pagination.pg-green .page-item.active .page-link {
+    background-color: #007e33;
+}
+/* Pagination end */

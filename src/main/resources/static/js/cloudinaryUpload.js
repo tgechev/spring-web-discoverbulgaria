@@ -20,10 +20,6 @@ $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {
     $("#delete_token").attr("value", data.result.delete_token);
 });
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 $(window).on("unload", function() {
     let delete_token = $("#delete_token").attr("value");
     let isSubmit = $("#isSubmit").attr("value");

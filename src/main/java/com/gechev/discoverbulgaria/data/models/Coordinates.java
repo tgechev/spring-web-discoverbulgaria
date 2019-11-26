@@ -1,5 +1,6 @@
 package com.gechev.discoverbulgaria.data.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,11 +14,12 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Coordinates extends BaseEntity {
 
     @Column(nullable = false)
-    private Double longitude;
+    private Double latitude;
 
     @Column(nullable = false)
-    private Double latitude;
+    private Double longitude;
 }

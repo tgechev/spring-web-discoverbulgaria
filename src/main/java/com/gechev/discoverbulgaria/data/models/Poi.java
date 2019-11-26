@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Poi extends BaseEntity {
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Column
     private String address;
@@ -25,6 +25,12 @@ public class Poi extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Type type;
+
+    @Column(nullable = false)
+    private String imageUrl;
+
+    @Column
+    private String readMore;
 
     @OneToOne(targetEntity = Coordinates.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinates_id", referencedColumnName = "id")
