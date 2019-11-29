@@ -1,0 +1,15 @@
+<th:block th:fragment>
+    <div class="md-form mx-auto text-center">
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="history-check" value="HISTORY" th:field="*{type}">
+            <label th:unless="${isFact}" class="form-check-label" for="history-check">Историческа <span>*</span></label>
+            <label th:if="${isFact}" class="form-check-label" for="history-check">Исторически <span>*</span></label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="nature-check" value="NATURE" th:field="*{type}">
+            <label th:unless="${isFact}" class="form-check-label" for="nature-check">Природна <span>*</span></label>
+            <label th:if="${isFact}" class="form-check-label" for="nature-check">Природонаучен <span>*</span></label>
+        </div>
+    </div>
+</th:block>

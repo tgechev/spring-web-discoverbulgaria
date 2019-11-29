@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class CardServiceImpl implements CardService {
@@ -70,6 +71,19 @@ public class CardServiceImpl implements CardService {
         }
 
         return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), cardsToUse.size());
+    }
+
+    @Override
+    public List<Integer> getPageNumbers(Page<CardViewModel> page) {
+        List<Integer> pageNumbers = new ArrayList<>();
+        int totalPages = page.getTotalPages();
+        if(totalPages > 0){
+            pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+        }
+
+        return pageNumbers;
     }
 
     @Override

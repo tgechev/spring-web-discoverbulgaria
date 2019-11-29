@@ -1,5 +1,6 @@
 package com.gechev.discoverbulgaria.web.controllers;
 
+import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.RegionService;
 import com.gechev.discoverbulgaria.web.models.EditRegionModel;
 import com.gechev.discoverbulgaria.web.models.RegionViewModel;
@@ -8,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -28,8 +28,8 @@ public class RegionsController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView editRegion(ModelAndView modelAndView, @ModelAttribute("editRegionModel") EditRegionModel editRegionModel, HttpServletRequest request){
-        request.setAttribute("isPost", false);
+    public ModelAndView editRegion(ModelAndView modelAndView, @ModelAttribute("editRegionModel") EditRegionModel editRegionModel){
+        modelAndView.addObject("isPost", false);
         modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
         modelAndView.addObject("editRegion", true);
         modelAndView.addObject("isEdit", true);
@@ -44,17 +44,31 @@ public class RegionsController {
     }
 
     @PostMapping("/edit")
-    public ModelAndView editRegionPost(@Valid @ModelAttribute("editRegionModel") EditRegionModel editRegionModel, BindingResult bindingResult, HttpServletRequest request, ModelAndView modelAndView){
-        if(bindingResult.hasErrors() || !regionService.editRegion(editRegionModel)){
-            request.setAttribute("isPost", true);
-            modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
-            modelAndView.addObject("editRegion", true);
-            modelAndView.addObject("isEdit", true);
-            modelAndView.setViewName("regions/edit.html");
-            return modelAndView;
+    public ModelAndView editRegionPost(@Valid @ModelAttribute("editRegionModel") EditRegionModel editRegionModel, BindingResult bindingResult, ModelAndView modelAndView){
+        modelAndView.addObject("isPost", true);
+        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("editRegion", true);
+        modelAndView.addObject("isEdit", true);
+        modelAndView.setViewName("regions/edit.html");
+
+        if(!bindingResult.hasErrors() && regionService.editRegion(editRegionModel)){
+            modelAndView.addObject("isSuccess", true);
         }
 
-        modelAndView.setViewName("redirect:/home");
+        return modelAndView;
+    }
+
+    @ExceptionHandler(RegionNotFoundException.class)
+    public ModelAndView handleRegionNotFound(RegionNotFoundException exception){
+        EditRegionModel editRegionModel = new EditRegionModel();
+        ModelAndView modelAndView = new ModelAndView("regions/edit.html");
+        modelAndView.addObject("editRegionModel", editRegionModel);
+        modelAndView.addObject("isPost", false);
+        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("editRegion", true);
+        modelAndView.addObject("isEdit", true);
+        modelAndView.addObject("regionError", exception.getMessage());
+
         return modelAndView;
     }
 }

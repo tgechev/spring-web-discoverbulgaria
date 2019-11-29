@@ -5,12 +5,18 @@
 
 <body>
         <th:block th:include="~{fragments/header}"/>
+        <link rel="stylesheet" th:href="@{https://js.api.here.com/v3/3.1/mapsjs-ui.css}">
         <!--Main Layout-->
         <main class="text-center py-4 main main-raised">
 
             <div class="container">
                 <div class="row">
-                <th:block th:include="~{fragments/svgMap}" />
+
+                    <div class="col-md-6">
+                        <th:block th:include="~{fragments/svgMap}" />
+
+                        <div id="mapContainer"></div>
+                    </div>
 
                     <div class="col-md-6">
 
@@ -57,33 +63,39 @@
 
 
                         <div class="row">
-                            <div class="col-sm-12" id="deck">
-                                <div class="card-deck">
 
-                                    <!-- Card Light -->
-                                    <div class="card">
-                                        <!-- Card content -->
-                                        <div class="card-body">
-                                            <!-- Title -->
-                                            <h3 class="card-title "> <i class="fas fa-arrow-up"></i> Избери критерии</h3>
-                                            <hr>
-                                            <!-- Text -->
-                                            <h5>Разглеждай забележителности или чети интересни факти за избрана област. Можеш да избираш между забележителности и факти свързани с нашата история или природа. Ако не можеш да избереш, имаш възможност да видиш всичко за избраната от теб област.</h5>
+                            <div class="col-sm-12">
+
+                                <th:block th:include="~{fragments/loader}" />
+
+                                <div id="deck">
+                                    <div class="card-deck">
+
+                                        <!-- Card Light -->
+                                        <div class="card">
+                                            <!-- Card content -->
+                                            <div class="card-body">
+                                                <!-- Title -->
+                                                <h3 class="card-title "> <i class="fas fa-arrow-up"></i> Избери критерии</h3>
+                                                <hr>
+                                                <!-- Text -->
+                                                <h5>Разглеждай забележителности или чети интересни факти за избрана област. Можеш да избираш между забележителности и факти свързани с нашата история или природа. Ако не можеш да избереш, имаш възможност да видиш всичко за избраната от теб област.</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Card Light -->
+                                        <!-- Card Light -->
 
-                                    <div class="w-100 d-none d-block"></div>
+                                        <div class="w-100 d-none d-block"></div>
 
-                                    <!-- Card Light -->
-                                    <div class="card">
-                                        <!-- Card content -->
-                                        <div class="card-body">
-                                            <!-- Title -->
-                                            <h3 class="card-title "> <i class="fas fa-arrow-left"></i> Избери област</h3>
-                                            <hr>
-                                            <!-- Text -->
-                                            <p class="h5">Избери област от картата вляво и цъкни върху нея, за да я опознаеш.</p>
+                                        <!-- Card Light -->
+                                        <div class="card">
+                                            <!-- Card content -->
+                                            <div class="card-body">
+                                                <!-- Title -->
+                                                <h3 class="card-title "> <i class="fas fa-arrow-left"></i> Избери област</h3>
+                                                <hr>
+                                                <!-- Text -->
+                                                <p class="h5">Избери област от картата вляво и цъкни върху нея, за да я опознаеш.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -95,5 +107,11 @@
         </main>
         <!--Main Layout-->
         <th:block th:include="~{fragments/footer}" />
+
+        <script type="text/javascript" charset="utf-8" th:src="@{https://js.api.here.com/v3/3.1/mapsjs-core.js}"></script>
+        <script type="text/javascript" charset="utf-8" th:src="@{https://js.api.here.com/v3/3.1/mapsjs-service.js}"></script>
+        <script type="text/javascript" charset="utf-8" th:src="@{https://js.api.here.com/v3/3.1/mapsjs-ui.js}"></script>
+        <script type="text/javascript" charset="utf-8" th:src="@{https://js.api.here.com/v3/3.1/mapsjs-mapevents.js}"></script>
+        <script type="text/javascript" th:src="@{/js/home-map.js}"></script>
 </body>
 </html>

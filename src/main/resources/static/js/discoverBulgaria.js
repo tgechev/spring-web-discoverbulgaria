@@ -39,19 +39,48 @@ $(function(){
 //Active button end
 
 //Get facts and pois in home ajax
-$("path").on("click", function(event){
+$("g").on("click", "path", function(event){
 	event.preventDefault();
 	loadCards(event.target);
+
+	return false;
 });
 
-let registerPageLinkClick = function () {
-	$(".page-link").on("click", function (event) {
+function registerPageLinkClick() {
+	$(".pagination").on("click", ".page-link", function (event) {
 		event.preventDefault();
 		loadCards(event.target);
-	})
-};
 
-let loadCards = function(target){
+		return false;
+	});
+}
+
+function registerMapLinkClick() {
+
+	let mapLinks = $(".map-link").toArray();
+	let poiLats = $(".poiLat").toArray();
+	let poiLngs = $(".poiLng").toArray();
+
+	for(let i = 0; i < mapLinks.length; i++){
+		$(mapLinks[i]).on("click", function (event) {
+			event.preventDefault();
+
+			let poiLat = $(poiLats[i]).val();
+			let poiLng = $(poiLngs[i]).val();
+
+			let poiCoords = {lat: poiLat, lng: poiLng};
+
+			let marker = new H.map.Marker(poiCoords);
+			map.addObject(marker);
+			map.setZoom(17);
+			map.setCenter(poiCoords);
+
+			return false;
+		});
+	}
+}
+
+function loadCards(target){
 	let regionId = null;
 	let pageToShow = 1;
 
@@ -91,15 +120,38 @@ let loadCards = function(target){
 	$.ajax({
 		url : url,
 		type : 'get',
+		beforeSend: function(){
+			let loader = $("#loader");
+			loader.removeClass("d-none");
+			loader.addClass("d-flex");
+			$(".preloader-wrapper").addClass("big");
+			$(".card-deck").addClass("d-none");
+		},
 		success : function( response ) {
+			setTimeout(() => {
+
+				let loader = $("#loader");
+				loader.removeClass("d-flex");
+				loader.addClass("d-none");
+				$(".card-deck").removeClass("d-none");
+				$("#pagination").removeClass("d-none");
+
+				registerPageLinkClick();
+				registerMapLinkClick();
+			}, 2000);
+
 			$("#deck").html(response);
-			registerPageLinkClick();
+
 		}
 	});
-};
+}
 //Home ajax end
 
-let editRegionFunc = function(){
+$(function () {
+	$(".all").children(".card-deck").removeClass("d-none");
+});
+
+function editRegion(){
 	$.get("/regions/json", function (data) {
 		const theId = $("#select-region option:selected").attr("id");
 		let res = data.find(({regionId}) => regionId === theId);
@@ -115,10 +167,11 @@ let editRegionFunc = function(){
 			$(".label-edit").addClass("active");
 		}
 	});
-};
+}
 
-let editFactPoiFunc = function(isPoi){
-	$.get("/poi/json", function (data) {
+function editFactPoi(isPoi){
+	let url = isPoi ? "/poi/json" : "/facts/json";
+	$.get(url, function (data) {
 		const theTitle = $("#add-edit-select option:selected").html();
 		let res = data.find(({title}) => title === theTitle);
 		if(res !== undefined) {
@@ -151,30 +204,40 @@ let editFactPoiFunc = function(isPoi){
 			$(".label-edit").addClass("active");
 		}
 	});
-};
+}
 
-let addRegionFunc = function(){
+function addRegion(){
 	const regionId = $("#select-region option:selected").attr("id");
 	$("#regionId").val(regionId);
-};
+}
 
 //Select Poi/Fact in add or adit pages
 $("#add-edit-select").on("click", function(){
 	switch (window.location.pathname) {
 		case "/facts/edit":
-			editFactPoiFunc(false);
+			editFactPoi(false);
 			break;
 		case "/poi/edit":
-			editFactPoiFunc(true);
+			editFactPoi(true);
 	}
 });
 //End poi/fact select
 
 $("#select-region").on("click", function () {
 	if(window.location.pathname === "/regions/edit"){
-		editRegionFunc();
+		editRegion();
 	}
 	else{
-		addRegionFunc();
+		addRegion();
+	}
+});
+
+//Submit button in fact/add & poi/add
+$(".btn").on("click", function () {
+	switch(window.location.pathname){
+		case "/poi/add":
+		case "facts/add":
+			let theTitle = $("#title").val();
+			$("#oldTitle").val(theTitle);
 	}
 });

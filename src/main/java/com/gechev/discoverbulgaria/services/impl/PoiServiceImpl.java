@@ -8,6 +8,7 @@ import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.repositories.PoiRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.events.PoiEvent;
+import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
 import com.gechev.discoverbulgaria.util.ValidatorUtil;
@@ -60,7 +61,7 @@ public class PoiServiceImpl implements PoiService {
         Poi poi;
 
         if(isEdit){
-            poi = poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow();
+            poi = poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow(()-> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
 
             poi.setTitle(poiFormViewModel.getTitle());
             poi.setAddress(poiFormViewModel.getAddress());
@@ -69,16 +70,21 @@ public class PoiServiceImpl implements PoiService {
             poi.setImageUrl(poiFormViewModel.getImageUrl());
             poi.setReadMore(poiFormViewModel.getReadMore());
 
+            Coordinates poiCoords = poi.getCoordinates();
+            poiCoords.setLatitude(poiFormViewModel.getLatitude());
+            poiCoords.setLongitude(poiFormViewModel.getLongitude());
+
         }
         else{
             poi = mapper.map(poiFormViewModel, Poi.class);
+
+            Coordinates poiCoordinates = new Coordinates(poiFormViewModel.getLatitude(), poiFormViewModel.getLongitude());
+
+            poi.setCoordinates(poiCoordinates);
         }
 
         Region poiRegion = regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow();
 
-        Coordinates poiCoordinates = new Coordinates(poiFormViewModel.getLatitude(), poiFormViewModel.getLongitude());
-
-        poi.setCoordinates(poiCoordinates);
         poi.setRegion(poiRegion);
 
         poiRepository.save(poi);

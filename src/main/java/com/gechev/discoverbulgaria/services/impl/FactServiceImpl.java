@@ -8,10 +8,11 @@ import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.data.repositories.FactRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.events.FactEvent;
+import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.services.FactService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
-import com.gechev.discoverbulgaria.web.models.AddFactModel;
+import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -77,13 +78,41 @@ public class FactServiceImpl implements FactService {
     }
 
     @Override
-    public void addFact(AddFactModel addFactModel) {
-        Fact fact = mapper.map(addFactModel, Fact.class);
-        Region region = regionRepository.findByRegionId(addFactModel.getRegionId()).orElseThrow();
+    public void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit) {
+        Fact fact;
+
+        if(isEdit){
+            fact = factRepository.findByTitle(factFormViewModel.getOldTitle()).orElseThrow(() -> new FactNotFoundException("Фактът за редакция не бе намерен, моля опитайте отново."));
+
+            fact.setTitle(factFormViewModel.getTitle());
+            fact.setDescription(factFormViewModel.getDescription());
+            fact.setType(factFormViewModel.getType());
+            fact.setImageUrl(factFormViewModel.getImageUrl());
+            fact.setReadMore(factFormViewModel.getReadMore());
+        }
+        else {
+            fact = mapper.map(factFormViewModel, Fact.class);
+        }
+
+        Region region = regionRepository.findByRegionId(factFormViewModel.getRegionId()).orElseThrow();
         fact.setRegion(region);
+
         factRepository.save(fact);
 
         applicationEventPublisher.publishEvent(new FactEvent(this));
+    }
+
+    @Override
+    public List<FactFormViewModel> getFactViewModels() {
+        return this.factRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Fact::getTitle))
+                .map(fact -> {
+                    FactFormViewModel factFormViewModel = mapper.map(fact, FactFormViewModel.class);
+                    factFormViewModel.setRegionId(fact.getRegion().getRegionId());
+                    return factFormViewModel;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

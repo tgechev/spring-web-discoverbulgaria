@@ -1,5 +1,5 @@
 <th:block th:fragment>
-    <div class="col-md-6" id="svgMap">
+    <div id="svgMap">
         <div th:each="region : ${regions}" class="container d-none" th:id="${region.regionId}">
             <!-- Card -->
             <div class="card svgCard">
@@ -16,7 +16,7 @@
             </div>
             <!-- Card -->
         </div>
-        <svg  viewBox="0 0 613 613">
+        <svg  viewBox="0 0 613 450">
             <defs>
                 <linearGradient id="myGradient" gradientTransform="rotate(90)" gradientUnits="userSpaceOnUse">
                     <stop class="w_stop" offset="20%" />

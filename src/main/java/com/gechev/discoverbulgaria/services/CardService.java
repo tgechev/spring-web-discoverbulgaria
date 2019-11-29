@@ -13,4 +13,6 @@ public interface CardService {
     Page<CardViewModel> getCardPageForView(String view, Pageable pageable, List<CardViewModel> cards);
     void refreshFactCards(FactEvent factEvent);
     void refreshPoiCards(PoiEvent poiEvent);
+
+    List<Integer> getPageNumbers(Page<CardViewModel> page);
 }

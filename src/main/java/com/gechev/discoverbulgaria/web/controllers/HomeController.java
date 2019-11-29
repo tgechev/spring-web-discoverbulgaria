@@ -65,17 +65,11 @@ public class HomeController {
         int pageSize = size.orElse(4);
 
         Page<CardViewModel> cardsPage = cardService.getHomeCards(regionId, cat, type, PageRequest.of(currentPage - 1, pageSize));
+        List<Integer> pageNumbers = cardService.getPageNumbers(cardsPage);
 
         modelAndView.addObject("cards", cardsPage);
         modelAndView.addObject("byRegion", true);
-
-        int totalPages = cardsPage.getTotalPages();
-        if(totalPages > 0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
+        modelAndView.addObject("pageNumbers", pageNumbers);
 
         modelAndView.setViewName("fragments/cardFrag.html");
 

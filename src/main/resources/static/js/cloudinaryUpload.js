@@ -9,15 +9,28 @@ $(function() {
     }
 });
 
-$('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {
+$('.cloudinary-fileupload').bind('fileuploadsend', function (e, data) {
+
+    let loader = $("#loader");
+    loader.removeClass("d-none");
+    loader.addClass("d-flex");
+    loader.css({'padding-top' : 0});
+    $(".preloader-wrapper").addClass("small");
+    $(".file-path-wrapper").addClass("d-none");
+})
+    .bind('cloudinarydone', function(e, data) {
     let baseUrl = "https://res.cloudinary.com/discover-bulgaria/image/upload/";
     let secureUrl = data.result.secure_url;
     let imageUrl = secureUrl.substr(baseUrl.length);
-    //console.log(data);
-    //console.log(data.files[0].name);
     $("input.file-path").attr("value", data.files[0].name);
     $("#imageUrl").attr("value", imageUrl);
     $("#delete_token").attr("value", data.result.delete_token);
+
+    let loader = $("#loader");
+    loader.addClass("d-none");
+    loader.removeClass("d-flex");
+
+    $(".file-path-wrapper").removeClass("d-none");
 });
 
 $(window).on("unload", function() {

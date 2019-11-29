@@ -1,9 +1,10 @@
 package com.gechev.discoverbulgaria.web.controllers;
 
+import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.services.FactService;
 import com.gechev.discoverbulgaria.services.CardService;
 import com.gechev.discoverbulgaria.services.RegionService;
-import com.gechev.discoverbulgaria.web.models.AddFactModel;
+import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
 import com.gechev.discoverbulgaria.web.models.CardViewModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,12 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/facts")
@@ -33,32 +31,60 @@ public class FactsController {
         this.cardService = cardService;
     }
 
-    @ModelAttribute("addFactModel")
-    public AddFactModel model(){
-        return new AddFactModel();
+    @ModelAttribute("factFormViewModel")
+    public FactFormViewModel model(){
+        return new FactFormViewModel();
     }
 
     @GetMapping("/add")
-    public ModelAndView addFact(@ModelAttribute("addFactModel") AddFactModel addFactModel, ModelAndView modelAndView, HttpServletRequest request){
-        request.setAttribute("isPost", false);
+    public ModelAndView addFact(@ModelAttribute("factFormViewModel") FactFormViewModel factFormViewModel, ModelAndView modelAndView){
+        modelAndView.addObject("isEdit", false);
+        return addOrEditFact(modelAndView);
+    }
+
+    @GetMapping("/edit")
+    public ModelAndView editFact(@ModelAttribute("factFormViewModel") FactFormViewModel factFormViewModel, ModelAndView modelAndView){
+        modelAndView.addObject("isEdit", true);
+        modelAndView.addObject("factViewModels", factService.getFactViewModels());
+        return addOrEditFact(modelAndView);
+    }
+
+    @PostMapping("/add")
+    public ModelAndView addPoiPost(@Valid @ModelAttribute("factFormViewModel") FactFormViewModel factFormViewModel, BindingResult bindingResult, ModelAndView modelAndView){
+        modelAndView.addObject("isEdit", false);
+        return addOrEditFactPost(factFormViewModel, bindingResult, modelAndView);
+    }
+
+    @PostMapping("/edit")
+    public ModelAndView editPoiPost(@Valid @ModelAttribute("factFormViewModel") FactFormViewModel factFormViewModel, BindingResult bindingResult, ModelAndView modelAndView){
+        modelAndView.addObject("isEdit", true);
+        modelAndView.addObject("poiViewModels", factService.getFactViewModels());
+        return addOrEditFactPost(factFormViewModel, bindingResult, modelAndView);
+    }
+
+    private ModelAndView addOrEditFact(ModelAndView modelAndView){
+        modelAndView.addObject("isPost", false);
+        modelAndView.addObject("isFact", true);
+        modelAndView.addObject("editRegion", false);
         modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
         modelAndView.setViewName("facts/addOrEdit.html");
 
         return modelAndView;
     }
 
-    @PostMapping("/add")
-    public ModelAndView addFactPost(@Valid @ModelAttribute("addFactModel") AddFactModel addFactModel, BindingResult bindingResult, HttpServletRequest request, ModelAndView modelAndView){
-        if(bindingResult.hasErrors()){
-            request.setAttribute("isPost", true);
-            modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
-            modelAndView.setViewName("facts/addOrEdit.html");
-            return modelAndView;
+    private ModelAndView addOrEditFactPost(FactFormViewModel factFormViewModel, BindingResult bindingResult, ModelAndView modelAndView){
+        modelAndView.addObject("isPost", true);
+        modelAndView.addObject("isFact", true);
+        modelAndView.addObject("editRegion", false);
+        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.setViewName("facts/addOrEdit.html");
+
+        if(!bindingResult.hasErrors()){
+            modelAndView.addObject("isSuccess", true);
+            boolean isEdit = (boolean) modelAndView.getModel().get("isEdit");
+            factService.addOrEditFact(factFormViewModel, isEdit);
         }
 
-        factService.addFact(addFactModel);
-
-        modelAndView.setViewName("redirect:/home");
         return modelAndView;
     }
 
@@ -68,17 +94,38 @@ public class FactsController {
         int pageSize = size.orElse(10);
 
         Page<CardViewModel> factsPage = cardService.getCardPageForView("facts", PageRequest.of(currentPage - 1, pageSize), null);
+        List<Integer> pageNumbers = cardService.getPageNumbers(factsPage);
+
         modelAndView.addObject("cards", factsPage);
         modelAndView.addObject("byRegion", false);
-        int totalPages = factsPage.getTotalPages();
-        if(totalPages > 0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
+        modelAndView.addObject("pageNumbers", pageNumbers);
 
         modelAndView.setViewName("facts/all.html");
+        return modelAndView;
+    }
+
+    @GetMapping("/json")
+    @ResponseBody
+    public List<FactFormViewModel> getFactJson(){
+        return factService.getFactViewModels();
+    }
+
+    @ExceptionHandler(FactNotFoundException.class)
+    public ModelAndView handleFactNotFound(FactNotFoundException ex){
+        FactFormViewModel factFormViewModel = new FactFormViewModel();
+
+        ModelAndView modelAndView = new ModelAndView("facts/addOrEdit.html");
+
+        modelAndView.addObject("factFormViewModel", factFormViewModel);
+        modelAndView.addObject("isEdit", true);
+        modelAndView.addObject("editRegion", false);
+        modelAndView.addObject("factViewModels", factService.getFactViewModels());
+
+        modelAndView.addObject("isPost", false);
+        modelAndView.addObject("isFact", true);
+        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("factError", ex.getMessage());
+
         return modelAndView;
     }
 

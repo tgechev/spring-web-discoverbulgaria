@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.gechev.discoverbulgaria.constants.Constants;
 import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
+import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.RegionService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
@@ -50,7 +51,7 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public RegionServiceModel findByRegionId(String regionId){
-        return this.mapper.map(this.regionRepository.findByRegionId(regionId).orElseThrow(), RegionServiceModel.class);
+        return this.mapper.map(this.regionRepository.findByRegionId(regionId), RegionServiceModel.class);
     }
 
     @Override
@@ -92,13 +93,7 @@ public class RegionServiceImpl implements RegionService {
             return false;
         }
 
-        Optional<Region> regionOptional = regionRepository.findByRegionId(editRegionModel.getTheId());
-
-        if(regionOptional.isEmpty()){
-            return false;
-        }
-
-        Region regionToUpdate = regionOptional.get();
+        Region regionToUpdate = regionRepository.findByRegionId(editRegionModel.getTheId()).orElseThrow(()-> new RegionNotFoundException("Не е намерена област със съвпадащ ID номер, моля опитайте отново."));
 
         regionToUpdate.setName(serviceModel.getName());
         regionToUpdate.setRegionId(serviceModel.getRegionId());

@@ -7,36 +7,48 @@
     <th:block th:include="~{fragments/header}"/>
         <div class="row db-form-row">
             <div class="col-md-7 mx-auto">
-                <!-- Material form add fact -->
+
+                <div th:if="${factError != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Грешка!</strong><span th:text="${factError}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div th:if="${isSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong th:if="${isEdit}" >Фактът бе успешно редактиран!</strong>
+                    <strong th:unless="${isEdit}" >Фактът бе успешно добавен!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- Material form fact -->
                 <div class="card user-form">
                     <h5 class="card-header success-color-dark white-text text-center py-4">
-                        <strong>Добави факт</strong>
+                        <strong th:unless="${isEdit}">Добави факт</strong>
+                        <strong th:if="${isEdit}">Редактирай факт</strong>
                     </h5>
                     <!--Card content-->
                     <div class="card-body px-lg-5 pt-0">
                         <!-- Form -->
-                        <form style="color: #757575;" th:action="@{/facts/add}" th:method="post" th:object="${addFactModel}">
+                        <form style="color: #757575;" th:action="${isEdit} ? @{/facts/edit} : @{/facts/add}" th:method="post" th:object="${factFormViewModel}">
+
+                            <th:block th:if="${isEdit}">
+                                <!-- Select Poi to edit -->
+                                <th:block th:include="~{fragments/selectFact}" />
+                            </th:block>
 
                             <!-- Fact type -->
-                            <div class="md-form mx-auto text-center">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="history-check" value="HISTORY" th:field="*{type}">
-                                    <label class="form-check-label" for="history-check">Исторически <span>*</span></label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="nature-check" value="NATURE" th:field="*{type}">
-                                    <label class="form-check-label" for="nature-check">Природонаучен <span>*</span></label>
-                                </div>
-                            </div>
+                            <th:block th:include="~{fragments/chooseType}" />
 
                             <!-- Fact region select -->
                             <th:block th:include="~{fragments/selectRegion}" />
 
                             <!-- Fact title -->
                             <div class="md-form">
-                                <input type="text" id="title" class="form-control" th:field="*{title}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('title').isEmpty()} ? 'is-valid' : 'is-invalid')">
-                                <label for="title">Заглавие <span>*</span></label>
+                                <input type="text" id="title" class="form-control" th:field="*{title}" th:classappend="${isPost} ? (${#fields.errors('title').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <label class="label-edit" for="title">Заглавие <span>*</span></label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
@@ -47,8 +59,8 @@
                             <div class="md-form">
 
                                 <i class="fas fa-pencil-alt prefix"></i>
-                                <textarea id="description" class="md-textarea form-control" rows="3" th:field="*{description}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('description').isEmpty()} ? 'is-valid' : 'is-invalid')"></textarea>
-                                <label for="description">Описание <span>*</span></label>
+                                <textarea id="description" class="md-textarea form-control" rows="3" th:field="*{description}" th:classappend="${isPost} ? (${#fields.errors('description').isEmpty()} ? 'is-valid' : 'is-invalid')"></textarea>
+                                <label class="label-edit" for="description">Описание <span>*</span></label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
@@ -57,8 +69,8 @@
 
                             <!-- Read More link -->
                             <div class="md-form">
-                                <input type="text" id="readMore" class="form-control" th:field="*{readMore}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('readMore').isEmpty()} ? 'is-valid' : 'is-invalid')">
-                                <label for="readMore">Връзка "Прочети повече"</label>
+                                <input type="text" id="readMore" class="form-control" th:field="*{readMore}" th:classappend="${isPost} ? (${#fields.errors('readMore').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <label class="label-edit" for="readMore">Връзка "Прочети повече"</label>
 
                                 <div class="invalid-feedback">
                                     <span th:each="error : ${#fields.errors('readMore')}" th:text="${error}"></span>
@@ -66,7 +78,7 @@
                             </div>
 
                             <div class="md-form">
-                                <div class="file-field">
+                                <div class="file-field form-control" th:classappend="${isPost} ? (${#fields.errors('imageUrl').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                     <div class="btn btn-primary btn-sm float-left">
                                         <span>Избери файл</span>
                                         <input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_data" data-form-data="{ &quot;upload_preset&quot;:  &quot;v6pqytxh&quot;,
@@ -75,13 +87,21 @@
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Качете снимка">
                                     </div>
+
+                                    <th:block th:include="~{fragments/loader}" />
+
+                                </div>
+
+                                <div class="invalid-feedback">
+                                    <span th:each="error : ${#fields.errors('imageUrl')}" th:text="${error}"></span>
                                 </div>
                             </div>
 
                             <input type="hidden" id="regionId" th:field="*{regionId}">
                             <input type="hidden" id="imageUrl" th:field="*{imageUrl}">
-                            <input type="hidden" id="delete_token">
+                            <input type="hidden" id="oldTitle" th:field="*{oldTitle}">
                             <input type="hidden" id="isSubmit" value="false">
+                            <input type="hidden" id="delete_token">
 
                             <!-- Add button -->
                             <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Добави</button>
@@ -90,15 +110,12 @@
                         <!-- Form -->
                     </div>
                 </div>
-                <!-- Material form edit region -->
+                <!-- Material form fact -->
             </div>
         </div>
 
     <th:block th:include="~{fragments/footer}" />
 
-    <script type="text/javascript" th:src="@{/js/jquery.iframe-transport.js}"></script>
-    <script type="text/javascript" th:src="@{/js/jquery.fileupload.js}"></script>
-    <script type="text/javascript" th:src="@{/js/jquery.cloudinary.js}"></script>
-    <script type="text/javascript" th:src="@{/js/cloudinaryUpload.js}"></script>
+    <th:block th:include="~{fragments/cloudinaryScripts}" />
 </body>
 </html>

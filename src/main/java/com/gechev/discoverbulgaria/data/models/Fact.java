@@ -1,5 +1,6 @@
 package com.gechev.discoverbulgaria.data.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Fact extends BaseEntity {
 
     @Column(nullable = false)

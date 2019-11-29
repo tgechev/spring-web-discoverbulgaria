@@ -15,8 +15,6 @@ import java.util.Set;
 public class RegionServiceModel {
 
     @Expose
-    @NotNull(message = "Region ID cannot be empty.")
-    //@Pattern(regexp = "BG-[0-9]{2}", message = "Region id should be of the form 'BG-{XX}' where XX is a number from 01 to 28:")
     @Pattern(regexp = "\\b((BG-0[1-9])|(BG-1[0-9])|(BG-2[0-8]))\\b", message = "Region id should be of the form 'BG-{XX}' where XX is a number from 01 to 28:")
     private String regionId;
     @Expose
@@ -29,8 +27,6 @@ public class RegionServiceModel {
     @NotNull(message = "Area cannot be empty.")
     private Double area;
 
-    @Expose
-    @NotNull(message = "Image url is required.")
     private String imageUrl;
 
     @Expose

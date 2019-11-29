@@ -8,6 +8,21 @@
 
         <div class="row db-form-row">
             <div class="col-md-6 mx-auto">
+
+                <div th:if="${regionError != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Грешка!</strong><span th:text="${regionError}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div th:if="${isSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Областта бе успешно редактирана!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
                 <!-- Material form edit region -->
                 <div class="card user-form">
                     <h5 class="card-header success-color-dark white-text text-center py-4">
@@ -23,7 +38,7 @@
 
                             <!-- Name -->
                             <div class="md-form">
-                                <input type="text" id="name" class="form-control" th:field="*{name}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('name').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <input type="text" id="name" class="form-control" th:field="*{name}" th:classappend="${isPost} ? (${#fields.errors('name').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                 <label class="label-edit" for="name">Име <span>*</span></label>
 
                                 <div class="invalid-feedback">
@@ -33,7 +48,7 @@
 
                             <!-- RegionId -->
                             <div class="md-form">
-                                <input type="text" id="regionId" class="form-control" th:field="*{regionId}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <input type="text" id="regionId" class="form-control" th:field="*{regionId}" th:classappend="${isPost} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                 <label class="label-edit" for="regionId">ID номер <span>*</span></label>
 
                                 <div class="invalid-feedback">
@@ -43,7 +58,7 @@
 
                             <!-- Area -->
                             <div class="md-form">
-                                <input type="text" id="area" class="form-control" th:field="*{area}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <input type="text" id="area" class="form-control" th:field="*{area}" th:classappend="${isPost} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                 <label class="label-edit" for="area">Площ в км<sup>2</sup> <span>*</span></label>
 
                                 <div class="invalid-feedback">
@@ -53,7 +68,7 @@
 
                             <!-- Population -->
                             <div class="md-form">
-                                <input type="text" id="population" class="form-control" th:field="*{population}" th:classappend="${#request.getAttribute('isPost')} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <input type="text" id="population" class="form-control" th:field="*{population}" th:classappend="${isPost} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                 <label class="label-edit" for="population">Население <span>*</span></label>
 
                                 <div class="invalid-feedback">
