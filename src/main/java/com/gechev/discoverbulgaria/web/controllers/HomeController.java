@@ -22,40 +22,27 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
 
     private final RegionService regionService;
-    private final ModelMapper mapper;
     private final CardService cardService;
 
-    public HomeController(RegionService regionService, ModelMapper mapper, CardService cardService) {
+    public HomeController(RegionService regionService, CardService cardService) {
         this.regionService = regionService;
-        this.mapper = mapper;
         this.cardService = cardService;
     }
 
     @GetMapping("/")
-    public String getIndex(){
-        return "home/index.html";
+    public ModelAndView getIndex(){
+        return super.view("home/index.html");
     }
 
     @GetMapping(value = "/home")
     public ModelAndView getHome(ModelAndView modelAndView){
 
-        Set<RegionViewModel> regionViewModels = this.regionService.findAll()
-                .stream()
-                .map(serviceModel -> {
-                    RegionViewModel viewModel = mapper.map(serviceModel, RegionViewModel.class);
-
-                    viewModel.setImageUrl(Constants.CLOUDINARY_BASE_URL + serviceModel.getImageUrl());
-
-                    return viewModel;
-                })
-                .collect(Collectors.toSet());
-
+        List<RegionViewModel> regionViewModels = this.regionService.getRegionViewModels();
         modelAndView.addObject("regions", regionViewModels);
-        modelAndView.setViewName("home/home.html");
-        return modelAndView;
+        return super.view("home/home.html", modelAndView);
     }
 
     @GetMapping(value = "/home/{regionId}/{cat}/{type}")
@@ -64,15 +51,13 @@ public class HomeController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(4);
 
-        Page<CardViewModel> cardsPage = cardService.getHomeCards(regionId, cat, type, PageRequest.of(currentPage - 1, pageSize));
-        List<Integer> pageNumbers = cardService.getPageNumbers(cardsPage);
+        Page<CardViewModel> cardsPage = this.cardService.getHomeCards(regionId, cat, type, PageRequest.of(currentPage - 1, pageSize));
+        List<Integer> pageNumbers = this.cardService.getPageNumbers(cardsPage);
 
         modelAndView.addObject("cards", cardsPage);
         modelAndView.addObject("byRegion", true);
         modelAndView.addObject("pageNumbers", pageNumbers);
 
-        modelAndView.setViewName("fragments/cardFrag.html");
-
-        return modelAndView;
+        return super.view("fragments/cardFrag.html", modelAndView);
     }
 }

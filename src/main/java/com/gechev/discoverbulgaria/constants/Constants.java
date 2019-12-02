@@ -10,4 +10,5 @@ public final class Constants {
     public final static String FACTS_JSON = RESOURCES_DIR + "files\\json\\facts.json";
     public final static String POI_JSON = RESOURCES_DIR + "files\\json\\poi.json";
     public final static String CLOUDINARY_BASE_URL = "https://res.cloudinary.com/discover-bulgaria/image/upload/";
+    public final static String USERNAME_NOT_FOUND = "Username is not found";
 }

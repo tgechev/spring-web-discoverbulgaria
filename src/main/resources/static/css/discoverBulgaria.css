@@ -63,6 +63,23 @@ body:after{
 
 /* Header start */
 
+.nav-sub-ul{
+    list-style: none;
+    display: none;
+}
+
+.dropdown:hover .nav-sub-ul{
+    display: block;
+}
+
+.dropdown-item{
+    padding: 0;
+}
+
+.dropdown-item.active{
+    background-color: unset;
+}
+
 .nav-link{
     margin-bottom: 0;
 }
@@ -131,9 +148,8 @@ path {
 	stroke: rgba(0, 0, 0, 1);
 }
 
-path:hover{
+path:hover, path.active{
 	fill: #ffd54f;
-	
 }
 
 .gradient {

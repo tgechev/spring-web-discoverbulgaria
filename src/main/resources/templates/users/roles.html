@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}" />
+
+<body>
+<th:block th:include="~{fragments/header}"/>
+
+<div class="row db-form-row">
+    <div class="col-md-6 mx-auto">
+
+        <div th:if="${isSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Потребителят бе успешно обновен!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <!-- Material form edit user -->
+        <div class="card user-form">
+            <h5 class="card-header success-color-dark white-text text-center py-4">
+                <strong>Управлявай потребители</strong>
+            </h5>
+            <!--Card content-->
+            <div class="card-body px-lg-5 pt-0">
+                <!-- Form -->
+                <form class="text-center" style="color: #757575;" th:action="@{/users/roles}" th:method="post" th:object="${userViewModel}">
+
+                    <!-- User select -->
+                    <th:block th:include="~{fragments/selectUser}" />
+
+                    <!-- isAdmin -->
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="isAdmin" th:field="*{admin}">
+                        <input type="hidden" th:field="*{username}">
+                        <label class="custom-control-label" for="isAdmin">Администратор</label>
+                    </div>
+
+                    <!-- Edit button -->
+                    <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Готово</button>
+
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!-- Material form edit user -->
+    </div>
+</div>
+
+
+
+<th:block th:include="~{fragments/footer}" />
+</body>
+</html>

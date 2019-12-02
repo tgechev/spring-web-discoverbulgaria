@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PoiServiceModel {
+public class PoiServiceModel extends BaseServiceModel {
 
     @Expose
     @NotNull(message = "POI title cannot be empty.")

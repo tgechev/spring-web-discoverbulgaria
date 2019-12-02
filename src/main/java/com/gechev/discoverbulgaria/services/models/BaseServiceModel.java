@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BaseServiceModel {
+public abstract class BaseServiceModel {
     private String id;
 
     protected BaseServiceModel(){

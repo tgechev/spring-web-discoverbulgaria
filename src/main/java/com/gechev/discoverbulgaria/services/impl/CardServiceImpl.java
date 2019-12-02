@@ -39,8 +39,8 @@ public class CardServiceImpl implements CardService {
         this.factService = factService;
         this.poiService = poiService;
         this.mapper = mapper;
-        factCards = loadFactCards();
-        poiCards = loadPoiCards();
+        this.factCards = loadFactCards();
+        this.poiCards = loadPoiCards();
     }
 
     @Override
@@ -48,13 +48,13 @@ public class CardServiceImpl implements CardService {
         List<CardViewModel> cardsToUse = new ArrayList<>();
         switch (viewName) {
             case "facts":
-                cardsToUse = factCards;
+                cardsToUse = this.factCards;
                 break;
             case "home":
                 cardsToUse = cards;
                 break;
             case "poi":
-                cardsToUse = poiCards;
+                cardsToUse = this.poiCards;
                 break;
         }
 
@@ -114,13 +114,12 @@ public class CardServiceImpl implements CardService {
 
         return getCardPageForView("home", pageable, cards);
 
-        //IMPLEMENT EVENT LISTENER TO UPDATE LISTS OF CARDVIEWMODELS ON FACT/POI ADD FROM USER
     }
 
     private List<CardViewModel> getFactCardsForRegion(String regionId, Type type){
         List<CardViewModel> regionFactCards = new ArrayList<>();
 
-        factCards.forEach(card->{
+        this.factCards.forEach(card->{
             if(type != null){
                 if(card.getRegionId().equals(regionId) && card.getType() == type){
                     regionFactCards.add(card);
@@ -138,7 +137,7 @@ public class CardServiceImpl implements CardService {
     private List<CardViewModel> getPoiCardsForRegion(String regionId, Type type){
         List<CardViewModel> regionPoiCards = new ArrayList<>();
 
-        poiCards.forEach(cardViewModel -> {
+        this.poiCards.forEach(cardViewModel -> {
             if(type != null){
                 if(cardViewModel.getRegionId().equals(regionId) && cardViewModel.getType() == type){
                     regionPoiCards.add(cardViewModel);
@@ -153,7 +152,7 @@ public class CardServiceImpl implements CardService {
     }
 
     private List<CardViewModel> loadFactCards(){
-        return factService.findAll().stream()
+        return this.factService.findAll().stream()
                 .sorted(Comparator.comparing(FactServiceModel::getTitle))
                 .map(f->{
                     CardViewModel factCard = this.mapper.map(f, CardViewModel.class);
@@ -166,7 +165,7 @@ public class CardServiceImpl implements CardService {
     }
 
     private List<CardViewModel> loadPoiCards(){
-        return poiService.findAll().stream()
+        return this.poiService.findAll().stream()
                 .sorted(Comparator.comparing(PoiServiceModel::getTitle))
                 .map(poiServiceModel -> {
                     CardViewModel poiCard = this.mapper.map(poiServiceModel, CardViewModel.class);
@@ -185,12 +184,12 @@ public class CardServiceImpl implements CardService {
     @Async
     @EventListener
     public void refreshFactCards(FactEvent factEvent){
-        factCards = loadFactCards();
+        this.factCards = loadFactCards();
     }
 
     @Async
     @EventListener
     public void refreshPoiCards(PoiEvent poiEvent){
-        poiCards = loadPoiCards();
+        this.poiCards = loadPoiCards();
     }
 }

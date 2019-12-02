@@ -1,53 +1,8 @@
 <th:block th:fragment>
     <!--Main Navigation-->
     <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light white">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/}">Начало <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/users/login}">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/users/register}">Регистрация</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/poi/all}">Всички забележителности</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/facts/all}">Всички факти</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/poi/add}">Добави забележителност</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/poi/edit}">Редактирай забележителност</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/facts/add}">Добави факт</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/facts/edit}">Редактирай факт</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link h5 h5-responsive" th:href="@{/regions/edit}">Редактирай област</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <th:block th:include="~{fragments/navbar}" />
 
         <div class="header-view">
             <div class="mask rgba-black-light flex-center">

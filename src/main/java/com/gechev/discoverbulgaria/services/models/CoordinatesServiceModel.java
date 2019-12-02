@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CoordinatesServiceModel {
+public class CoordinatesServiceModel extends BaseServiceModel {
 
     @Expose
     @NotNull(message = "Longitude cannot be empty.")

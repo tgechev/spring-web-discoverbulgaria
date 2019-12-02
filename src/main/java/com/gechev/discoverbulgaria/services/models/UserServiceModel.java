@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -30,6 +31,6 @@ public class UserServiceModel extends BaseServiceModel {
 
     @Expose
     @NotNull(message = "User should have at least one role.")
-    private Set<RoleServiceModel> authorities;
+    private List<RoleServiceModel> authorities;
 
 }

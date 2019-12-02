@@ -58,7 +58,7 @@ public class RegionServiceImpl implements RegionService {
     public void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException {
         for (RegionServiceModel regionServiceModel : regionServiceModels) {
             //Validate region model and print message if not valid
-            if(!validationService.isValid(regionServiceModel)){
+            if(!this.validationService.isValid(regionServiceModel)){
                 this.validationService.violations(regionServiceModel)
                         .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
                 continue;
@@ -74,7 +74,7 @@ public class RegionServiceImpl implements RegionService {
             catch (NoSuchElementException e){
                 Region region = mapper.map(regionServiceModel, Region.class);
                 File regionImg = new File(Constants.RESOURCES_DIR + regionServiceModel.getImageUrl());
-                String cloudinaryUrl = cloudinary.uploader().upload(regionImg, new HashMap()).get("secure_url").toString();
+                String cloudinaryUrl = this.cloudinary.uploader().upload(regionImg, new HashMap()).get("secure_url").toString();
                 region.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
                 this.regionRepository.saveAndFlush(region);
                 System.out.println(String.format("Region %s successfully created.", region.getName()));
@@ -85,32 +85,36 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public boolean editRegion(EditRegionModel editRegionModel) {
 
-        RegionServiceModel serviceModel = mapper.map(editRegionModel, RegionServiceModel.class);
+        RegionServiceModel serviceModel = this.mapper.map(editRegionModel, RegionServiceModel.class);
 
-        if(!validationService.isValid(serviceModel)){
+        if(!this.validationService.isValid(serviceModel)){
             //throw error
-            validationService.violations(serviceModel).forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
+            this.validationService.violations(serviceModel).forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
             return false;
         }
 
-        Region regionToUpdate = regionRepository.findByRegionId(editRegionModel.getTheId()).orElseThrow(()-> new RegionNotFoundException("Не е намерена област със съвпадащ ID номер, моля опитайте отново."));
+        Region regionToUpdate = this.regionRepository.findByRegionId(editRegionModel.getTheId()).orElseThrow(()-> new RegionNotFoundException("Не е намерена област със съвпадащ ID номер, моля опитайте отново."));
 
         regionToUpdate.setName(serviceModel.getName());
         regionToUpdate.setRegionId(serviceModel.getRegionId());
         regionToUpdate.setArea(serviceModel.getArea());
         regionToUpdate.setPopulation(serviceModel.getPopulation());
 
-        regionRepository.save(regionToUpdate);
+        this.regionRepository.save(regionToUpdate);
 
         return true;
     }
 
     @Override
+    @Transactional
     public List<RegionViewModel> getRegionViewModels(){
-        return this.regionRepository.findAll()
+        return this.findAll()
                 .stream()
-                .sorted(Comparator.comparing(Region::getName))
-                .map(r-> mapper.map(r, RegionViewModel.class))
+                .map(serviceModel -> {
+                    RegionViewModel viewModel = this.mapper.map(serviceModel, RegionViewModel.class);
+                    viewModel.setImageUrl(Constants.CLOUDINARY_BASE_URL + serviceModel.getImageUrl());
+                    return viewModel;
+                })
                 .collect(Collectors.toList());
     }
 }

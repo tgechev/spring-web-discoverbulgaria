@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RegionServiceModel {
+public class RegionServiceModel extends BaseServiceModel {
 
     @Expose
     @Pattern(regexp = "\\b((BG-0[1-9])|(BG-1[0-9])|(BG-2[0-8]))\\b", message = "Region id should be of the form 'BG-{XX}' where XX is a number from 01 to 28:")

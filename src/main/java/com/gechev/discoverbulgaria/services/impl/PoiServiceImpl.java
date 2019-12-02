@@ -10,6 +10,7 @@ import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.events.PoiEvent;
 import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
+import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
 import com.gechev.discoverbulgaria.util.ValidatorUtil;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
@@ -27,15 +28,15 @@ import java.util.stream.Collectors;
 public class PoiServiceImpl implements PoiService {
 
     private final ModelMapper mapper;
-    private final ValidatorUtil validatorUtil;
+    private final ValidationService validationService;
     private final RegionRepository regionRepository;
     private final PoiRepository poiRepository;
     private final Cloudinary cloudinary;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public PoiServiceImpl(ModelMapper mapper, ValidatorUtil validatorUtil, RegionRepository regionRepository, PoiRepository poiRepository, Cloudinary cloudinary, ApplicationEventPublisher applicationEventPublisher) {
+    public PoiServiceImpl(ModelMapper mapper, ValidationService validationService, RegionRepository regionRepository, PoiRepository poiRepository, Cloudinary cloudinary, ApplicationEventPublisher applicationEventPublisher) {
         this.mapper = mapper;
-        this.validatorUtil = validatorUtil;
+        this.validationService = validationService;
         this.regionRepository = regionRepository;
         this.poiRepository = poiRepository;
         this.cloudinary = cloudinary;
@@ -45,9 +46,9 @@ public class PoiServiceImpl implements PoiService {
     @Override
     @Transactional
     public Set<PoiServiceModel> findAll() {
-        return poiRepository.findAll()
+        return this.poiRepository.findAll()
                 .stream()
-                .map(poi -> mapper.map(poi, PoiServiceModel.class))
+                .map(poi -> this.mapper.map(poi, PoiServiceModel.class))
                 .collect(Collectors.toSet());
     }
 
@@ -61,7 +62,7 @@ public class PoiServiceImpl implements PoiService {
         Poi poi;
 
         if(isEdit){
-            poi = poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow(()-> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
+            poi = this.poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow(()-> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
 
             poi.setTitle(poiFormViewModel.getTitle());
             poi.setAddress(poiFormViewModel.getAddress());
@@ -76,20 +77,20 @@ public class PoiServiceImpl implements PoiService {
 
         }
         else{
-            poi = mapper.map(poiFormViewModel, Poi.class);
+            poi = this.mapper.map(poiFormViewModel, Poi.class);
 
             Coordinates poiCoordinates = new Coordinates(poiFormViewModel.getLatitude(), poiFormViewModel.getLongitude());
 
             poi.setCoordinates(poiCoordinates);
         }
 
-        Region poiRegion = regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow();
+        Region poiRegion = this.regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow();
 
         poi.setRegion(poiRegion);
 
-        poiRepository.save(poi);
+        this.poiRepository.save(poi);
 
-        applicationEventPublisher.publishEvent(new PoiEvent(this));
+        this.applicationEventPublisher.publishEvent(new PoiEvent(this));
     }
 
     @Override
@@ -97,8 +98,8 @@ public class PoiServiceImpl implements PoiService {
     public void seedPoi(PoiServiceModel[] poiServiceModels) {
         for (PoiServiceModel poiServiceModel : poiServiceModels) {
             //Validate poi model and print message if not valid
-            if(!validatorUtil.isValid(poiServiceModel)){
-                this.validatorUtil.violations(poiServiceModel)
+            if(!this.validationService.isValid(poiServiceModel)){
+                this.validationService.violations(poiServiceModel)
                         .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
                 continue;
             }
@@ -107,7 +108,7 @@ public class PoiServiceImpl implements PoiService {
                 Region region = this.regionRepository.findByRegionId(regionId).orElseThrow(() -> new NoSuchElementException(String.format("could not find region with regionId: %s", regionId)));
 
                 try{
-                    Poi poi = poiRepository.findByTitle(poiServiceModel.getTitle()).orElseThrow();
+                    Poi poi = this.poiRepository.findByTitle(poiServiceModel.getTitle()).orElseThrow();
                     System.out.println(String.format("Poi %s already exists.", poi.getTitle()));
                 }
 
@@ -119,7 +120,7 @@ public class PoiServiceImpl implements PoiService {
                     uploadMap.put("upload_preset", "poi_upload_server");
 
                     File poiImg = new File(Constants.RESOURCES_DIR + poiServiceModel.getImageUrl());
-                    String cloudinaryUrl = cloudinary.uploader().upload(poiImg, uploadMap).get("secure_url").toString();
+                    String cloudinaryUrl = this.cloudinary.uploader().upload(poiImg, uploadMap).get("secure_url").toString();
                     poi.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
 
                     this.poiRepository.saveAndFlush(poi);

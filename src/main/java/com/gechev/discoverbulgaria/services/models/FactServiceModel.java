@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FactServiceModel {
+public class FactServiceModel extends BaseServiceModel {
 
     @Expose
     @Size(min = 3, max = 30, message = "Fact title should be between 3 and 30 symbols.")

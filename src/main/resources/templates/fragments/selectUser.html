@@ -1,0 +1,8 @@
+<th:block th:fragment>
+    <div class="md-form">
+        <select class="browser-default custom-select" id="select-user">
+            <option value="" disabled selected>Избери потребител</option>
+            <option th:each="model : ${userViewModels}" th:text="${model.username}"></option>
+        </select>
+    </div>
+</th:block>

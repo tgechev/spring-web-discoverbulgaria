@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.gechev.discoverbulgaria.util.*;
 
 import javax.validation.Validation;
@@ -22,10 +22,10 @@ import java.util.HashMap;
 @Configuration
 public class ApplicationBeanConfiguration {
 
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public ModelMapper modelMapper() {
@@ -71,11 +71,11 @@ public class ApplicationBeanConfiguration {
 
     @Bean
     public Cloudinary cloudinary(){
-        HashMap config = new HashMap();
+        HashMap<String, String> config = new HashMap<>();
 
-        config.put("cloud_name", cloudName);
-        config.put("api_key", apiKey);
-        config.put("api_secret", apiSecret);
+        config.put("cloud_name", this.cloudName);
+        config.put("api_key", this.apiKey);
+        config.put("api_secret", this.apiSecret);
 
         return new Cloudinary(config);
     }

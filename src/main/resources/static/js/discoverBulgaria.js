@@ -31,8 +31,13 @@ $(function(){
 	$(".nav-item.active").removeClass("active");
 
 	$(navLinks).each(function (index) {
-		if($(navLinks[index]).attr("href") === url){
-			$(navLinks[index]).parent().addClass("active");
+		let theNavLink = $(navLinks[index]);
+		if(theNavLink.attr("href") === url){
+			theNavLink.parent().addClass("active");
+			if(theNavLink.parent().hasClass("dropdown-item")){
+				let ddParent = theNavLink.parents(".dropdown");
+				ddParent.addClass("active");
+			}
 		}
 	});
 });
@@ -41,6 +46,9 @@ $(function(){
 //Get facts and pois in home ajax
 $("g").on("click", "path", function(event){
 	event.preventDefault();
+
+	$("path.active").removeClass("active");
+	$(event.target).addClass("active");
 	loadCards(event.target);
 
 	return false;
@@ -188,6 +196,7 @@ function editFactPoi(isPoi){
 				$("#longitude").val(res.longitude);
 			}
 
+			//Select the region of the fact/poi from the list
 			let selector = "[id=" + res.regionId + "]";
 
 			$(selector).prop("selected", true);
@@ -229,6 +238,29 @@ $("#select-region").on("click", function () {
 	}
 	else{
 		addRegion();
+	}
+});
+
+//Manage user select
+$("#select-user").on("click", function () {
+	const theUser = $("#select-user option:selected").val();
+	let url = "/users/json/" + theUser;
+
+	let username = $("#username");
+	username.val(theUser);
+
+	if(theUser !== ""){
+		$.get(url, function (data) {
+			if(data !== undefined) {
+				let isAdmin = $("#isAdmin");
+				if(data.admin === true){
+					isAdmin.prop("checked", true);
+				}
+				else{
+					isAdmin.prop("checked", false);
+				}
+			}
+		});
 	}
 });
 

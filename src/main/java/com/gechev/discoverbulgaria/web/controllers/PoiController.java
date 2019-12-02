@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/poi")
-public class PoiController {
+public class PoiController extends BaseController {
 
     private final PoiService poiService;
     private final RegionService regionService;
@@ -45,7 +45,7 @@ public class PoiController {
     @GetMapping("/edit")
     public ModelAndView editPoi(@ModelAttribute("poiFormViewModel") PoiFormViewModel poiFormViewModel, ModelAndView modelAndView){
         modelAndView.addObject("isEdit", true);
-        modelAndView.addObject("poiViewModels", poiService.getPoiViewModels());
+        modelAndView.addObject("poiViewModels", this.poiService.getPoiViewModels());
         return addOrEditPoi(modelAndView);
     }
 
@@ -58,7 +58,7 @@ public class PoiController {
     @PostMapping("/edit")
     public ModelAndView editPoiPost(@Valid @ModelAttribute("poiFormViewModel") PoiFormViewModel poiFormViewModel, BindingResult bindingResult, ModelAndView modelAndView){
         modelAndView.addObject("isEdit", true);
-        modelAndView.addObject("poiViewModels", poiService.getPoiViewModels());
+        modelAndView.addObject("poiViewModels", this.poiService.getPoiViewModels());
         return addOrEditPoiPost(poiFormViewModel, bindingResult, modelAndView);
     }
 
@@ -66,10 +66,9 @@ public class PoiController {
         modelAndView.addObject("isPost", false);
         modelAndView.addObject("isFact", false);
         modelAndView.addObject("editRegion", false);
-        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
-        modelAndView.setViewName("poi/addOrEdit.html");
+        modelAndView.addObject("regionViewModels", this.regionService.getRegionViewModels());
 
-        return modelAndView;
+        return super.view("poi/addOrEdit.html", modelAndView);
     }
 
     private ModelAndView addOrEditPoiPost(PoiFormViewModel poiFormViewModel, BindingResult bindingResult, ModelAndView modelAndView){
@@ -77,16 +76,15 @@ public class PoiController {
         modelAndView.addObject("isPost", true);
         modelAndView.addObject("isFact", false);
         modelAndView.addObject("editRegion", false);
-        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
-        modelAndView.setViewName("poi/addOrEdit.html");
+        modelAndView.addObject("regionViewModels", this.regionService.getRegionViewModels());
 
         if(!bindingResult.hasErrors()){
             modelAndView.addObject("isSuccess", true);
             boolean isEdit = (boolean) modelAndView.getModel().get("isEdit");
-            poiService.addOrEditPoi(poiFormViewModel, isEdit);
+            this.poiService.addOrEditPoi(poiFormViewModel, isEdit);
         }
 
-        return modelAndView;
+        return super.view("poi/addOrEdit.html", modelAndView);
     }
 
     @GetMapping("/all")
@@ -94,29 +92,28 @@ public class PoiController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
 
-        Page<CardViewModel> poiPage = cardService.getCardPageForView("poi", PageRequest.of(currentPage - 1, pageSize), null);
-        List<Integer> pageNumbers = cardService.getPageNumbers(poiPage);
+        Page<CardViewModel> poiPage = this.cardService.getCardPageForView("poi", PageRequest.of(currentPage - 1, pageSize), null);
+        List<Integer> pageNumbers = this.cardService.getPageNumbers(poiPage);
 
         modelAndView.addObject("cards", poiPage);
         modelAndView.addObject("byRegion", false);
         modelAndView.addObject("isPoi", true);
         modelAndView.addObject("pageNumbers", pageNumbers);
 
-        modelAndView.setViewName("poi/all.html");
-        return modelAndView;
+        return super.view("poi/all.html", modelAndView);
     }
 
     @GetMapping("/json")
     @ResponseBody
     public List<PoiFormViewModel> getPoiJson(){
-        return poiService.getPoiViewModels();
+        return this.poiService.getPoiViewModels();
     }
 
     @ExceptionHandler(PoiNotFoundException.class)
     public ModelAndView handlePoiNotFound(PoiNotFoundException ex){
         PoiFormViewModel poiFormViewModel = new PoiFormViewModel();
 
-        ModelAndView modelAndView = new ModelAndView("poi/addOrEdit.html");
+        ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("poiFormViewModel", poiFormViewModel);
         modelAndView.addObject("isEdit", true);
@@ -125,9 +122,9 @@ public class PoiController {
 
         modelAndView.addObject("isPost", false);
         modelAndView.addObject("isFact", false);
-        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("regionViewModels", this.regionService.getRegionViewModels());
         modelAndView.addObject("poiError", ex.getMessage());
 
-        return modelAndView;
+        return super.view("poi/addOrEdit.html", modelAndView);
     }
 }

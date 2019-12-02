@@ -60,20 +60,20 @@ public class FactServiceImpl implements FactService {
     @Override
     @Transactional
     public Set<FactServiceModel> findAllByRegionId(String regionId) {
-        Region region = regionRepository.findByRegionId(regionId).orElseThrow();
-        return factRepository.findAllByRegion(region).stream()
+        Region region = this.regionRepository.findByRegionId(regionId).orElseThrow();
+        return this.factRepository.findAllByRegion(region).stream()
                 .sorted(Comparator.comparing(Fact::getTitle))
-                .map(fact -> mapper.map(fact, FactServiceModel.class))
+                .map(fact -> this.mapper.map(fact, FactServiceModel.class))
                 .collect(Collectors.toSet());
     }
 
     @Override
     @Transactional
     public Set<FactServiceModel> findAllByRegionAndType(String regionId, Type type) {
-        Region region = regionRepository.findByRegionId(regionId).orElseThrow();
-        return factRepository.findAllByRegionAndType(region, type).stream()
+        Region region = this.regionRepository.findByRegionId(regionId).orElseThrow();
+        return this.factRepository.findAllByRegionAndType(region, type).stream()
                 .sorted(Comparator.comparing(Fact::getTitle))
-                .map(fact -> mapper.map(fact, FactServiceModel.class))
+                .map(fact -> this.mapper.map(fact, FactServiceModel.class))
                 .collect(Collectors.toSet());
     }
 
@@ -82,7 +82,7 @@ public class FactServiceImpl implements FactService {
         Fact fact;
 
         if(isEdit){
-            fact = factRepository.findByTitle(factFormViewModel.getOldTitle()).orElseThrow(() -> new FactNotFoundException("Фактът за редакция не бе намерен, моля опитайте отново."));
+            fact = this.factRepository.findByTitle(factFormViewModel.getOldTitle()).orElseThrow(() -> new FactNotFoundException("Фактът за редакция не бе намерен, моля опитайте отново."));
 
             fact.setTitle(factFormViewModel.getTitle());
             fact.setDescription(factFormViewModel.getDescription());
@@ -91,15 +91,15 @@ public class FactServiceImpl implements FactService {
             fact.setReadMore(factFormViewModel.getReadMore());
         }
         else {
-            fact = mapper.map(factFormViewModel, Fact.class);
+            fact = this.mapper.map(factFormViewModel, Fact.class);
         }
 
-        Region region = regionRepository.findByRegionId(factFormViewModel.getRegionId()).orElseThrow();
+        Region region = this.regionRepository.findByRegionId(factFormViewModel.getRegionId()).orElseThrow();
         fact.setRegion(region);
 
-        factRepository.save(fact);
+        this.factRepository.save(fact);
 
-        applicationEventPublisher.publishEvent(new FactEvent(this));
+        this.applicationEventPublisher.publishEvent(new FactEvent(this));
     }
 
     @Override
@@ -108,7 +108,7 @@ public class FactServiceImpl implements FactService {
                 .stream()
                 .sorted(Comparator.comparing(Fact::getTitle))
                 .map(fact -> {
-                    FactFormViewModel factFormViewModel = mapper.map(fact, FactFormViewModel.class);
+                    FactFormViewModel factFormViewModel = this.mapper.map(fact, FactFormViewModel.class);
                     factFormViewModel.setRegionId(fact.getRegion().getRegionId());
                     return factFormViewModel;
                 })
@@ -121,7 +121,7 @@ public class FactServiceImpl implements FactService {
         for (FactServiceModel factServiceModel : factServiceModels) {
 
             //Validate fact model and print message if not valid
-            if(!validationService.isValid(factServiceModel)){
+            if(!this.validationService.isValid(factServiceModel)){
                 this.validationService.violations(factServiceModel)
                         .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
                 continue;
@@ -131,7 +131,7 @@ public class FactServiceImpl implements FactService {
                 Region region = this.regionRepository.findByRegionId(regionId).orElseThrow(() -> new NoSuchElementException(String.format("could not find region with regionId: %s", regionId)));
 
                 try{
-                    Fact fact = factRepository.findByTitle(factServiceModel.getTitle()).orElseThrow();
+                    Fact fact = this.factRepository.findByTitle(factServiceModel.getTitle()).orElseThrow();
                     System.out.println(String.format("Fact %s already exists.", fact.getTitle()));
                 }
                 catch(NoSuchElementException e) {
@@ -142,7 +142,7 @@ public class FactServiceImpl implements FactService {
                     uploadMap.put("upload_preset", "facts_upload_server");
 
                     File factImg = new File(Constants.RESOURCES_DIR + factServiceModel.getImageUrl());
-                    String cloudinaryUrl = cloudinary.uploader().upload(factImg, uploadMap).get("secure_url").toString();
+                    String cloudinaryUrl = this.cloudinary.uploader().upload(factImg, uploadMap).get("secure_url").toString();
                     fact.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
 
                     this.factRepository.saveAndFlush(fact);

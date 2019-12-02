@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/regions")
-public class RegionsController {
+public class RegionsController extends BaseController {
 
     private final RegionService regionService;
 
@@ -30,45 +30,44 @@ public class RegionsController {
     @GetMapping("/edit")
     public ModelAndView editRegion(ModelAndView modelAndView, @ModelAttribute("editRegionModel") EditRegionModel editRegionModel){
         modelAndView.addObject("isPost", false);
-        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("regionViewModels", this.regionService.getRegionViewModels());
         modelAndView.addObject("editRegion", true);
         modelAndView.addObject("isEdit", true);
-        modelAndView.setViewName("regions/edit.html");
-        return modelAndView;
+
+        return super.view("regions/edit.html", modelAndView);
     }
 
     @GetMapping("/json")
     @ResponseBody
     public List<RegionViewModel> getRegionsJson(){
-        return regionService.getRegionViewModels();
+        return this.regionService.getRegionViewModels();
     }
 
     @PostMapping("/edit")
     public ModelAndView editRegionPost(@Valid @ModelAttribute("editRegionModel") EditRegionModel editRegionModel, BindingResult bindingResult, ModelAndView modelAndView){
         modelAndView.addObject("isPost", true);
-        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("regionViewModels", this.regionService.getRegionViewModels());
         modelAndView.addObject("editRegion", true);
         modelAndView.addObject("isEdit", true);
-        modelAndView.setViewName("regions/edit.html");
 
-        if(!bindingResult.hasErrors() && regionService.editRegion(editRegionModel)){
+        if(!bindingResult.hasErrors() && this.regionService.editRegion(editRegionModel)){
             modelAndView.addObject("isSuccess", true);
         }
 
-        return modelAndView;
+        return super.view("regions/edit.html", modelAndView);
     }
 
     @ExceptionHandler(RegionNotFoundException.class)
     public ModelAndView handleRegionNotFound(RegionNotFoundException exception){
         EditRegionModel editRegionModel = new EditRegionModel();
-        ModelAndView modelAndView = new ModelAndView("regions/edit.html");
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("editRegionModel", editRegionModel);
         modelAndView.addObject("isPost", false);
-        modelAndView.addObject("regionViewModels", regionService.getRegionViewModels());
+        modelAndView.addObject("regionViewModels", this.regionService.getRegionViewModels());
         modelAndView.addObject("editRegion", true);
         modelAndView.addObject("isEdit", true);
         modelAndView.addObject("regionError", exception.getMessage());
 
-        return modelAndView;
+        return super.view("regions/edit.html", modelAndView);
     }
 }

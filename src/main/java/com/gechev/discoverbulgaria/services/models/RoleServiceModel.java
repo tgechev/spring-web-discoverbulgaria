@@ -17,4 +17,15 @@ public class RoleServiceModel extends BaseServiceModel {
     @NotNull(message = "Role cannot be empty.")
     @Pattern(regexp = "ROLE_+[A-Z]{4,8}", message = "Roles should have the following syntax: ROLE_{the role}, where {the role} should be between 4 and 8 symbols:")
     private String authority;
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj.getClass() != RoleServiceModel.class){
+            return false;
+        }
+
+        RoleServiceModel otherRole = (RoleServiceModel) obj;
+        return this.getId().equals(otherRole.getId()) && this.authority.equals(otherRole.getAuthority());
+    }
 }
