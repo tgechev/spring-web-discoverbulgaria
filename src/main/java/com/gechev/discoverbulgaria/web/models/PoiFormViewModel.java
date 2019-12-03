@@ -42,6 +42,4 @@ public class PoiFormViewModel {
 
     @Pattern(regexp = "(^$|^(https?|ftp)://[^\\s/$.?#].[^\\s]*$)", message = "Невалидна интернет връзка")
     private String readMore;
-
-
 }

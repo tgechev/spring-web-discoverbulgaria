@@ -130,8 +130,7 @@ function loadCards(target){
 		type : 'get',
 		beforeSend: function(){
 			let loader = $("#loader");
-			loader.removeClass("d-none");
-			loader.addClass("d-flex");
+			loader.removeClass("d-none").addClass("d-flex");
 			$(".preloader-wrapper").addClass("big");
 			$(".card-deck").addClass("d-none");
 		},
@@ -139,8 +138,7 @@ function loadCards(target){
 			setTimeout(() => {
 
 				let loader = $("#loader");
-				loader.removeClass("d-flex");
-				loader.addClass("d-none");
+				loader.removeClass("d-flex").addClass("d-none");
 				$(".card-deck").removeClass("d-none");
 				$("#pagination").removeClass("d-none");
 

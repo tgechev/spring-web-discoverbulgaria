@@ -52,9 +52,10 @@ public class AuthController extends BaseController {
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerPost(@Valid @ModelAttribute("userRegisterModel") UserRegisterModel model, BindingResult result){
+    public ModelAndView registerPost(@Valid @ModelAttribute("userRegisterModel") UserRegisterModel model, BindingResult result, ModelAndView modelAndView){
         if(result.hasErrors()){
-            return super.view("users/register.html");
+            modelAndView.addObject("isPost", true);
+            return super.view("users/register.html", modelAndView);
         }
 
         this.userService.registerUser(this.mapper.map(model, UserServiceModel.class));

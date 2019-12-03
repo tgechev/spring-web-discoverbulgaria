@@ -32,7 +32,7 @@
                     <!--Card content-->
                     <div class="card-body px-lg-5 pt-0">
                         <!-- Form -->
-                        <form style="color: #757575;" th:action="${isEdit} ? @{/facts/edit} : @{/facts/add}" th:method="post" th:object="${factFormViewModel}">
+                        <form style="color: #757575;" th:id="${isEdit} ? 'edit-fact-form' : 'fact-form'" th:action="${isEdit} ? @{/facts/edit} : @{/facts/add}" th:method="post" th:object="${factFormViewModel}">
 
                             <th:block th:if="${isEdit}">
                                 <!-- Select Poi to edit -->
@@ -117,5 +117,7 @@
     <th:block th:include="~{fragments/footer}" />
 
     <th:block th:include="~{fragments/cloudinaryScripts}" />
+    <th:block th:include="~{fragments/jquery-validation-scripts}" />
+    <script type="text/javascript" th:src="@{/js/submit-fact-validate.js}"></script>
 </body>
 </html>
