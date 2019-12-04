@@ -31,7 +31,7 @@
                     <!--Card content-->
                     <div class="card-body px-lg-5 pt-0">
                         <!-- Form -->
-                        <form class="text-center" style="color: #757575;" th:action="@{/regions/edit}" th:method="post" th:object="${editRegionModel}">
+                        <form class="text-center" th:id="region-form" style="color: #757575;" th:action="@{/regions/edit}" th:method="post" th:object="${editRegionModel}">
 
                             <!-- Region select -->
                             <th:block th:include="~{fragments/selectRegion}" />
@@ -58,7 +58,7 @@
 
                             <!-- Area -->
                             <div class="md-form">
-                                <input type="text" id="area" class="form-control" th:field="*{area}" th:classappend="${isPost} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <input type="number" id="area" class="form-control" th:field="*{area}" th:classappend="${isPost} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                 <label class="label-edit" for="area">Площ в км<sup>2</sup> <span>*</span></label>
 
                                 <div class="invalid-feedback">
@@ -68,7 +68,7 @@
 
                             <!-- Population -->
                             <div class="md-form">
-                                <input type="text" id="population" class="form-control" th:field="*{population}" th:classappend="${isPost} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                                <input type="number" id="population" class="form-control" th:field="*{population}" th:classappend="${isPost} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')">
                                 <label class="label-edit" for="population">Население <span>*</span></label>
 
                                 <div class="invalid-feedback">
@@ -93,5 +93,7 @@
 
 
         <th:block th:include="~{fragments/footer}" />
+        <th:block th:include="~{fragments/jquery-validation-scripts}" />
+        <script type="text/javascript" th:src="@{/js/submit-region-validate.js}"></script>
     </body>
 </html>

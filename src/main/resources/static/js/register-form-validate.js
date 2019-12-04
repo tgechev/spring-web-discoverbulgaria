@@ -54,7 +54,7 @@ $( document ).ready( function () {
     } );
 
     $("form").on("submit", function (e) {
-        let isValid = this.valid();
+        let isValid = $(e.target).valid();
         if(!isValid){
             e.preventDefault();
             return false;

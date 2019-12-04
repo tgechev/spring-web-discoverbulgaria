@@ -4,8 +4,8 @@ $.validator.setDefaults({
 });
 
 $( document ).ready( function () {
-    let factForm = $( "#fact-form" );
-    factForm.validate( {
+    let poiForm = $( "#poi-form" );
+    poiForm.validate( {
         rules: {
             title: {
                 required: true,
@@ -14,6 +14,8 @@ $( document ).ready( function () {
             },
             type: "required",
             regionId: "required",
+            latitude: "required",
+            longitude: "required",
             description: {
                 required: true,
                 minlength: 100,
@@ -33,6 +35,8 @@ $( document ).ready( function () {
             },
             type: "Моля изберете тип.",
             regionId: "Моля изберете област.",
+            latitude: "Географските координати са задължителни.",
+            longitude: "Географските координати са задължителни.",
             description: {
                 required: "Моля, добавете описание.",
                 minlength: "Описанието трябва да бъде между 100 и 500 символа.",
@@ -91,8 +95,8 @@ $( document ).ready( function () {
         }
     } );
 
-    let editFactForm = $( "#edit-fact-form" );
-    editFactForm.validate( {
+    let editPoiForm = $( "#edit-poi-form" );
+    editPoiForm.validate( {
         rules: {
             title: {
                 required: true,
@@ -102,6 +106,8 @@ $( document ).ready( function () {
             oldTitle: "required",
             type: "required",
             regionId: "required",
+            latitude: "required",
+            longitude: "required",
             description: {
                 required: true,
                 minlength: 100,
@@ -122,6 +128,8 @@ $( document ).ready( function () {
             oldTitle: "Моля изберете факт.",
             type: "Моля изберете тип.",
             regionId: "Моля изберете област.",
+            latitude: "Географските координати са задължителни.",
+            longitude: "Географските координати са задължителни.",
             description: {
                 required: "Моля, добавете описание.",
                 minlength: "Описанието трябва да бъде между 100 и 500 символа.",
@@ -190,11 +198,11 @@ $( document ).ready( function () {
     } );
 
     $("form").on("submit", function (e) {
-       let isValid = $(e.target).valid();
-       console.log(isValid);
-       if(!isValid){
-           e.preventDefault();
-           return false;
-       }
+        let isValid = $(e.target).valid();
+        console.log(isValid);
+        if(!isValid){
+            e.preventDefault();
+            return false;
+        }
     });
 } );

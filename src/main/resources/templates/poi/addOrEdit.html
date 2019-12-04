@@ -32,7 +32,7 @@
             <!--Card content-->
             <div class="card-body px-lg-5 pt-0">
                 <!-- Form -->
-                <form style="color: #757575;" th:action="${isEdit} ? @{/poi/edit} : @{/poi/add}" th:method="post" th:object="${poiFormViewModel}">
+                <form style="color: #757575;" th:id="${isEdit} ? 'edit-poi-form' : 'poi-form'" th:action="${isEdit} ? @{/poi/edit} : @{/poi/add}" th:method="post" th:object="${poiFormViewModel}">
 
                     <th:block th:if="${isEdit}">
                         <!-- Select Poi to edit -->
@@ -67,7 +67,7 @@
 
                     <!-- Poi latitude -->
                     <div class="md-form">
-                        <input type="text" id="latitude" class="form-control" th:field="*{latitude}" th:classappend="${isPost} ? (${#fields.errors('latitude').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                        <input type="number" id="latitude" class="form-control" th:field="*{latitude}" th:classappend="${isPost} ? (${#fields.errors('latitude').isEmpty()} ? 'is-valid' : 'is-invalid')">
                         <label class="label-edit" for="latitude">Геогр. ширина <span>*</span></label>
 
                         <div class="invalid-feedback">
@@ -77,7 +77,7 @@
 
                     <!-- Poi longitude -->
                     <div class="md-form">
-                        <input type="text" id="longitude" class="form-control" th:field="*{longitude}" th:classappend="${isPost} ? (${#fields.errors('longitude').isEmpty()} ? 'is-valid' : 'is-invalid')">
+                        <input type="number" id="longitude" class="form-control" th:field="*{longitude}" th:classappend="${isPost} ? (${#fields.errors('longitude').isEmpty()} ? 'is-valid' : 'is-invalid')">
                         <label class="label-edit" for="longitude">Геогр. дължина <span>*</span></label>
 
                         <div class="invalid-feedback">
@@ -147,6 +147,8 @@
 <th:block th:include="~{fragments/footer}" />
 
 <th:block th:include="~{fragments/cloudinaryScripts}" />
+<th:block th:include="~{fragments/jquery-validation-scripts}" />
+<script type="text/javascript" th:src="@{/js/submit-poi-validate.js}"></script>
 
 </body>
 </html>
