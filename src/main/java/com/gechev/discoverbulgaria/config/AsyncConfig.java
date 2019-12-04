@@ -1,6 +1,6 @@
 package com.gechev.discoverbulgaria.config;
 
-import com.gechev.discoverbulgaria.exceptions.CustomAsyncExceptionHandler;
+import com.gechev.discoverbulgaria.exceptions.handlers.CustomAsyncExceptionHandler;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;

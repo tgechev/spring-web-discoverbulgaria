@@ -5,11 +5,9 @@ import com.gechev.discoverbulgaria.services.models.UserServiceModel;
 import com.gechev.discoverbulgaria.web.models.UserRegisterModel;
 import com.gechev.discoverbulgaria.web.models.UserViewModel;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,7 +44,7 @@ public class AuthController extends BaseController {
 
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView getRegister(@ModelAttribute("userRegisterModel") UserRegisterModel model){
+    public ModelAndView getRegister(@ModelAttribute("userRegisterModel") UserRegisterModel model) {
         return super.view("users/register.html");
     }
 
@@ -86,10 +84,5 @@ public class AuthController extends BaseController {
     @ResponseBody
     public UserViewModel getUserViewModel(@PathVariable String username){
         return this.userService.getUserViewModel(username);
-    }
-
-    @InitBinder
-    private void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 }

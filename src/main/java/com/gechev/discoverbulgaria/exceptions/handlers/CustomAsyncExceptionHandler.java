@@ -1,4 +1,4 @@
-package com.gechev.discoverbulgaria.exceptions;
+package com.gechev.discoverbulgaria.exceptions.handlers;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 
