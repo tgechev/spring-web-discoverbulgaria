@@ -3,7 +3,6 @@ package com.gechev.discoverbulgaria.data.models;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +24,7 @@ public class User extends BaseEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private List<Role> authorities;
+    private Set<Role> authorities;
 
 
     public User() {
@@ -59,11 +58,11 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
-    public List<Role> getAuthorities() {
+    public Set<Role> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<Role> authorities) {
+    public void setAuthorities(Set<Role> authorities) {
         this.authorities = authorities;
     }
 

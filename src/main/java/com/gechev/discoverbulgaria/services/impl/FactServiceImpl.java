@@ -9,6 +9,7 @@ import com.gechev.discoverbulgaria.data.repositories.FactRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.events.FactEvent;
 import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
+import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.FactService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
@@ -53,31 +54,6 @@ public class FactServiceImpl implements FactService {
     }
 
     @Override
-    public FactServiceModel findByType(String type) {
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public Set<FactServiceModel> findAllByRegionId(String regionId) {
-        Region region = this.regionRepository.findByRegionId(regionId).orElseThrow();
-        return this.factRepository.findAllByRegion(region).stream()
-                .sorted(Comparator.comparing(Fact::getTitle))
-                .map(fact -> this.mapper.map(fact, FactServiceModel.class))
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    @Transactional
-    public Set<FactServiceModel> findAllByRegionAndType(String regionId, Type type) {
-        Region region = this.regionRepository.findByRegionId(regionId).orElseThrow();
-        return this.factRepository.findAllByRegionAndType(region, type).stream()
-                .sorted(Comparator.comparing(Fact::getTitle))
-                .map(fact -> this.mapper.map(fact, FactServiceModel.class))
-                .collect(Collectors.toSet());
-    }
-
-    @Override
     public void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit) {
         Fact fact;
 
@@ -94,7 +70,7 @@ public class FactServiceImpl implements FactService {
             fact = this.mapper.map(factFormViewModel, Fact.class);
         }
 
-        Region region = this.regionRepository.findByRegionId(factFormViewModel.getRegionId()).orElseThrow();
+        Region region = this.regionRepository.findByRegionId(factFormViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на този факт не бе намерена."));
         fact.setRegion(region);
 
         this.factRepository.save(fact);

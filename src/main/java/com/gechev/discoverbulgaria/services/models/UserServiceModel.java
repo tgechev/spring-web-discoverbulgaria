@@ -31,6 +31,6 @@ public class UserServiceModel extends BaseServiceModel {
 
     @Expose
     @NotNull(message = "User should have at least one role.")
-    private List<RoleServiceModel> authorities;
+    private Set<RoleServiceModel> authorities;
 
 }

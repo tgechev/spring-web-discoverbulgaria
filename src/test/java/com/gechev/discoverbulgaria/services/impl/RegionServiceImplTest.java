@@ -101,19 +101,4 @@ class RegionServiceImplTest {
 
         assertTrue(result);
     }
-
-//    @Test
-//    void editRegion_whenRegionDoesNotExist_shouldReturnFalse() {
-//
-//        Optional<Region> regionOptional = Optional.empty();
-//
-//        EditRegionModel theModel = new EditRegionModel("Благоевград", "BG-1", 6550.0, 323232, "BG-01", "blagoevGrad_url");
-//
-//        Mockito.when(regionRepository.findByRegionId(theModel.getTheId())).thenReturn(regionOptional);
-//
-//        boolean result = regionService.editRegion(theModel);
-//
-//        assertFalse(result);
-//    }
-
 }

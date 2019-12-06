@@ -8,8 +8,8 @@ import com.gechev.discoverbulgaria.services.models.RoleServiceModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,11 +26,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<RoleServiceModel> findAllRoles() {
+    public Set<RoleServiceModel> findAllRoles() {
         return this.roleRepository.findAll()
                 .stream()
                 .map(r -> this.mapper.map(r, RoleServiceModel.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @Override

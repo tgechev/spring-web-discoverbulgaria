@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -38,5 +39,10 @@ public class RoleServiceModel extends BaseServiceModel {
 
         RoleServiceModel otherRole = (RoleServiceModel) obj;
         return this.getId().equals(otherRole.getId()) && this.authority.equals(otherRole.getAuthority());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), authority);
     }
 }

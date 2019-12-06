@@ -45,8 +45,9 @@ public class UserServiceImpl implements UserService {
         if(this.userRepository.count() == 0){
             userServiceModel.setAuthorities(this.roleService.findAllRoles());
         }
+
         else{
-            userServiceModel.setAuthorities(new ArrayList<>());
+            userServiceModel.setAuthorities(new LinkedHashSet<>());
             userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
         }
 
@@ -92,8 +93,8 @@ public class UserServiceImpl implements UserService {
 
                 //Check if the roles of the new user are all valid.
                 try{
-                    List<RoleServiceModel> roleServiceModels = userServiceModel.getAuthorities();
-                    List<Role> roles = new ArrayList<>();
+                    Set<RoleServiceModel> roleServiceModels = userServiceModel.getAuthorities();
+                    Set<Role> roles = new LinkedHashSet<>();
                     for (RoleServiceModel roleServiceModel : roleServiceModels) {
                         Role role = this.roleRepository.findByAuthority(roleServiceModel.getAuthority())
                                 .orElseThrow(() -> new NoSuchElementException(String.format("Invalid role: %s", roleServiceModel.getAuthority())));

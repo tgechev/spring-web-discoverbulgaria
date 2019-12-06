@@ -2,6 +2,7 @@ package com.gechev.discoverbulgaria.services.models;
 
 import com.gechev.discoverbulgaria.data.models.Type;
 import com.google.gson.annotations.Expose;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class FactServiceModel extends BaseServiceModel {
 
     @Expose
