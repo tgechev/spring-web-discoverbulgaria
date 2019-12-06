@@ -58,7 +58,7 @@ public class SeedController implements CommandLineRunner {
         this.userService.seedUsers(userServiceModels);
     }
 
-    private void seedRegions() throws IOException, URISyntaxException {
+    private void seedRegions() throws IOException {
         if(this.regionService.getRepositoryCount() != 0){
             return;
         }

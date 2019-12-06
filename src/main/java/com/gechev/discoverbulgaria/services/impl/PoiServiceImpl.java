@@ -132,8 +132,6 @@ public class PoiServiceImpl implements PoiService {
                 System.out.println(String.format("Poi not added, reason: %s", e.getMessage()));
             }
         }
-
-        this.applicationEventPublisher.publishEvent(new PoiEvent(this));
     }
 
     public List<PoiFormViewModel> getPoiViewModels(){

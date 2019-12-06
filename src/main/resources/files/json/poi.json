@@ -6,7 +6,7 @@
     "type": "NATURE",
     "coordinates": {"latitude": 43.651859, "longitude": 22.7023029},
     "region": {"regionId": "BG-05"},
-    "imageUrl": "v1575573486/poi/file_kf76tz.jpg",
+    "imageUrl": "files/img/poi/kozarnika.jpg",
     "readMore": "http://www.nasamnatam.com/statia/Peshterata_Kozarnika_izkliuchitelna_praistoricheska_nahodka_za_Bylgariia_i_Evropa-2260.html"
   },
   {
@@ -16,7 +16,7 @@
     "type": "NATURE",
     "coordinates": {"latitude": 43.207901, "longitude": 27.9316062},
     "region": {"regionId": "BG-03"},
-    "imageUrl": "v1575573489/poi/file_tavrtt.jpg",
+    "imageUrl": "files/img/poi/varna-sea-garden.jpg",
     "readMore": "https://visit.varna.bg/bg/parks_gardens/preview/36.html"
   },
   {
@@ -26,7 +26,7 @@
     "type": "NATURE",
     "coordinates": {"latitude": 43.3729681, "longitude": 23.188985},
     "region": {"regionId": "BG-12"},
-    "imageUrl": "v1575573490/poi/file_zqvfkz.jpg",
+    "imageUrl": "files/img/poi/yaz_ogosta.jpg",
     "readMore": "http://zavodata.com/2014/01/%D1%8F%D0%B7%D0%BE%D0%B2%D0%B8%D1%80-%E2%80%9E%D0%BE%D0%B3%D0%BE%D1%81%D1%82%D0%B0%E2%80%9C-%E2%80%93-%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%B8%D1%8F%D1%82-%D1%85%D0%B8%D0%B4%D1%80%D0%BE%D0%B3%D0%B8%D0%B3/"
   },
   {
@@ -36,7 +36,7 @@
     "type": "NATURE",
     "coordinates": {"latitude": 43.1853381, "longitude": 23.5474441},
     "region": {"regionId": "BG-06"},
-    "imageUrl": "v1575573493/poi/file_hofwgm.jpg",
+    "imageUrl": "files/img/poi/skaklya.jpg",
     "readMore": "https://drumivdumi.com/%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%B5%D0%BD-%D1%82%D1%83%D1%80%D0%B8%D0%B7%D1%8A%D0%BC-%D0%B2-%D0%B8%D1%81%D0%BA%D1%8A%D1%80%D1%81%D0%BA%D0%BE%D1%82%D0%BE-%D0%B4%D0%B5%D1%84%D0%B8%D0%BB%D0%B5-%D0%B2/"
   },
   {
@@ -46,7 +46,7 @@
     "type": "HISTORY",
     "coordinates": {"latitude": 43.3987508, "longitude": 24.6061726},
     "region": {"regionId": "BG-15"},
-    "imageUrl": "v1575573494/poi/file_ufhxws.jpg",
+    "imageUrl": "files/img/poi/panorama_pleven.jpg",
     "readMore": "https://www.pleven.bg/bg/zabelezhitelnosti-pametnitsi-i-muzei/panorama-plevenska-epopeya-1877-g/"
   },
   {
@@ -56,7 +56,7 @@
     "region": {"regionId": "BG-04"},
     "type": "HISTORY",
     "coordinates": {"latitude": 43.0798848, "longitude": 25.6542902},
-    "imageUrl": "v1575573496/poi/file_riydol.jpg",
+    "imageUrl": "files/img/poi/miniatures.jpg",
     "readMore": "http://www.bta.bg/bg/video/show/id/0_591f3bkt"
   },
   {
@@ -66,7 +66,7 @@
     "region": {"regionId": "BG-18"},
     "type": "NATURE",
     "coordinates": {"latitude": 43.7041616, "longitude": 25.976197},
-    "imageUrl": "v1575573498/poi/file_ig8w85.jpg",
+    "imageUrl": "files/img/poi/rusenski_lom.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/93"
   },
   {
@@ -76,7 +76,7 @@
     "region": {"regionId": "BG-17"},
     "type": "HISTORY",
     "coordinates": {"latitude": 43.7450757, "longitude": 26.7663873},
-    "imageUrl": "v1575573500/poi/file_bxuw9y.jpg",
+    "imageUrl": "files/img/poi/sveshtarska_grobnica.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/69"
   },
   {
@@ -86,7 +86,7 @@
     "region": {"regionId": "BG-19"},
     "type": "NATURE",
     "coordinates": {"latitude": 44.1154234, "longitude": 27.0718391},
-    "imageUrl": "v1575573592/poi/file_a1rgvm.jpg",
+    "imageUrl": "files/img/poi/srebarna.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/29"
   },
   {
@@ -96,7 +96,7 @@
     "region": {"regionId": "BG-08"},
     "type": "HISTORY",
     "coordinates": {"latitude": 43.4352535, "longitude": 28.5419001},
-    "imageUrl": "v1575573593/poi/file_xpuzzw.jpg",
+    "imageUrl": "files/img/poi/qilata.jpg",
     "readMore": "http://kamenbryag.info/yailata/"
   },
   {
@@ -106,7 +106,7 @@
     "region": {"regionId": "BG-03"},
     "type": "HISTORY",
     "coordinates": {"latitude": 43.0959066, "longitude": 27.676798},
-    "imageUrl": "v1575573595/poi/file_yjk8da.jpg",
+    "imageUrl": "files/img/poi/monasite.jpg",
     "readMore": ""
   },
   {
@@ -116,7 +116,7 @@
     "region": {"regionId": "BG-27"},
     "type": "HISTORY",
     "coordinates": {"latitude": 43.2772591, "longitude": 27.1191988},
-    "imageUrl": "v1575573596/poi/file_e2rhkq.jpg",
+    "imageUrl": "files/img/poi/konnik.jpg",
     "readMore": "https://bulgarianhistory.org/madarski-konnik-hipotezi-istoria/"
   },
   {
@@ -126,7 +126,7 @@
     "region": {"regionId": "BG-25"},
     "type": "HISTORY",
     "coordinates": {"latitude": 43.3590825, "longitude": 26.1452022},
-    "imageUrl": "v1575573597/poi/file_xlmgis.jpg",
+    "imageUrl": "files/img/poi/kale.jpg",
     "readMore": "http://gotargo.com/destination/kovachevskoto-kale-popovo/"
   },
   {
@@ -136,7 +136,7 @@
     "region": {"regionId": "BG-07"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.8034801, "longitude": 25.3491946},
-    "imageUrl": "v1575573599/poi/file_cwuiua.jpg",
+    "imageUrl": "files/img/poi/etura.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/6"
   },
   {
@@ -146,7 +146,7 @@
     "region": {"regionId": "BG-11"},
     "type": "NATURE",
     "coordinates": {"latitude": 43.1750071, "longitude": 24.0739669},
-    "imageUrl": "v1575573600/poi/file_fcjt9m.jpg",
+    "imageUrl": "files/img/poi/eyes_of_god.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/199"
   },
   {
@@ -156,7 +156,7 @@
     "region": {"regionId": "BG-22"},
     "type": "NATURE",
     "coordinates": {"latitude": 43.0435634, "longitude": 23.3529482},
-    "imageUrl": "v1575573601/poi/file_bgfznb.jpg",
+    "imageUrl": "files/img/poi/iskar_prolom.jpg",
     "readMore": "http://www.nasamnatam.com/statia/Jivopisniiat_Iskyrski_prolom-2422.html"
   },
   {
@@ -166,7 +166,7 @@
     "region": {"regionId": "BG-23"},
     "type": "NATURE",
     "coordinates": {"latitude": 42.6096115, "longitude": 23.2390451},
-    "imageUrl": "v1575573603/poi/file_btrx0o.jpg",
+    "imageUrl": "files/img/poi/zlatni_mostove.jpg",
     "readMore": "https://svetogled.com/zlatnite-mostove-do-boerica-vitosha-s-deca/"
   },
   {
@@ -176,7 +176,7 @@
     "region": {"regionId": "BG-14"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.4677108, "longitude": 22.7381402},
-    "imageUrl": "v1575573604/poi/file_totpzj.jpg",
+    "imageUrl": "files/img/poi/zemenski_manastir.jpg",
     "readMore": "http://www.bulgariamonasteries.com/zemenski_manastir.html"
   },
   {
@@ -186,7 +186,7 @@
     "region": {"regionId": "BG-10"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.2821633, "longitude": 22.6973683},
-    "imageUrl": "v1575573605/poi/file_yctwgm.jpg",
+    "imageUrl": "files/img/poi/Ilyo-voyvoda-ka6ta.jpg",
     "readMore": "https://opoznai.bg/view/kashta-muzei-ilio-voivoda-kiustendil"
   },
   {
@@ -196,7 +196,7 @@
     "region": {"regionId": "BG-01"},
     "type": "HISTORY",
     "coordinates": {"latitude": 41.450833, "longitude": 23.262778},
-    "imageUrl": "v1575573606/poi/file_wrurja.jpg",
+    "imageUrl": "files/img/poi/herakleya_sintika.jpg",
     "readMore": "http://www.nasamnatam.com/statia/Herakleia_Sintika_tainstveniiat_trakiiski_grad_krai_Petrich-2746.html"
   },
   {
@@ -206,7 +206,7 @@
     "region": {"regionId": "BG-13"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.0388296, "longitude": 24.304242},
-    "imageUrl": "v1575573609/poi/file_zh79fo.jpg",
+    "imageUrl": "files/img/poi/peristera.jpg",
     "readMore": "https://www.btsbg.org/100nto/krepost-peristera"
   },
   {
@@ -216,7 +216,7 @@
     "region": {"regionId": "BG-16"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.1468859, "longitude": 24.7510692},
-    "imageUrl": "v1575573610/poi/file_pfjmeg.jpg",
+    "imageUrl": "files/img/poi/antichen_teatur.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/7"
   },
   {
@@ -226,7 +226,7 @@
     "region": {"regionId": "BG-24"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.6258404, "longitude": 25.3991644},
-    "imageUrl": "v1575573611/poi/file_egya2l.jpg",
+    "imageUrl": "files/img/poi/kazanlushka_grobnica.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/14"
   },
   {
@@ -236,7 +236,7 @@
     "region": {"regionId": "BG-20"},
     "type": "NATURE",
     "coordinates": {"latitude": 42.7083624, "longitude": 26.3495862},
-    "imageUrl": "v1575573612/poi/file_qp28tw.jpg",
+    "imageUrl": "files/img/poi/halkata.jpg",
     "readMore": "https://opoznai.bg/view/skalno-obrazuvanie-halkata-sliven"
   },
   {
@@ -246,7 +246,7 @@
     "region": {"regionId": "BG-02"},
     "type": "NATURE",
     "coordinates": {"latitude": 42.3917743, "longitude": 27.2673627},
-    "imageUrl": "v1575573615/poi/file_jysxuq.jpg",
+    "imageUrl": "files/img/poi/vodni_koncheta.jpg",
     "readMore": "http://burgaslakes.org/tour/bg/dragonfly-reserve.html"
   },
   {
@@ -256,7 +256,7 @@
     "region": {"regionId": "BG-28"},
     "type": "HISTORY",
     "coordinates": {"latitude": 42.5473271, "longitude": 26.4841647},
-    "imageUrl": "v1575573616/poi/file_fhguoe.jpg",
+    "imageUrl": "files/img/poi/kabile.jpg",
     "readMore": "http://yambolmuseum.eu/%D1%82%D1%80%D0%B0%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B8-%D0%B8-%D0%B0%D0%BD%D1%82%D0%B8%D1%87%D0%B5%D0%BD-%D0%B3%D1%80%D0%B0%D0%B4-%D0%BA%D0%B0%D0%B1%D0%B8%D0%BB%D0%B5/"
   },
   {
@@ -266,7 +266,7 @@
     "region": {"regionId": "BG-26"},
     "type": "HISTORY",
     "coordinates": {"latitude": 41.4991444, "longitude": 26.106491},
-    "imageUrl": "v1575573617/poi/file_l2gvd3.jpg",
+    "imageUrl": "files/img/poi/vila_armira.jpg",
     "readMore": "https://drumivdumi.com/%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B0%D1%80%D0%BC%D0%B8%D1%80%D0%B0-%D0%B4%D0%BE-%D0%B8%D0%B2%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2%D0%B3%D1%80%D0%B0%D0%B4/"
   },
   {
@@ -276,7 +276,7 @@
     "region": {"regionId": "BG-09"},
     "type": "NATURE",
     "coordinates": {"latitude": 41.6569386, "longitude": 25.3991232},
-    "imageUrl": "v1575573618/poi/file_bihtv8.jpg",
+    "imageUrl": "files/img/poi/kamenna_svatba.jpg",
     "readMore": "https://www.bulgariatravel.org/article/details/222#map=6/42.750/25.380"
   },
   {
@@ -286,7 +286,7 @@
     "region": {"regionId": "BG-21"},
     "type": "NATURE",
     "coordinates": {"latitude": 41.6433343, "longitude": 24.3389372},
-    "imageUrl": "v1575573620/poi/file_yk48e3.jpg",
+    "imageUrl": "files/img/poi/orlovo_oko.jpg ",
     "readMore": "https://zapadnirodopi.com/%D0%BE%D1%80%D0%BB%D0%BE%D0%B2%D0%BE-%D0%BE%D0%BA%D0%BE.html"
   },
 

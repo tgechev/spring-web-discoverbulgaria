@@ -155,8 +155,6 @@ public class FactServiceImpl implements FactService {
                 System.out.println(String.format("Fact not added, reason: %s", e.getMessage()));
             }
         }
-
-        this.applicationEventPublisher.publishEvent(new FactEvent(this));
     }
 
     @Override
