@@ -27,6 +27,8 @@ public class RegionServiceModel extends BaseServiceModel {
     @NotNull(message = "Area cannot be empty.")
     private Double area;
 
+    @Expose
+    @NotNull(message = "Image url is required.")
     private String imageUrl;
 
     @Expose

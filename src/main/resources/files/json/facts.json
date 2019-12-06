@@ -7,7 +7,7 @@
     "region": {
       "regionId" : "BG-27"
     },
-    "imageUrl" : "files/img/facts/bulgaria.png"
+    "imageUrl" : "v1575573416/facts/file_ohnvkq.png"
 
   },
   {
@@ -18,7 +18,7 @@
     "region": {
       "regionId" : "BG-07"
     },
-    "imageUrl" : "files/img/facts/dan_kolov.jpg"
+    "imageUrl" : "v1575573417/facts/file_lvbkjw.jpg"
   },
   {
     "title": "Розово масло",
@@ -28,7 +28,7 @@
     "region": {
       "regionId" : "BG-24"
     },
-    "imageUrl" : "files/img/facts/rose_oil.jpg"
+    "imageUrl" : "v1575573419/facts/file_qkljw3.jpg"
   },
   {
     "title": "Четиньова могила",
@@ -38,7 +38,7 @@
     "region": {
       "regionId" : "BG-16"
     },
-    "imageUrl" : "files/img/facts/starosel.jpg"
+    "imageUrl" : "v1575573434/facts/file_o4x6ln.jpg"
   },
   {
     "title": "Най-старото обработено злато",
@@ -48,7 +48,7 @@
     "region": {
       "regionId" : "BG-03"
     },
-    "imageUrl" : "files/img/facts/necropolis.jpg"
+    "imageUrl" : "v1575573436/facts/file_adambw.jpg"
   },
   {
     "title": "Археологични открития",
@@ -58,17 +58,17 @@
     "region": {
       "regionId" : "BG-13"
     },
-    "imageUrl" : "files/img/facts/panagyursko-sakrovishte.jpg"
+    "imageUrl" : "v1575573437/facts/file_jxzsoz.jpg"
   },
   {
-    "title": "7-вековна София",
+    "title": "Хилядолетна София",
     "readMore": "https://www.sofia.bg/web/tourism-in-sofia/history-of-sofia",
     "description": "Столицата на България - София съществува от 7000 години, което я прави един от най-старите градове в Европа.",
     "type": "HISTORY",
     "region": {
       "regionId" : "BG-23"
     },
-    "imageUrl" : "files/img/facts/saint_sofia.jpg"
+    "imageUrl" : "v1575573440/facts/file_fv1deo.jpg"
   },
   {
     "title": "Разходка във Витоша",
@@ -78,7 +78,7 @@
     "region": {
       "regionId" : "BG-23"
     },
-    "imageUrl" : "files/img/facts/sofia_vitosha.jpg"
+    "imageUrl" : "v1575573444/facts/file_sqz43b.jpg"
   },
   {
     "title": "Битката при Клокотница",
@@ -88,7 +88,7 @@
     "region": {
       "regionId" : "BG-26"
     },
-    "imageUrl" : "files/img/facts/klokotnica.jpg"
+    "imageUrl" : "v1575573445/facts/file_rlop95.jpg"
   },
   {
     "title": "Българска песен в космоса",
@@ -98,7 +98,7 @@
     "region": {
       "regionId" : "BG-21"
     },
-    "imageUrl" : "files/img/facts/valya_balkanska.jpg"
+    "imageUrl" : "v1575573446/facts/file_hzrwzs.jpg"
   },
   {
     "title": "Компютър на Атанасов-Бери",
@@ -108,7 +108,7 @@
     "region": {
       "regionId" : "BG-28"
     },
-    "imageUrl" : "files/img/facts/john_atanasoff.jpg"
+    "imageUrl" : "v1575573449/facts/file_rqogbu.jpg"
   },
   {
     "title": "Петър Петров",
@@ -118,7 +118,7 @@
     "region": {
       "regionId" : "BG-16"
     },
-    "imageUrl" : "files/img/facts/petar_petrov.jpg"
+    "imageUrl" : "v1575573450/facts/file_gv7nfp.jpg"
   },
   {
     "title": "Киселото мляко",
@@ -128,7 +128,7 @@
     "region": {
       "regionId" : "BG-14"
     },
-    "imageUrl" : "files/img/facts/yoghurt.jpg"
+    "imageUrl" : "v1575573452/facts/file_fxv2qr.jpg"
   },
   {
     "title": "Евксиноград",
@@ -138,7 +138,7 @@
     "region": {
       "regionId" : "BG-03"
     },
-    "imageUrl" : "files/img/facts/evksinograd.jpg"
+    "imageUrl" : "v1575573453/facts/file_hqurcq.jpg"
   },
   {
     "title": "Минерални бани",
@@ -148,7 +148,7 @@
     "region": {
       "regionId" : "BG-10"
     },
-    "imageUrl" : "files/img/facts/hisaria.jpg"
+    "imageUrl" : "v1575573455/facts/file_ee0gdt.jpg"
   },
   {
     "title": "Райна Касабова",
@@ -158,7 +158,7 @@
     "region": {
       "regionId" : "BG-16"
     },
-    "imageUrl" : "files/img/facts/rayna_kasabova.jpg"
+    "imageUrl" : "v1575573456/facts/file_xje4k3.jpg"
   },
   {
     "title": "Иван Ценов",
@@ -168,7 +168,7 @@
     "region": {
       "regionId" : "BG-06"
     },
-    "imageUrl" : "files/img/facts/Ivan_Cenov.jpg"
+    "imageUrl" : "v1575573457/facts/file_ffse9d.jpg"
   },
   {
     "title": "Рафаилов кръст",
@@ -178,7 +178,7 @@
     "region": {
       "regionId" : "BG-10"
     },
-    "imageUrl" : "files/img/facts/cross.jpg"
+    "imageUrl" : "v1575573462/facts/file_viukcb.jpg"
   },
   {
     "title": "Димитър Пешев",
@@ -188,7 +188,7 @@
     "region": {
       "regionId" : "BG-10"
     },
-    "imageUrl" : "files/img/facts/Dimitar_Peshev.jpg"
+    "imageUrl" : "v1575573464/facts/file_vebmc4.jpg"
   },
   {
     "title": "Лавандулово масло",
@@ -198,7 +198,7 @@
     "region": {
       "regionId" : "BG-19"
     },
-    "imageUrl" : "files/img/facts/lavender.jpg"
+    "imageUrl" : "v1575573465/facts/file_lg1qhp.jpg"
   },
   {
     "title": "Лонгоз",
@@ -208,7 +208,7 @@
     "region": {
       "regionId" : "BG-03"
     },
-    "imageUrl" : "files/img/facts/forest.jpg"
+    "imageUrl" : "v1575573467/facts/file_pqusyo.jpg"
   },
   {
     "title": "Древен български календар",
@@ -218,7 +218,7 @@
     "region": {
       "regionId" : "BG-01"
     },
-    "imageUrl" : "files/img/facts/calendar.png"
+    "imageUrl" : "v1575573469/facts/file_zqodam.png"
   },
   {
     "title": "Стефка Костадинова",
@@ -228,7 +228,7 @@
     "region": {
       "regionId" : "BG-16"
     },
-    "imageUrl" : "files/img/facts/jump.jpg"
+    "imageUrl" : "v1575573471/facts/file_v4jn3t.jpg"
   },
   {
     "title": "Йордан Йовчев",
@@ -238,7 +238,7 @@
     "region": {
       "regionId" : "BG-16"
     },
-    "imageUrl" : "files/img/facts/yordan_yovchev.jpg"
+    "imageUrl" : "v1575573472/facts/file_uwzkd6.jpg"
   },
   {
     "title": "Христо Явашев - Кристо",
@@ -248,7 +248,7 @@
     "region": {
       "regionId" : "BG-07"
     },
-    "imageUrl" : "files/img/facts/reichstag.jpg"
+    "imageUrl" : "v1575573474/facts/file_ty68nv.jpg"
   },
   {
     "title": "Българската гайда",
@@ -258,7 +258,7 @@
     "region": {
       "regionId" : "BG-21"
     },
-    "imageUrl" : "files/img/facts/Bai_Dafo.jpg"
+    "imageUrl" : "v1575573476/facts/file_dzqufs.jpg"
   },
   {
     "title": "Мъжко хоро",
@@ -268,7 +268,7 @@
     "region": {
       "regionId" : "BG-16"
     },
-    "imageUrl" : "files/img/facts/kalofer_horo.jpg"
+    "imageUrl" : "v1575573479/facts/file_kt5juc.jpg"
   },
   {
     "title": "Бащата на авиацията",
@@ -278,7 +278,7 @@
     "region": {
       "regionId" : "BG-23"
     },
-    "imageUrl" : "files/img/facts/asen_yordanov.png"
+    "imageUrl" : "v1575573480/facts/file_q6oymy.png"
   },
   {
     "title": "Духлата",
@@ -288,7 +288,7 @@
     "region": {
       "regionId": "BG-14"
     },
-    "imageUrl" : "files/img/facts/cave.jpg"
+    "imageUrl" : "v1575573482/facts/file_phynzc.jpg"
   },
 
   {
@@ -299,6 +299,6 @@
     "region": {
       "regionId" : "BG-7"
     },
-    "imageUrl" : "files/img/facts/dan_kolov.jpg"
+    "imageUrl" : "/files/img/facts/dan_kolov.jpg"
   }
 ]

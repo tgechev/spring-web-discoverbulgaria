@@ -8,16 +8,13 @@ import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
 import com.gechev.discoverbulgaria.web.models.EditRegionModel;
 import com.gechev.discoverbulgaria.web.models.RegionViewModel;
-import org.hibernate.validator.internal.engine.ValidatorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,18 +102,18 @@ class RegionServiceImplTest {
         assertTrue(result);
     }
 
-    @Test
-    void editRegion_whenRegionDoesNotExist_shouldReturnFalse() {
-
-        Optional<Region> regionOptional = Optional.empty();
-
-        EditRegionModel theModel = new EditRegionModel("Благоевград", "BG-1", 6550.0, 323232, "BG-01", "blagoevGrad_url");
-
-        Mockito.when(regionRepository.findByRegionId(theModel.getTheId())).thenReturn(regionOptional);
-
-        boolean result = regionService.editRegion(theModel);
-
-        assertFalse(result);
-    }
+//    @Test
+//    void editRegion_whenRegionDoesNotExist_shouldReturnFalse() {
+//
+//        Optional<Region> regionOptional = Optional.empty();
+//
+//        EditRegionModel theModel = new EditRegionModel("Благоевград", "BG-1", 6550.0, 323232, "BG-01", "blagoevGrad_url");
+//
+//        Mockito.when(regionRepository.findByRegionId(theModel.getTheId())).thenReturn(regionOptional);
+//
+//        boolean result = regionService.editRegion(theModel);
+//
+//        assertFalse(result);
+//    }
 
 }

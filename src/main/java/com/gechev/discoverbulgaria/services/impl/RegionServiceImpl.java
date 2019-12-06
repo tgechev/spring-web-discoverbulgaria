@@ -73,9 +73,14 @@ public class RegionServiceImpl implements RegionService {
             //If region does not exist, create it.
             catch (NoSuchElementException e){
                 Region region = mapper.map(regionServiceModel, Region.class);
+
+                HashMap<String, String> uploadMap = new HashMap<>();
+                uploadMap.put("upload_preset", "regions_upload_server");
+
                 File regionImg = new File(Constants.RESOURCES_DIR + regionServiceModel.getImageUrl());
-                String cloudinaryUrl = this.cloudinary.uploader().upload(regionImg, new HashMap()).get("secure_url").toString();
+                String cloudinaryUrl = this.cloudinary.uploader().upload(regionImg, uploadMap).get("secure_url").toString();
                 region.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
+
                 this.regionRepository.saveAndFlush(region);
                 System.out.println(String.format("Region %s successfully created.", region.getName()));
             }
@@ -88,8 +93,8 @@ public class RegionServiceImpl implements RegionService {
         RegionServiceModel serviceModel = this.mapper.map(editRegionModel, RegionServiceModel.class);
 
         if(!this.validationService.isValid(serviceModel)){
-            //throw error
-            this.validationService.violations(serviceModel).forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
+
+            //this.validationService.violations(serviceModel).forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
             return false;
         }
 
@@ -116,5 +121,10 @@ public class RegionServiceImpl implements RegionService {
                     return viewModel;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long getRepositoryCount(){
+        return this.regionRepository.count();
     }
 }

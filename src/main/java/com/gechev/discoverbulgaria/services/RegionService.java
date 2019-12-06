@@ -14,4 +14,5 @@ public interface RegionService {
     void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException;
     boolean editRegion(EditRegionModel editRegionModel);
     List<RegionViewModel> getRegionViewModels();
+    Long getRepositoryCount();
 }

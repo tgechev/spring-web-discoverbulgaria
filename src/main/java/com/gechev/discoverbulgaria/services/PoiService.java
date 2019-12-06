@@ -12,4 +12,5 @@ public interface PoiService {
     void seedPoi(PoiServiceModel[] poiServiceModels);
     List<PoiFormViewModel> getPoiViewModels();
     void addOrEditPoi(PoiFormViewModel poiFormViewModel, boolean isEdit);
+    Long getRepositoryCount();
 }

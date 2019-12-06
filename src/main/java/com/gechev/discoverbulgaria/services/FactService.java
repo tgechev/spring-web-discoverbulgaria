@@ -16,4 +16,5 @@ public interface FactService {
     void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit);
 
     List<FactFormViewModel> getFactViewModels();
+    Long getRepositoryCount();
 }

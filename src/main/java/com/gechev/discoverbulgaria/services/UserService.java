@@ -16,4 +16,5 @@ public interface UserService extends UserDetailsService {
     List<UserViewModel> getUserViewModels();
     List<UserServiceModel> findAll();
     UserViewModel getUserViewModel(String username);
+    Long getRepositoryCount();
 }

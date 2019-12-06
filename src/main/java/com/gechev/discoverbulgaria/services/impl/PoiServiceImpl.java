@@ -12,7 +12,6 @@ import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
-import com.gechev.discoverbulgaria.util.ValidatorUtil;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
@@ -133,6 +132,8 @@ public class PoiServiceImpl implements PoiService {
                 System.out.println(String.format("Poi not added, reason: %s", e.getMessage()));
             }
         }
+
+        this.applicationEventPublisher.publishEvent(new PoiEvent(this));
     }
 
     public List<PoiFormViewModel> getPoiViewModels(){
@@ -147,5 +148,10 @@ public class PoiServiceImpl implements PoiService {
                     return poiFormViewModel;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long getRepositoryCount(){
+        return this.poiRepository.count();
     }
 }

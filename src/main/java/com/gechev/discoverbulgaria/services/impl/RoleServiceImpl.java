@@ -5,13 +5,11 @@ import com.gechev.discoverbulgaria.data.repositories.RoleRepository;
 import com.gechev.discoverbulgaria.services.RoleService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.RoleServiceModel;
-import com.gechev.discoverbulgaria.util.ValidatorUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,5 +63,10 @@ public class RoleServiceImpl implements RoleService {
                 System.out.println(String.format("Role %s successfully created.", role.getAuthority()));
             }
         }
+    }
+
+    @Override
+    public Long getRepositoryCount(){
+        return this.roleRepository.count();
     }
 }

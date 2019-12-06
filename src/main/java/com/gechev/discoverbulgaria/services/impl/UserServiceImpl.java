@@ -162,4 +162,9 @@ public class UserServiceImpl implements UserService {
 
         this.userRepository.save(this.mapper.map(serviceModel, User.class));
     }
+
+    @Override
+    public Long getRepositoryCount(){
+        return this.userRepository.count();
+    }
 }

@@ -30,4 +30,8 @@ public class EditRegionModel {
     private String theId;
 
     private String imageUrl;
+
+    public String getId(){
+        return "";
+    }
 }

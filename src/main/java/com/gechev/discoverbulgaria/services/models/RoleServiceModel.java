@@ -19,6 +19,17 @@ public class RoleServiceModel extends BaseServiceModel {
     private String authority;
 
     @Override
+    public String getId() {
+        if(super.getId() == null){
+            return "";
+        }
+
+        else {
+            return super.getId();
+        }
+    }
+
+    @Override
     public boolean equals(Object obj) {
 
         if(obj.getClass() != RoleServiceModel.class){
