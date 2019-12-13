@@ -186,6 +186,11 @@ public class CardServiceImpl implements CardService {
         this.factCards = loadFactCards();
     }
 
+    public void refreshCards(){
+        this.factCards = loadFactCards();
+        this.poiCards = loadPoiCards();
+    }
+
     @Async
     @EventListener
     public void refreshPoiCards(PoiEvent poiEvent){
