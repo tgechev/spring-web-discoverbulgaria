@@ -6,13 +6,17 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Component
-public class LoggedInUserInterceptorRegisterer implements WebMvcConfigurer {
+public class InterceptorsRegisterer implements WebMvcConfigurer {
 
     @Autowired
     LoggedInUserInterceptor loggedInUserInterceptor;
 
+    @Autowired
+    GreetingInterceptor greetingInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loggedInUserInterceptor);
+        registry.addInterceptor(loggedInUserInterceptor).addPathPatterns("/home");
+        registry.addInterceptor(greetingInterceptor).addPathPatterns("/home", "/facts/**", "/poi/**", "/regions/**", "/users/roles");
     }
 }
