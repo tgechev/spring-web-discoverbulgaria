@@ -4,11 +4,9 @@ import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
 
 import java.util.List;
-import java.util.Set;
 
 public interface PoiService {
-    Set<PoiServiceModel> findAll();
-    PoiServiceModel findByName(String name);
+    List<PoiServiceModel> findAll();
     void seedPoi(PoiServiceModel[] poiServiceModels);
     List<PoiFormViewModel> getPoiViewModels();
     void addOrEditPoi(PoiFormViewModel poiFormViewModel, boolean isEdit);

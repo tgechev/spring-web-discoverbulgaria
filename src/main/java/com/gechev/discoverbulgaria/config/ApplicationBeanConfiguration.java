@@ -23,11 +23,6 @@ import java.util.HashMap;
 public class ApplicationBeanConfiguration {
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }

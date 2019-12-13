@@ -8,13 +8,13 @@ import com.gechev.discoverbulgaria.data.repositories.UserRepository;
 import com.gechev.discoverbulgaria.services.RoleService;
 import com.gechev.discoverbulgaria.services.UserService;
 import com.gechev.discoverbulgaria.services.ValidationService;
+import com.gechev.discoverbulgaria.services.HashService;
 import com.gechev.discoverbulgaria.services.models.RoleServiceModel;
 import com.gechev.discoverbulgaria.services.models.UserServiceModel;
 import com.gechev.discoverbulgaria.web.models.UserViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -28,15 +28,15 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final ModelMapper mapper;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final HashService hashService;
 
-    public UserServiceImpl(ValidationService validationService, RoleService roleService, RoleRepository roleRepository, UserRepository userRepository, ModelMapper mapper, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(ValidationService validationService, RoleService roleService, RoleRepository roleRepository, UserRepository userRepository, ModelMapper mapper, HashService hashService) {
         this.validationService = validationService;
         this.roleService = roleService;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.mapper = mapper;
-        this.passwordEncoder = passwordEncoder;
+        this.hashService = hashService;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = this.mapper.map(userServiceModel, User.class);
-        user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
+        user.setPassword(this.hashService.hash(userServiceModel.getPassword()));
 
         return this.mapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
     }
@@ -66,9 +66,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return this.userRepository
+        User user = this.userRepository
                 .findByUsername(s)
                 .orElseThrow(() -> new UsernameNotFoundException(Constants.USERNAME_NOT_FOUND));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                user.getAuthorities()
+        );
     }
 
     @Override
@@ -104,7 +110,7 @@ public class UserServiceImpl implements UserService {
                     //If no exceptions are thrown, create user.
                     User user = this.mapper.map(userServiceModel, User.class);
                     user.setAuthorities(roles);
-                    user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
+                    user.setPassword(this.hashService.hash(userServiceModel.getPassword()));
                     //user.setPassword(userServiceModel.getPassword());
                     this.userRepository.saveAndFlush(user);
                     System.out.println(String.format("User %s successfully added.", user.getUsername()));

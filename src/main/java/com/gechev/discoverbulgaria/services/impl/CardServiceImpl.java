@@ -166,7 +166,6 @@ public class CardServiceImpl implements CardService {
 
     private List<CardViewModel> loadPoiCards(){
         return this.poiService.findAll().stream()
-                .sorted(Comparator.comparing(PoiServiceModel::getTitle))
                 .map(poiServiceModel -> {
                     CardViewModel poiCard = this.mapper.map(poiServiceModel, CardViewModel.class);
                     poiCard.setLatitude(poiServiceModel.getCoordinates().getLatitude());

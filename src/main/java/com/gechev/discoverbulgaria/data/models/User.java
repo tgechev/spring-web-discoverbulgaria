@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity {
 
     @Column(name = "username", nullable = false, unique = true, updatable = false)
     private String username;
@@ -30,7 +30,6 @@ public class User extends BaseEntity implements UserDetails {
     public User() {
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
@@ -39,7 +38,6 @@ public class User extends BaseEntity implements UserDetails {
         this.username = username;
     }
 
-    @Override
     public String getPassword() {
         return password;
     }
@@ -47,7 +45,6 @@ public class User extends BaseEntity implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getEmail() {
         return email;
@@ -57,36 +54,11 @@ public class User extends BaseEntity implements UserDetails {
         this.email = email;
     }
 
-    @Override
     public Set<Role> getAuthorities() {
         return authorities;
     }
 
     public void setAuthorities(Set<Role> authorities) {
         this.authorities = authorities;
-    }
-
-    @Override
-    @Transient
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    @Transient
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    @Transient
-    public boolean isEnabled() {
-        return true;
     }
 }

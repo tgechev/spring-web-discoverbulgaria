@@ -1,17 +1,14 @@
 package com.gechev.discoverbulgaria.services;
 
-import com.cloudinary.Cloudinary;
 import com.gechev.discoverbulgaria.base.TestBase;
 import com.gechev.discoverbulgaria.data.models.Fact;
 import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.data.repositories.FactRepository;
-import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
-import com.gechev.discoverbulgaria.web.controllers.SeedController;
 import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,18 +26,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FactServiceTest extends TestBase {
+
+    @MockBean
+    public ValidationService validationService;
+
     @MockBean
     FactRepository factRepository;
-    @MockBean
-    RegionRepository regionRepository;
+
     @MockBean
     ApplicationEventPublisher eventPublisher;
-    @MockBean
-    Cloudinary cloudinary;
-    @MockBean
-    ValidationService validationService;
-    @MockBean
-    SeedController seedController;
 
     @Autowired
     FactService factService;

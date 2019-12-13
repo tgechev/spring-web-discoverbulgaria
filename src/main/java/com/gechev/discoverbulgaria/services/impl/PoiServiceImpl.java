@@ -9,6 +9,7 @@ import com.gechev.discoverbulgaria.data.repositories.PoiRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.events.PoiEvent;
 import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
+import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
@@ -44,16 +45,12 @@ public class PoiServiceImpl implements PoiService {
 
     @Override
     @Transactional
-    public Set<PoiServiceModel> findAll() {
+    public List<PoiServiceModel> findAll() {
         return this.poiRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Poi::getTitle))
                 .map(poi -> this.mapper.map(poi, PoiServiceModel.class))
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public PoiServiceModel findByName(String name) {
-        return null;
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -83,7 +80,7 @@ public class PoiServiceImpl implements PoiService {
             poi.setCoordinates(poiCoordinates);
         }
 
-        Region poiRegion = this.regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow();
+        Region poiRegion = this.regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на тази забележителност не бе намерена."));
 
         poi.setRegion(poiRegion);
 

@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface RegionService {
     List<RegionServiceModel> findAll();
-    RegionServiceModel findByName(String name);
-    RegionServiceModel findByRegionId(String regionId);
     void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException;
     boolean editRegion(EditRegionModel editRegionModel);
     List<RegionViewModel> getRegionViewModels();

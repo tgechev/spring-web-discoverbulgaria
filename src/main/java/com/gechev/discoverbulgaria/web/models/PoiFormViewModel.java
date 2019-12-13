@@ -1,6 +1,7 @@
 package com.gechev.discoverbulgaria.web.models;
 
 import com.gechev.discoverbulgaria.data.models.Type;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PoiFormViewModel {
     @Size(min = 3, max = 100, message = "Името трябва да бъде между 3 и 100 символа.")
     private String title;
@@ -29,10 +31,10 @@ public class PoiFormViewModel {
     private String address;
 
     @NotNull(message = "Географските координати са задължителни.")
-    private Double longitude;
+    private Double latitude;
 
     @NotNull(message = "Географските координати са задължителни.")
-    private Double latitude;
+    private Double longitude;
 
     @Size(min = 100, max = 500, message = "Описанието трябва да бъде между 100 и 500 символа.")
     private String description;

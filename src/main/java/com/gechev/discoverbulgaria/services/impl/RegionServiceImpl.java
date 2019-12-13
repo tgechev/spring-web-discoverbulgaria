@@ -45,16 +45,6 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public RegionServiceModel findByName(String name) {
-        return this.mapper.map(this.regionRepository.findByName(name).orElseThrow(), RegionServiceModel.class);
-    }
-
-    @Override
-    public RegionServiceModel findByRegionId(String regionId){
-        return this.mapper.map(this.regionRepository.findByRegionId(regionId), RegionServiceModel.class);
-    }
-
-    @Override
     public void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException {
         for (RegionServiceModel regionServiceModel : regionServiceModels) {
             //Validate region model and print message if not valid
@@ -94,7 +84,6 @@ public class RegionServiceImpl implements RegionService {
 
         if(!this.validationService.isValid(serviceModel)){
 
-            //this.validationService.violations(serviceModel).forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
             return false;
         }
 
