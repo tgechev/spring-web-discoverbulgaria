@@ -1,5 +1,6 @@
 package com.gechev.discoverbulgaria.services;
 
+import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.events.FactEvent;
 import com.gechev.discoverbulgaria.events.PoiEvent;
 import com.gechev.discoverbulgaria.web.models.CardViewModel;
@@ -16,4 +17,6 @@ public interface CardService {
     void refreshCards();
 
     List<Integer> getPageNumbers(Page<CardViewModel> page);
+
+    List<CardViewModel> getFactCardsForRegion(String regionId, Type type);
 }

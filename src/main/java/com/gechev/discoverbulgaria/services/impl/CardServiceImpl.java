@@ -116,7 +116,8 @@ public class CardServiceImpl implements CardService {
 
     }
 
-    private List<CardViewModel> getFactCardsForRegion(String regionId, Type type){
+    @Override
+    public List<CardViewModel> getFactCardsForRegion(String regionId, Type type){
         List<CardViewModel> regionFactCards = new ArrayList<>();
 
         this.factCards.forEach(card->{
