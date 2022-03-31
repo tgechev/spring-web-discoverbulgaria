@@ -78,11 +78,16 @@ function registerMapLinkClick() {
 
 			let poiCoords = {lat: poiLat, lng: poiLng};
 
+			debugger
 			let marker = new H.map.Marker(poiCoords);
 			map.addObject(marker);
-			map.setZoom(17);
-			map.setCenter(poiCoords);
-
+			map.getViewModel().setLookAtData(
+				{
+					position: poiCoords,
+					zoom: 17
+				},
+				true
+			);
 			return false;
 		});
 	}

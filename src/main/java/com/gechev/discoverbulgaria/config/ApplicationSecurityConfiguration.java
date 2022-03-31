@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -21,28 +22,37 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     @Autowired
     private UserService userService;
 
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors().disable()
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/js/**", "/css/**", "/font/**").permitAll()
-            .antMatchers("/", "/users/register", "/users/login").anonymous()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
-            .loginPage("/users/login")
-            .usernameParameter("username")
-            .passwordParameter("password")
-            .defaultSuccessUrl("/home", true)
-            .and()
-            .logout()
-                .deleteCookies("JSESSIONID")
-            .logoutSuccessUrl("/users/login?logout").permitAll();
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/index.html", "/", "/home", "/login").permitAll()
+                .anyRequest().authenticated().and().csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//            .cors().disable()
+//            .csrf().disable()
+//            .authorizeRequests()
+//            .antMatchers("/js/**", "/css/**", "/font/**").permitAll()
+//            .antMatchers("/", "/users/register", "/users/login").anonymous()
+//            .anyRequest().authenticated()
+//            .and()
+//            .formLogin()
+//            .loginPage("/users/login")
+//            .usernameParameter("username")
+//            .passwordParameter("password")
+//            .defaultSuccessUrl("/home", true)
+//            .and()
+//            .logout()
+//                .deleteCookies("JSESSIONID")
+//            .logoutSuccessUrl("/users/login?logout").permitAll();
+//    }
 
     @Bean
     @Override

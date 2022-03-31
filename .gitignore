@@ -30,3 +30,18 @@ build/
 ### VS Code ###
 .vscode/
 /logs/
+
+### Node modules ###
+node/
+node_modules/
+
+# misc
+/.angular/cache
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings

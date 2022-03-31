@@ -1,7 +1,7 @@
 package com.gechev.discoverbulgaria.base;
 
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
-import com.gechev.discoverbulgaria.web.controllers.SeedController;
+// import com.gechev.discoverbulgaria.web.controllers.SeedController;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,8 +17,8 @@ public class TestBase {
     @MockBean
     public RegionRepository regionRepository;
 
-    @MockBean
-    public SeedController seedController;
+//    @MockBean
+//    public SeedController seedController;
 
     @BeforeEach
     private void setupTest(){
