@@ -30,7 +30,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/index.html", "/", "/home", "/login").permitAll()
+                .antMatchers("/index.html", "/", "/home", "/login", "/main.*", "/polyfills.*", "/runtime.*", "/styles.*", "/Plovdiv*").permitAll()
                 .anyRequest().authenticated().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }

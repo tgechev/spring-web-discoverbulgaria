@@ -1,0 +1,55 @@
+<h1>Добре дошли в Преоткрий България.</h1>
+<hr class="my-3"/>
+<p class="h4">Мястото, което Ви помага да опознаете нашата родина най-добре.</p>
+<hr class="my-3"/>
+
+<div class="row">
+  <div class="col-md-6">
+    <app-svg-map></app-svg-map>
+    <div id="mapContainer" #mapContainer></div>
+  </div>
+  <div class="col-md-6">
+    <div class="row" (click)="setActiveCatOrType($event)">
+      <div class="col-md-6 d-block">
+        <div class="mx-auto pills-label">
+          <h4>Покажи:</h4>
+        </div>
+        <div class="d-flex">
+          <ul class="nav md-pills pills-secondary mx-auto">
+            <li class="nav-item">
+              <a class="cat nav-link" data-toggle="tab" id="poi">Забележителности</a>
+            </li>
+            <li class="nav-item">
+              <a class="cat nav-link" data-toggle="tab" id="facts">Факти</a>
+            </li>
+            <li class="nav-item">
+              <a class="cat nav-link active" data-toggle="tab" id="type-all">Всичко</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 d-block">
+        <div class="mx-auto pills-label">
+          <h4>От тип:</h4>
+        </div>
+        <div class="d-flex">
+          <ul class="nav md-pills pills-secondary mx-auto">
+            <li class="nav-item">
+              <a class="type nav-link" data-toggle="tab" id="history">Исторически</a>
+            </li>
+            <li class="nav-item">
+              <a class="type nav-link" data-toggle="tab" id="nature">Природонаучни</a>
+            </li>
+            <li class="nav-item">
+              <a class="type nav-link active" data-toggle="tab" id="cat-all">Всичко</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <app-card-deck></app-card-deck>
+  </div>
+</div>
+<!--<p class="h3"><a>Влезте</a> ако вече имате профил или се-->
+<!--  <a>регистрирайте</a>, за да продължите.-->
+<!--</p>-->

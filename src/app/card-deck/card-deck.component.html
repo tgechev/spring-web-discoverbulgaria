@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div id="loader" class="justify-content-center" [ngClass]="{ 'd-none': !loading }">
+      <div class="preloader-wrapper active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="popup-background" (click)="exitPopup()"></div>
+    <div class="card" id="popup-card" [@popup]="{ value: popupState }" (@popup.done)="onPopupDone()">
+      <!-- Card image -->
+      <div class="view" [ngClass]="{ 'overlay': !popupCard?.videoId, 'yt-container': popupCard?.videoId }">
+        <img id="popup-img" [ngClass]="{ 'd-none': showPopupVideo && popupCard?.videoId }" class="card-img-top" src="{{popupCard?.imageUrl}}" alt="Card image cap">
+        <youtube-player
+          [ngClass]="{ 'd-none': !showPopupVideo || !popupCard?.videoId }"
+          videoId="{{popupCard?.videoId}}"
+          suggestedQuality="highres"
+          #yt_player>
+        </youtube-player>
+      </div>
+      <!-- Card content -->
+      <div class="card-body">
+        <!-- Title -->
+<!--        <h4 class="card-title">{{popupCard?.title}}</h4>-->
+        <hr>
+        <!-- Text -->
+        <p class="card-text">{{popupCard?.description}}</p>
+
+        <!-- Show on map link -->
+<!--        <a [attr.show-card]="popupCard?.id" *ngIf="!all && popupCard?.latitude != null" href="#mapContainer" class="map-link black-text d-flex justify-content-end" (click)="showOnMap($event)"><h5><i class="fas fa-angle-double-left"></i> Виж на картата</h5></a>-->
+
+        <!-- Read more link -->
+        <a [attr.open-link]="popupCard?.id" *ngIf="popupCard?.readMore != ''" href="{{popupCard?.readMore}}" class="black-text d-flex justify-content-end" target="_blank"><h5>Прочети повече <i class="fas fa-angle-double-right"></i></h5></a>
+      </div>
+    </div>
+    <div id="deck" [ngClass]="{ 'd-none': loading }">
+      <div class="card-deck" *ngIf="cards.length !== 0 else guide_or_loader">
+        <ng-container *ngFor="let card of cards; let i = index">
+          <div class="card" id="{{card.id}}" (click)="onCardClick($event)">
+            <!-- Card image -->
+            <div class="view overlay">
+              <img class="card-img-top" src="{{card.imageUrl}}" alt="Card image cap">
+            </div>
+
+            <!-- Card content -->
+            <div class="card-body">
+              <!-- Title -->
+              <h4 class="card-title">{{card.title}}</h4>
+              <ng-container *ngIf="card.address && card.address != ''">
+                <hr>
+                <h6 class="card-address">{{card.address}}</h6>
+                <hr>
+              </ng-container>
+              <!-- Text -->
+<!--              <p class="card-text">{{card.description}}</p>-->
+
+              <!-- Show on map link -->
+              <a [attr.show-card]="card.id" *ngIf="!all && card.latitude != null" href="#mapContainer" class="map-link black-text d-flex justify-content-end"><h5><i class="fas fa-angle-double-left"></i> Виж на картата</h5></a>
+
+              <!-- Read more link -->
+<!--              <a [attr.open-link]="card.id" *ngIf="card.readMore != ''" href="{{card.readMore}}" class="black-text d-flex justify-content-end" target="_blank"><h5>Прочети повече <i class="fas fa-angle-double-right"></i></h5></a>-->
+            </div>
+          </div>
+          <!-- Card Light -->
+          <div class="w-100 d-none d-block" *ngIf="!all && (i + 1) % 2 === 0"><!-- wrap every 2 --></div>
+
+          <ng-container *ngIf="all">
+            <div class="w-100 d-none d-sm-block d-md-none" *ngIf="(i + 1) % 1 === 0"><!-- wrap every 1 on sm--></div>
+            <div class="w-100 d-none d-md-block d-lg-none" *ngIf="(i + 1) % 2 === 0"><!-- wrap every 2 on md--></div>
+            <div class="w-100 d-none d-lg-block d-xl-none" *ngIf="(i + 1) % 3 === 0"><!-- wrap every 3 on lg--></div>
+            <div class="w-100 d-none d-xl-block" *ngIf="(i + 1) % 4 === 0"><!-- wrap every 4 on xl--></div>
+
+            <ng-container *ngIf="i === cards.length - 1">
+              <ng-container *ngIf="(i + 1) % 4 === 3">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <ng-template #guide_or_loader>
+        <ng-container *ngIf="!all else loader">
+          <div class="card-deck" id="guide">
+            <!-- Card Light -->
+            <div class="card">
+              <!-- Card content -->
+              <div class="card-body">
+                <!-- Title -->
+                <h3 class="card-title "> <i class="fas fa-arrow-up"></i> Избери критерии</h3>
+                <hr>
+                <!-- Text -->
+                <h5>Разглеждай забележителности или чети интересни факти за избрана област. Можеш да избираш между забележителности и факти свързани с нашата история или природа. Ако не можеш да избереш, имаш възможност да видиш всичко за избраната от теб област.</h5>
+              </div>
+            </div>
+            <!-- Card Light -->
+            <div class="w-100 d-none d-block"></div>
+            <!-- Card Light -->
+            <div class="card">
+              <!-- Card content -->
+              <div class="card-body">
+                <!-- Title -->
+                <h3 class="card-title "> <i class="fas fa-arrow-left"></i> Избери област</h3>
+                <hr>
+                <!-- Text -->
+                <p class="h5">Избери област от картата вляво и цъкни върху нея, за да я опознаеш.</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-template>
+      <ng-template #loader>
+        <div id="ng-loader" class="justify-content-center">
+          <div class="preloader-wrapper active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

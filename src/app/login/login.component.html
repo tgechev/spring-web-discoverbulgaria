@@ -1,0 +1,36 @@
+<div class="row db-form-row">
+  <div class="col-md-6 mx-auto">
+    <!-- Material form login -->
+    <div class="card user-form">
+      <h5 class="card-header success-color-dark white-text text-center py-4">
+        <strong>Вход</strong>
+      </h5>
+      <!--Card content-->
+      <div class="card-body px-lg-5 pt-0">
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" role="form" (submit)="login()">
+          <!-- Username -->
+          <div class="md-form">
+            <input type="text" id="username" name="username" class="form-control" [(ngModel)]="credentials.username">
+            <label for="username">Потребителско име</label>
+          </div>
+
+          <!-- Password -->
+          <div class="md-form">
+            <input type="password" id="password" name="password" class="form-control" [(ngModel)]="credentials.password">
+            <label for="password">Парола</label>
+          </div>
+
+          <!-- Sign in button -->
+          <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Вход</button>
+          <!-- Register -->
+          <p>Нямате профил?
+            <a routerLink="/register">Регистрация</a>
+          </p>
+        </form>
+        <!-- Form -->
+      </div>
+    </div>
+    <!-- Material form login -->
+  </div>
+</div>
