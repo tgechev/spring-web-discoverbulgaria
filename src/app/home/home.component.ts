@@ -1,17 +1,22 @@
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import * as $ from 'jquery';
-import { Poi } from "../interfaces/Poi";
-import { NotifyService } from "../notify.service";
+import { Poi } from '../interfaces/Poi';
+import { NotifyService } from '../notify.service';
 
 declare var H: any;
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-
   private platform: any;
   private map: any;
 
@@ -21,7 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(private notifyService: NotifyService) {
     // Init platform object
     this.platform = new H.service.Platform({
-      'apikey': '_NHpWdVPwg24udbhSq1dNlk0CSUZKICUOUeAvQTMSpQ'
+      apikey: '_NHpWdVPwg24udbhSq1dNlk0CSUZKICUOUeAvQTMSpQ',
     });
 
     this.notifyService.currentPoi.subscribe(poi => {
@@ -30,8 +35,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initHereMap();
@@ -59,8 +63,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       maptypes.raster.satellite.map,
       {
         zoom: 7.5,
-        center: { lat: 42.63458, lng: 25.57753 }
-      });
+        center: { lat: 42.63458, lng: 25.57753 },
+      },
+    );
     // Enable the event system on the map instance:
     var mapEvents = new H.mapevents.MapEvents(this.map);
     // Instantiate the default behavior, providing the mapEvents object:
@@ -71,15 +76,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   showPoi(poi: Poi): void {
     if (poi.latitude) {
-      const poiCoords = { lat: poi.latitude, lng: poi.longitude };
+      const poiCoords = {
+        lat: poi.latitude,
+        lng: poi.longitude,
+      };
       const marker = new H.map.Marker(poiCoords);
       this.map.addObject(marker);
       this.map.getViewModel().setLookAtData(
         {
           position: poiCoords,
-          zoom: 17
+          zoom: 17,
         },
-        true
+        true,
       );
     }
   }
