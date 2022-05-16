@@ -10,21 +10,23 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CardViewModel {
 
-    private String title;
+  private String id;
 
-    private String description;
+  private String title;
 
-    private String address;
+  private String description;
 
-    private Type type;
+  private String address;
 
-    private String imageUrl;
+  private Type type;
 
-    private String readMore;
+  private String imageUrl;
 
-    private String regionId;
+  private String readMore;
 
-    private Double longitude;
+  private String regionId;
 
-    private Double latitude;
+  private Double longitude;
+
+  private Double latitude;
 }

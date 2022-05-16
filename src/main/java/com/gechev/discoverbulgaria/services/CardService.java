@@ -18,5 +18,7 @@ public interface CardService {
 
     List<Integer> getPageNumbers(Page<CardViewModel> page);
 
-    List<CardViewModel> getFactCardsForRegion(String regionId, Type type);
+    List<CardViewModel> getFactsByRegion(String regionId, Type type);
+
+    List<CardViewModel> getPoiCardsForRegion(String regionId, Type type);
 }

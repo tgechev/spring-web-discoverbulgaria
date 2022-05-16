@@ -101,11 +101,11 @@ public class CardServiceImpl implements CardService {
                 cards.addAll(getPoiCardsForRegion(regionId, type));
             break;
             case "facts":
-                cards.addAll(getFactCardsForRegion(regionId, type));
+                cards.addAll(getFactsByRegion(regionId, type));
             break;
             default:
                 cards.addAll(getPoiCardsForRegion(regionId, type));
-                cards.addAll(getFactCardsForRegion(regionId, type));
+                cards.addAll(getFactsByRegion(regionId, type));
         }
 
         cards = cards.stream()
@@ -117,7 +117,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardViewModel> getFactCardsForRegion(String regionId, Type type){
+    public List<CardViewModel> getFactsByRegion(String regionId, Type type){
         List<CardViewModel> regionFactCards = new ArrayList<>();
 
         this.factCards.forEach(card->{
@@ -135,7 +135,7 @@ public class CardServiceImpl implements CardService {
         return regionFactCards;
     }
 
-    private List<CardViewModel> getPoiCardsForRegion(String regionId, Type type){
+    public List<CardViewModel> getPoiCardsForRegion(String regionId, Type type){
         List<CardViewModel> regionPoiCards = new ArrayList<>();
 
         this.poiCards.forEach(cardViewModel -> {
@@ -158,7 +158,6 @@ public class CardServiceImpl implements CardService {
                 .map(f->{
                     CardViewModel factCard = this.mapper.map(f, CardViewModel.class);
                     factCard.setRegionId(f.getRegion().getRegionId());
-                    factCard.setAddress("no-data");
                     factCard.setImageUrl(Constants.CLOUDINARY_BASE_URL + f.getImageUrl());
                     return factCard;
                 })

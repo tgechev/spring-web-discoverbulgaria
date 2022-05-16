@@ -1,7 +1,7 @@
-import { Type } from "../../constants";
+import { Type } from '../../constants';
 
 export interface Card {
-  id: number;
+  id: string;
   title: string;
   description: string;
   type: Type;

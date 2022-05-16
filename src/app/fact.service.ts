@@ -2,40 +2,39 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Fact } from "./interfaces/Fact";
-import { Type } from "../constants";
+import { Fact } from './interfaces/Fact';
+import { Type } from '../constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FactService {
-
   private factsUrl = 'api/facts';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /** GET regions from the server */
   getFactsByRegion(regionId: string, type?: Type): Observable<Fact[]> {
     let url: string;
     if (type && type !== Type.ALL) {
-      url = `${this.factsUrl}?regionId=${regionId}&type=${type}`;
+      url = `${this.factsUrl}/${regionId}?type=${type}`;
     } else {
-      url = `${this.factsUrl}?regionId=${regionId}`;
+      url = `${this.factsUrl}/${regionId}`;
     }
     return this.http.get<Fact[]>(url).pipe(
       // tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Fact[]>('getFactsByRegion', []))
+      catchError(this.handleError<Fact[]>('getFactsByRegion', [])),
     );
   }
 
   getAllFacts(): Observable<Fact[]> {
-    return this.http.get<Fact[]>(this.factsUrl).pipe(
-      catchError(this.handleError<Fact[]>('getAllFacts', []))
-    );
+    return this.http
+      .get<Fact[]>(this.factsUrl)
+      .pipe(catchError(this.handleError<Fact[]>('getAllFacts', [])));
   }
 
   /**
@@ -46,7 +45,6 @@ export class FactService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 

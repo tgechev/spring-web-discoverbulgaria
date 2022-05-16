@@ -2,26 +2,25 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Region } from "./interfaces/Region";
+import { Region } from './interfaces/Region';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegionService {
-
-  private regionsUrl = 'api/regions';  // URL to web api
+  private regionsUrl = 'api/regions'; // URL to web api
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /** GET regions from the server */
   getRegions(): Observable<Region[]> {
-    return this.http.get<Region[]>(this.regionsUrl).pipe(
+    return this.http.get<Region[]>(`${this.regionsUrl}/all`).pipe(
       // tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Region[]>('getRegions', []))
+      catchError(this.handleError<Region[]>('getRegions', [])),
     );
   }
 
@@ -33,7 +32,6 @@ export class RegionService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 

@@ -17,6 +17,6 @@ public class InterceptorsRegisterer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loggedInUserInterceptor).addPathPatterns("/home");
-        registry.addInterceptor(greetingInterceptor).addPathPatterns("/home", "/facts/**", "/poi/**", "/regions/**", "/users/roles");
+        // registry.addInterceptor(greetingInterceptor).addPathPatterns("/home", "/facts/**", "/poi/**", "/regions/**", "/users/roles");
     }
 }
