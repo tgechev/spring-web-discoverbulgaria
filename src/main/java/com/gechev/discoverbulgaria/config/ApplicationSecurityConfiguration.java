@@ -19,21 +19,24 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/index.html", "/", "/home", "/login", "/main.*", "/polyfills.*", "/runtime.*", "/styles.*", "/Plovdiv*").permitAll()
-                .anyRequest().authenticated().and().csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+      .csrf()
+      .ignoringAntMatchers("/register").and()
+      .httpBasic()
+      .and()
+      .authorizeRequests()
+      .antMatchers("/login", "/register").anonymous()
+      .antMatchers("/index.html", "/", "/home", "/main.*", "/polyfills.*", "/runtime.*", "/styles.*", "/Plovdiv*").permitAll()
+      .anyRequest().authenticated().and().csrf()
+      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+  }
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
 //            .cors().disable()
@@ -54,17 +57,21 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 //            .logoutSuccessUrl("/users/login?logout").permitAll();
 //    }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService(){ return userService; }
+  @Bean
+  @Override
+  public UserDetailsService userDetailsService() {
+    return userService;
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() { return passwordEncoder; }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return passwordEncoder;
+  }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder);
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+      .userDetailsService(userService)
+      .passwordEncoder(passwordEncoder);
+  }
 }
