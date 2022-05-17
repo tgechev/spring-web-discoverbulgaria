@@ -29,4 +29,6 @@ public class CardViewModel {
   private Double longitude;
 
   private Double latitude;
+
+  private String videoId;
 }

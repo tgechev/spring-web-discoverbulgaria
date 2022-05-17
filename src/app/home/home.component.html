@@ -1,8 +1,13 @@
-<h1>Добре дошли в Преоткрий България.</h1>
-<hr class="my-3"/>
-<p class="h4">Мястото, което Ви помага да опознаете нашата родина най-добре.</p>
-<hr class="my-3"/>
-
+<ng-container *ngIf="!isAuthenticated()">
+    <h1>Добре дошли в Преоткрий България.</h1>
+    <hr class="my-3"/>
+    <p class="h4">Мястото, което Ви помага да опознаете нашата родина най-добре.</p>
+    <hr class="my-3"/>
+    <p class="h3"><a routerLink="/login">Влезте</a> ако вече имате профил или се
+      <a routerLink="/register">регистрирайте</a>, за да продължите.
+    </p>
+</ng-container>
+<ng-container *ngIf="isAuthenticated()">
 <div class="row">
   <div class="col-md-6">
     <app-svg-map></app-svg-map>
@@ -50,6 +55,4 @@
     <app-card-deck></app-card-deck>
   </div>
 </div>
-<!--<p class="h3"><a>Влезте</a> ако вече имате профил или се-->
-<!--  <a>регистрирайте</a>, за да продължите.-->
-<!--</p>-->
+</ng-container>

@@ -8,6 +8,7 @@ import {
 import * as $ from 'jquery';
 import { Poi } from '../interfaces/Poi';
 import { NotifyService } from '../notify.service';
+import { AppService } from '../app.service';
 
 declare var H: any;
 
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer')
   mapContainer?: ElementRef;
 
-  constructor(private notifyService: NotifyService) {
+  constructor(private notifyService: NotifyService, private app: AppService) {
     // Init platform object
     this.platform = new H.service.Platform({
       apikey: '_NHpWdVPwg24udbhSq1dNlk0CSUZKICUOUeAvQTMSpQ',
@@ -52,6 +53,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
       jTarget.addClass('active');
     }
+  }
+
+  public isAuthenticated(): boolean {
+    return this.app.authenticated;
   }
 
   private initHereMap(): void {
