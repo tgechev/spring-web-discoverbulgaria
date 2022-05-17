@@ -2,9 +2,7 @@ package com.gechev.discoverbulgaria.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.gechev.discoverbulgaria.constants.Constants;
-import com.gechev.discoverbulgaria.data.models.Coordinates;
-import com.gechev.discoverbulgaria.data.models.Poi;
-import com.gechev.discoverbulgaria.data.models.Region;
+import com.gechev.discoverbulgaria.data.models.*;
 import com.gechev.discoverbulgaria.data.repositories.PoiRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
 import com.gechev.discoverbulgaria.events.PoiEvent;
@@ -13,6 +11,7 @@ import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
+import com.gechev.discoverbulgaria.web.models.CardViewModel;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,126 +26,149 @@ import java.util.stream.Collectors;
 @Service
 public class PoiServiceImpl implements PoiService {
 
-    private final ModelMapper mapper;
-    private final ValidationService validationService;
-    private final RegionRepository regionRepository;
-    private final PoiRepository poiRepository;
-    private final Cloudinary cloudinary;
-    private final ApplicationEventPublisher applicationEventPublisher;
+  private final ModelMapper mapper;
+  private final ValidationService validationService;
+  private final RegionRepository regionRepository;
+  private final PoiRepository poiRepository;
+  private final Cloudinary cloudinary;
+  private final ApplicationEventPublisher applicationEventPublisher;
 
-    public PoiServiceImpl(ModelMapper mapper, ValidationService validationService, RegionRepository regionRepository, PoiRepository poiRepository, Cloudinary cloudinary, ApplicationEventPublisher applicationEventPublisher) {
-        this.mapper = mapper;
-        this.validationService = validationService;
-        this.regionRepository = regionRepository;
-        this.poiRepository = poiRepository;
-        this.cloudinary = cloudinary;
-        this.applicationEventPublisher = applicationEventPublisher;
+  public PoiServiceImpl(ModelMapper mapper, ValidationService validationService, RegionRepository regionRepository, PoiRepository poiRepository, Cloudinary cloudinary, ApplicationEventPublisher applicationEventPublisher) {
+    this.mapper = mapper;
+    this.validationService = validationService;
+    this.regionRepository = regionRepository;
+    this.poiRepository = poiRepository;
+    this.cloudinary = cloudinary;
+    this.applicationEventPublisher = applicationEventPublisher;
+  }
+
+  @Override
+  @Transactional
+  public List<PoiServiceModel> findAll() {
+    return this.poiRepository.findAll()
+      .stream()
+      .sorted(Comparator.comparing(Poi::getTitle))
+      .map(poi -> this.mapper.map(poi, PoiServiceModel.class))
+      .collect(Collectors.toList());
+  }
+
+  @Override
+  public void addOrEditPoi(PoiFormViewModel poiFormViewModel, boolean isEdit) {
+    Poi poi;
+
+    if (isEdit) {
+      poi = this.poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow(() -> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
+
+      poi.setTitle(poiFormViewModel.getTitle());
+      poi.setAddress(poiFormViewModel.getAddress());
+      poi.setDescription(poiFormViewModel.getDescription());
+      poi.setType(poiFormViewModel.getType());
+      poi.setImageUrl(poiFormViewModel.getImageUrl());
+      poi.setReadMore(poiFormViewModel.getReadMore());
+
+      Coordinates poiCoords = poi.getCoordinates();
+      poiCoords.setLatitude(poiFormViewModel.getLatitude());
+      poiCoords.setLongitude(poiFormViewModel.getLongitude());
+
+    } else {
+      poi = this.mapper.map(poiFormViewModel, Poi.class);
+
+      Coordinates poiCoordinates = new Coordinates(poiFormViewModel.getLatitude(), poiFormViewModel.getLongitude());
+
+      poi.setCoordinates(poiCoordinates);
     }
 
-    @Override
-    @Transactional
-    public List<PoiServiceModel> findAll() {
-        return this.poiRepository.findAll()
-                .stream()
-                .sorted(Comparator.comparing(Poi::getTitle))
-                .map(poi -> this.mapper.map(poi, PoiServiceModel.class))
-                .collect(Collectors.toList());
-    }
+    Region poiRegion = this.regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на тази забележителност не бе намерена."));
 
-    @Override
-    public void addOrEditPoi(PoiFormViewModel poiFormViewModel, boolean isEdit) {
-        Poi poi;
+    poi.setRegion(poiRegion);
 
-        if(isEdit){
-            poi = this.poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow(()-> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
+    this.poiRepository.save(poi);
 
-            poi.setTitle(poiFormViewModel.getTitle());
-            poi.setAddress(poiFormViewModel.getAddress());
-            poi.setDescription(poiFormViewModel.getDescription());
-            poi.setType(poiFormViewModel.getType());
-            poi.setImageUrl(poiFormViewModel.getImageUrl());
-            poi.setReadMore(poiFormViewModel.getReadMore());
+    this.applicationEventPublisher.publishEvent(new PoiEvent(this));
+  }
 
-            Coordinates poiCoords = poi.getCoordinates();
-            poiCoords.setLatitude(poiFormViewModel.getLatitude());
-            poiCoords.setLongitude(poiFormViewModel.getLongitude());
+  @Override
+  @Transactional
+  public void seedPoi(PoiServiceModel[] poiServiceModels) {
+    for (PoiServiceModel poiServiceModel : poiServiceModels) {
+      //Validate poi model and print message if not valid
+      if (!this.validationService.isValid(poiServiceModel)) {
+        this.validationService.violations(poiServiceModel)
+          .forEach(v -> System.out.printf("%s %s%n", v.getMessage(), v.getInvalidValue()));
+        continue;
+      }
+      try {
+        String regionId = poiServiceModel.getRegion().getRegionId();
+        Region region = this.regionRepository.findByRegionId(regionId).orElseThrow(() -> new NoSuchElementException(String.format("could not find region with regionId: %s", regionId)));
 
+        try {
+          Poi poi = this.poiRepository.findByTitle(poiServiceModel.getTitle()).orElseThrow();
+          System.out.printf("Poi %s already exists.%n", poi.getTitle());
+        } catch (NoSuchElementException e) {
+          Poi poi = this.mapper.map(poiServiceModel, Poi.class);
+          poi.setRegion(region);
+
+          HashMap<String, String> uploadMap = new HashMap<>();
+          uploadMap.put("upload_preset", "poi_upload_server");
+
+          File poiImg = new File(Constants.RESOURCES_DIR + poiServiceModel.getImageUrl());
+          String cloudinaryUrl = this.cloudinary.uploader().upload(poiImg, uploadMap).get("secure_url").toString();
+          poi.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
+
+          this.poiRepository.saveAndFlush(poi);
+
+          System.out.printf("Poi successfully added: %s%n", poiServiceModel.getTitle());
         }
-        else{
-            poi = this.mapper.map(poiFormViewModel, Poi.class);
 
-            Coordinates poiCoordinates = new Coordinates(poiFormViewModel.getLatitude(), poiFormViewModel.getLongitude());
-
-            poi.setCoordinates(poiCoordinates);
-        }
-
-        Region poiRegion = this.regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на тази забележителност не бе намерена."));
-
-        poi.setRegion(poiRegion);
-
-        this.poiRepository.save(poi);
-
-        this.applicationEventPublisher.publishEvent(new PoiEvent(this));
+      } catch (NoSuchElementException | IOException e) {
+        System.out.printf("Poi not added, reason: %s%n", e.getMessage());
+      }
     }
+  }
 
-    @Override
-    @Transactional
-    public void seedPoi(PoiServiceModel[] poiServiceModels) {
-        for (PoiServiceModel poiServiceModel : poiServiceModels) {
-            //Validate poi model and print message if not valid
-            if(!this.validationService.isValid(poiServiceModel)){
-                this.validationService.violations(poiServiceModel)
-                        .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
-                continue;
-            }
-            try {
-                String regionId = poiServiceModel.getRegion().getRegionId();
-                Region region = this.regionRepository.findByRegionId(regionId).orElseThrow(() -> new NoSuchElementException(String.format("could not find region with regionId: %s", regionId)));
+  public List<CardViewModel> getPoiViewModels() {
+    return this.poiRepository.findAll()
+      .stream()
+      .sorted(Comparator.comparing(Poi::getTitle))
+      .map(poi -> {
+        CardViewModel poiCard = mapper.map(poi, CardViewModel.class);
+        poiCard.setLatitude(poi.getCoordinates().getLatitude());
+        poiCard.setLongitude(poi.getCoordinates().getLongitude());
+        poiCard.setRegionId(poi.getRegion().getRegionId());
+        poiCard.setImageUrl(Constants.CLOUDINARY_BASE_URL + poi.getImageUrl());
+        return poiCard;
+      })
+      .collect(Collectors.toList());
+  }
 
-                try{
-                    Poi poi = this.poiRepository.findByTitle(poiServiceModel.getTitle()).orElseThrow();
-                    System.out.println(String.format("Poi %s already exists.", poi.getTitle()));
-                }
+  @Transactional
+  public List<CardViewModel> getPoiByRegionId(String regionId) {
+    Optional<Region> region = this.regionRepository.findByRegionId(regionId);
+    return this.mapPoiToViewModelList(poiRepository.findAllByRegion(region.get()));
+  }
 
-                catch(NoSuchElementException e) {
-                    Poi poi = this.mapper.map(poiServiceModel, Poi.class);
-                    poi.setRegion(region);
+  @Transactional
+  public List<CardViewModel> getPoiByRegionIdAndType(String regionId, Type type) {
+    Optional<Region> region = this.regionRepository.findByRegionId(regionId);
+    return this.mapPoiToViewModelList(poiRepository.findAllByRegionAndType(region.get(), type));
+  }
 
-                    HashMap<String, String> uploadMap = new HashMap<>();
-                    uploadMap.put("upload_preset", "poi_upload_server");
+  private List<CardViewModel> mapPoiToViewModelList(Set<Poi> poi) {
+    return poi.stream()
+      .sorted(Comparator.comparing(Poi::getTitle))
+      .map(p -> {
+        CardViewModel poiCard = this.mapper.map(p, CardViewModel.class);
+        poiCard.setRegionId(p.getRegion().getRegionId());
+        poiCard.setLatitude(p.getCoordinates().getLatitude());
+        poiCard.setLongitude(p.getCoordinates().getLongitude());
+        poiCard.setImageUrl(Constants.CLOUDINARY_BASE_URL + p.getImageUrl());
+        return poiCard;
+      })
+      .collect(Collectors.toList());
+  }
 
-                    File poiImg = new File(Constants.RESOURCES_DIR + poiServiceModel.getImageUrl());
-                    String cloudinaryUrl = this.cloudinary.uploader().upload(poiImg, uploadMap).get("secure_url").toString();
-                    poi.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
-
-                    this.poiRepository.saveAndFlush(poi);
-
-                    System.out.println(String.format("Poi successfully added: %s", poiServiceModel.getTitle()));
-                }
-
-            }
-            catch(NoSuchElementException | IOException e){
-                System.out.println(String.format("Poi not added, reason: %s", e.getMessage()));
-            }
-        }
-    }
-
-    public List<PoiFormViewModel> getPoiViewModels(){
-        return this.poiRepository.findAll()
-                .stream()
-                .sorted(Comparator.comparing(Poi::getTitle))
-                .map(poi -> {
-                    PoiFormViewModel poiFormViewModel = mapper.map(poi, PoiFormViewModel.class);
-                    poiFormViewModel.setLatitude(poi.getCoordinates().getLatitude());
-                    poiFormViewModel.setLongitude(poi.getCoordinates().getLongitude());
-                    poiFormViewModel.setRegionId(poi.getRegion().getRegionId());
-                    return poiFormViewModel;
-                })
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Long getRepositoryCount(){
-        return this.poiRepository.count();
-    }
+  @Override
+  public Long getRepositoryCount() {
+    return this.poiRepository.count();
+  }
 }

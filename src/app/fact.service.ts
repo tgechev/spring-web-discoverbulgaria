@@ -25,15 +25,14 @@ export class FactService {
     } else {
       url = `${this.factsUrl}/${regionId}`;
     }
-    return this.http.get<Fact[]>(url).pipe(
-      // tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Fact[]>('getFactsByRegion', [])),
-    );
+    return this.http
+      .get<Fact[]>(url, this.httpOptions)
+      .pipe(catchError(this.handleError<Fact[]>('getFactsByRegion', [])));
   }
 
   getAllFacts(): Observable<Fact[]> {
     return this.http
-      .get<Fact[]>(this.factsUrl)
+      .get<Fact[]>(`${this.factsUrl}/all`)
       .pipe(catchError(this.handleError<Fact[]>('getAllFacts', [])));
   }
 

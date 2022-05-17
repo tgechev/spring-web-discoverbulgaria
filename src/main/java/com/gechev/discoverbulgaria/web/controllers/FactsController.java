@@ -155,7 +155,7 @@ public class FactsController {
 //  }
 
   @GetMapping("/all")
-  public List<FactFormViewModel> getAllFacts() {
+  public List<CardViewModel> getAllFacts() {
     return this.factService.getFactViewModels();
   }
 

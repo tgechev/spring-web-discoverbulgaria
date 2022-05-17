@@ -103,14 +103,15 @@ public class FactServiceImpl implements FactService {
   }
 
   @Override
-  public List<FactFormViewModel> getFactViewModels() {
+  public List<CardViewModel> getFactViewModels() {
     return this.factRepository.findAll()
       .stream()
       .sorted(Comparator.comparing(Fact::getTitle))
       .map(fact -> {
-        FactFormViewModel factFormViewModel = this.mapper.map(fact, FactFormViewModel.class);
-        factFormViewModel.setRegionId(fact.getRegion().getRegionId());
-        return factFormViewModel;
+        CardViewModel factCard = this.mapper.map(fact, CardViewModel.class);
+        factCard.setRegionId(fact.getRegion().getRegionId());
+        factCard.setImageUrl(Constants.CLOUDINARY_BASE_URL + fact.getImageUrl());
+        return factCard;
       })
       .collect(Collectors.toList());
   }
@@ -123,7 +124,7 @@ public class FactServiceImpl implements FactService {
       //Validate fact model and print message if not valid
       if (!this.validationService.isValid(factServiceModel)) {
         this.validationService.violations(factServiceModel)
-          .forEach(v -> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
+          .forEach(v -> System.out.printf("%s %s%n", v.getMessage(), v.getInvalidValue()));
         continue;
       }
       try {
@@ -132,7 +133,7 @@ public class FactServiceImpl implements FactService {
 
         try {
           Fact fact = this.factRepository.findByTitle(factServiceModel.getTitle()).orElseThrow();
-          System.out.println(String.format("Fact %s already exists.", fact.getTitle()));
+          System.out.printf("Fact %s already exists.%n", fact.getTitle());
         } catch (NoSuchElementException e) {
           Fact fact = this.mapper.map(factServiceModel, Fact.class);
           fact.setRegion(region);
@@ -146,11 +147,11 @@ public class FactServiceImpl implements FactService {
 
           this.factRepository.saveAndFlush(fact);
 
-          System.out.println(String.format("Fact successfully added: %s", factServiceModel.getImageUrl()));
+          System.out.printf("Fact successfully added: %s%n", factServiceModel.getImageUrl());
         }
 
       } catch (NoSuchElementException | IOException e) {
-        System.out.println(String.format("Fact not added, reason: %s", e.getMessage()));
+        System.out.printf("Fact not added, reason: %s%n", e.getMessage());
       }
     }
   }

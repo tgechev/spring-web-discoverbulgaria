@@ -9,6 +9,7 @@ import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
+import com.gechev.discoverbulgaria.web.models.CardViewModel;
 import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -97,7 +98,7 @@ public class FactServiceTest extends TestBase {
 
         Mockito.when(factRepository.findAll()).thenReturn(facts);
 
-        List<FactFormViewModel> actualFacts = factService.getFactViewModels();
+        List<CardViewModel> actualFacts = factService.getFactViewModels();
 
         assertEquals(facts.size(), actualFacts.size(), "Sizes do not match");
         assertEquals(facts.get(0).getTitle(), actualFacts.get(2).getTitle());

@@ -15,7 +15,7 @@ public interface FactService {
 
     void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit);
 
-    List<FactFormViewModel> getFactViewModels();
+    List<CardViewModel> getFactViewModels();
 
     List<CardViewModel> getFactsByRegionId(String regionId);
 

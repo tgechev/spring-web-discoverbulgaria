@@ -2,40 +2,38 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Poi } from "./interfaces/Poi";
-import { Type } from "../constants";
+import { Poi } from './interfaces/Poi';
+import { Type } from '../constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PoiService {
-
   private poiUrl = 'api/poi';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /** GET regions from the server */
   getPoiByRegion(regionId: string, type?: Type): Observable<Poi[]> {
     let url: string;
     if (type && type !== Type.ALL) {
-      url = `${this.poiUrl}?regionId=${regionId}&type=${type}`;
+      url = `${this.poiUrl}/${regionId}?type=${type}`;
     } else {
-      url = `${this.poiUrl}?regionId=${regionId}`;
+      url = `${this.poiUrl}/${regionId}`;
     }
-    return this.http.get<Poi[]>(url).pipe(
-      // tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Poi[]>('getPoiByRegion', []))
-    );
+    return this.http
+      .get<Poi[]>(url, this.httpOptions)
+      .pipe(catchError(this.handleError<Poi[]>('getPoiByRegion', [])));
   }
 
   getAllPoi(): Observable<Poi[]> {
-    return this.http.get<Poi[]>(this.poiUrl).pipe(
-      catchError(this.handleError<Poi[]>('getAllPoi', []))
-    );
+    return this.http
+      .get<Poi[]>(`${this.poiUrl}/all`)
+      .pipe(catchError(this.handleError<Poi[]>('getAllPoi', [])));
   }
 
   /**
@@ -46,7 +44,6 @@ export class PoiService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
