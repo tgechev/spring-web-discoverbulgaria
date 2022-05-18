@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   title = 'discover-bulgaria';
 
   constructor(
-    private app: AppService,
+    public app: AppService,
     private router: Router,
     private http: HttpClient,
   ) {

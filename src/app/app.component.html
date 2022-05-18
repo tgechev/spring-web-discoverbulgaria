@@ -9,7 +9,7 @@
       <ul class="navbar-nav mr-auto">
         <ng-container *ngIf="!isAuthenticated()">
           <li class="nav-item">
-            <a class="nav-link h5 h5-responsive"  routerLink="/home">Начало <span class="sr-only">(current)</span></a>
+            <a class="nav-link h5 h5-responsive" routerLink="/home">Начало <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link h5 h5-responsive" routerLink="/login">Вход</a>
@@ -30,41 +30,42 @@
           <li class="nav-item" id="facts-all">
             <a class="nav-link h5 h5-responsive" routerLink="/facts/all">Всички факти</a>
           </li>
+          <ng-container *ngIf="app.isAdmin()">
+            <li class="nav-item dropdown" id="add-menu">
+              <a class="nav-link h5 h5-responsive">Добави <i class="fas fa-caret-down"></i></a>
+              <ul class="nav-sub-ul dropdown-menu dropdown-menu">
+                <li class="nav-item dropdown-item">
+                  <a class="nav-link h5 h5-responsive">Забележителност</a>
+                </li>
 
-          <li class="nav-item">
-            <a class="nav-link h5 h5-responsive" (click)="logout()">Изход</a>
-          </li>
+                <li class="nav-item dropdown-item">
+                  <a class="nav-link h5 h5-responsive">Факт</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown" id="edit-menu">
+              <a class="nav-link h5 h5-responsive">Редактирай <i class="fas fa-caret-down"></i></a>
+              <ul class="nav-sub-ul dropdown-menu dropdown-menu">
+
+                <li class="nav-item dropdown-item">
+                  <a class="nav-link h5 h5-responsive">Област</a>
+                </li>
+
+                <li class="nav-item dropdown-item">
+                  <a class="nav-link h5 h5-responsive">Забележителност</a>
+                </li>
+
+                <li class="nav-item dropdown-item">
+                  <a class="nav-link h5 h5-responsive">Факт</a>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
         </ng-container>
-<!--          <li class="nav-item dropdown" id="add-menu">-->
-<!--            <a class="nav-link h5 h5-responsive">Добави <i class="fas fa-caret-down"></i></a>-->
-<!--            <ul class="nav-sub-ul dropdown-menu dropdown-menu">-->
-<!--              <li class="nav-item dropdown-item">-->
-<!--                <a class="nav-link h5 h5-responsive">Забележителност</a>-->
-<!--              </li>-->
-
-<!--              <li class="nav-item dropdown-item">-->
-<!--                <a class="nav-link h5 h5-responsive">Факт</a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </li>-->
-
-<!--          <li class="nav-item dropdown" id="edit-menu">-->
-<!--            <a class="nav-link h5 h5-responsive">Редактирай <i class="fas fa-caret-down"></i></a>-->
-<!--            <ul class="nav-sub-ul dropdown-menu dropdown-menu">-->
-
-<!--              <li class="nav-item dropdown-item">-->
-<!--                <a class="nav-link h5 h5-responsive">Област</a>-->
-<!--              </li>-->
-
-<!--              <li class="nav-item dropdown-item">-->
-<!--                <a class="nav-link h5 h5-responsive">Забележителност</a>-->
-<!--              </li>-->
-
-<!--              <li class="nav-item dropdown-item">-->
-<!--                <a class="nav-link h5 h5-responsive">Факт</a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </li>-->
+        <li class="nav-item">
+          <a class="nav-link h5 h5-responsive" (click)="logout()">Изход</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -74,7 +75,7 @@
       <div class="container text-center white-text">
         <div class="white-text text-center wow fadeInUp">
           <h1>Преоткрий България</h1>
-<!--          <h3 th:unless="${session.username == null}">[[${session.greeting}]][[${session.username}]]!</h3>-->
+          <!--          <h3 th:unless="${session.username == null}">[[${session.greeting}]][[${session.username}]]!</h3>-->
         </div>
       </div>
     </div>
