@@ -11,13 +11,13 @@
         <form class="text-center" style="color: #757575;" role="form" (submit)="login()">
           <!-- Username -->
           <div class="md-form">
-            <input type="text" id="username" name="username" class="form-control" [(ngModel)]="credentials.username">
+            <input active-label type="text" id="username" name="username" class="form-control" [(ngModel)]="credentials.username">
             <label for="username">Потребителско име</label>
           </div>
 
           <!-- Password -->
           <div class="md-form">
-            <input type="password" id="password" name="password" class="form-control" [(ngModel)]="credentials.password">
+            <input active-label type="password" id="password" name="password" class="form-control" [(ngModel)]="credentials.password">
             <label for="password">Парола</label>
           </div>
 

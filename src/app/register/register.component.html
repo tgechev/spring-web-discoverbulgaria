@@ -11,7 +11,7 @@
         <form [formGroup]="registrationForm" class="text-center" style="color: #757575;" id="register-form">
           <!-- Username -->
           <div class="md-form form-group">
-            <input type="text" id="username" class="form-control" formControlName="username">
+            <input active-label type="text" id="username" class="form-control" formControlName="username">
             <label for="username">Потребителско име <span>*</span></label>
 
 <!--            <div class="invalid-feedback">-->
@@ -20,7 +20,7 @@
           </div>
           <!-- E-mail -->
           <div class="md-form mt-1 form-group">
-            <input type="email" id="email" class="form-control" formControlName="email">
+            <input active-label type="email" id="email" class="form-control" formControlName="email">
             <label for="email">Имейл <span>*</span></label>
 
 <!--            <div class="invalid-feedback">-->
@@ -29,7 +29,7 @@
           </div>
           <!-- Password -->
           <div class="md-form mt-1 form-group">
-            <input type="password" id="password" class="form-control" formControlName="password">
+            <input active-label type="password" id="password" class="form-control" formControlName="password">
             <label for="password">Парола <span>*</span></label>
 
 <!--            <div class="invalid-feedback">-->
@@ -38,7 +38,7 @@
           </div>
           <!-- Confirm Password -->
           <div class="md-form mt-1 form-group">
-            <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword">
+            <input active-label type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword">
             <label for="confirmPassword">Потвърди парола <span>*</span></label>
 
 <!--            <th:block th:if="${not #fields.hasErrors('password')}">-->

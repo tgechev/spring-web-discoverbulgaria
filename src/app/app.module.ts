@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AppService } from './app.service';
 import { RegisterComponent } from './register/register.component';
+import { ActiveLabelDirective } from './active-label.directive';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -42,6 +43,7 @@ export class XhrInterceptor implements HttpInterceptor {
     CardDeckComponent,
     LoginComponent,
     RegisterComponent,
+    ActiveLabelDirective,
   ],
   imports: [
     BrowserModule,
