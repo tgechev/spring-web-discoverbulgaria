@@ -36,7 +36,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.app.toggleMainBackground();
+  }
 
   ngAfterViewInit(): void {
     this.initHereMap();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ROUTE_TO_NAV_ID } from '../constants';
 import { AppService } from './app.service';
@@ -46,4 +46,28 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
+
+  @HostListener('window:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.tagName.toLowerCase() !== 'input') {
+      this.disableLabelForEmptyInput();
+    } else if (target.tagName.toLowerCase() === 'input') {
+      this.disableLabelForEmptyInput();
+      $(`label[for=${target.id}]`).addClass('active');
+    }
+  }
+
+  private disableLabelForEmptyInput(): void {
+    const activeLabels = $('.active');
+    activeLabels.each(function () {
+      const label = $(this);
+      if (label.html()) {
+        const input = $(`#${label.attr('for')}`);
+        if (!input.val()) {
+          label.removeClass('active');
+        }
+      }
+    });
+  }
 }

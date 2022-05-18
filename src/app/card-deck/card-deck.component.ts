@@ -16,6 +16,7 @@ import { AnimState, Category } from '../../constants';
 import { Poi } from '../interfaces/Poi';
 import * as $ from 'jquery';
 import { YouTubePlayer } from '@angular/youtube-player';
+import { AppService } from '../app.service';
 
 const commonAnimStyleProps = {
   position: 'fixed',
@@ -79,9 +80,11 @@ export class CardDeckComponent implements OnInit {
     private poiService: PoiService,
     private factService: FactService,
     private notifyService: NotifyService,
+    private app: AppService,
   ) {}
 
   ngOnInit(): void {
+    this.app.toggleMainBackground();
     if (this.router.url.endsWith('all')) {
       this.all = true;
       if (this.router.url.includes('poi')) {

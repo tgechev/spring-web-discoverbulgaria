@@ -4,6 +4,7 @@ import { RegistrationRequest } from '../dto/registration-request';
 import { RegistrationService } from '../registration.service';
 import { ResponseData } from '../dto/response-data';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     public registrationClient: RegistrationService,
     private router: Router,
+    private app: AppService,
   ) {
     this.registrationForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -76,9 +78,11 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
-
-  setSubmitted(submitted: boolean) {
-    this.submitted = submitted;
+  ngOnInit(): void {
+    this.app.toggleMainBackground();
   }
+
+  // setSubmitted(submitted: boolean) {
+  //   this.submitted = submitted;
+  // }
 }

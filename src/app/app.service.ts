@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AppService {
   authenticated = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   authenticate(
     credentials?: { username: string; password: string },
@@ -27,5 +29,21 @@ export class AppService {
       this.authenticated = !!response['name'];
       return callback && callback();
     });
+  }
+
+  public toggleMainBackground(): void {
+    const mainEl = $('.main');
+    if (
+      this.router.url.endsWith('login') ||
+      this.router.url.endsWith('register')
+    ) {
+      if (mainEl.hasClass('main-raised')) {
+        mainEl.removeClass('main-raised');
+        mainEl.css({ background: 'rgba(0,0,0,0)' });
+      }
+    } else if (!mainEl.hasClass('main-raised')) {
+      mainEl.addClass('main-raised');
+      mainEl.css({ background: '' });
+    }
   }
 }

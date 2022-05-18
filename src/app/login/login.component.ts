@@ -6,14 +6,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
   credentials = { username: '', password: '' };
 
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
-  }
+  constructor(
+    private app: AppService,
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   login() {
     this.app.authenticate(this.credentials, () => {
@@ -23,5 +25,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.app.toggleMainBackground();
   }
 }
