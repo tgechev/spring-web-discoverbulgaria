@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.app.authenticated = false;
+          this.app.resetLoggedInUserRole();
           this.router.navigateByUrl('/login');
         }),
       )
@@ -49,12 +50,15 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:click', ['$event'])
   onClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (target.tagName.toLowerCase() !== 'input') {
-      this.disableLabelForEmptyInput();
-    } else if (target.tagName.toLowerCase() === 'input') {
-      this.disableLabelForEmptyInput();
-      $(`label[for=${target.id}]`).addClass('active');
+    if (!this.router.url.endsWith('home')) {
+      const target = event.target as HTMLElement;
+      const tagName: string = target.tagName.toLowerCase();
+      if (tagName !== 'input' && tagName !== 'textarea') {
+        this.disableLabelForEmptyInput();
+      } else if (tagName === 'input' || tagName === 'textarea') {
+        this.disableLabelForEmptyInput();
+        $(`label[for=${target.id}]`).addClass('active');
+      }
     }
   }
 

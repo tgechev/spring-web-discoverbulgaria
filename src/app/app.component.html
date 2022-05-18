@@ -35,11 +35,11 @@
               <a class="nav-link h5 h5-responsive">Добави <i class="fas fa-caret-down"></i></a>
               <ul class="nav-sub-ul dropdown-menu dropdown-menu">
                 <li class="nav-item dropdown-item">
-                  <a class="nav-link h5 h5-responsive">Забележителност</a>
+                  <a class="nav-link h5 h5-responsive" routerLink="/poi/add">Забележителност</a>
                 </li>
 
                 <li class="nav-item dropdown-item">
-                  <a class="nav-link h5 h5-responsive">Факт</a>
+                  <a class="nav-link h5 h5-responsive" routerLink="/facts/add">Факт</a>
                 </li>
               </ul>
             </li>
@@ -49,23 +49,28 @@
               <ul class="nav-sub-ul dropdown-menu dropdown-menu">
 
                 <li class="nav-item dropdown-item">
-                  <a class="nav-link h5 h5-responsive">Област</a>
+                  <a class="nav-link h5 h5-responsive" routerLink="/regions/edit">Област</a>
                 </li>
 
                 <li class="nav-item dropdown-item">
-                  <a class="nav-link h5 h5-responsive">Забележителност</a>
+                  <a class="nav-link h5 h5-responsive" routerLink="/poi/edit">Забележителност</a>
                 </li>
 
                 <li class="nav-item dropdown-item">
-                  <a class="nav-link h5 h5-responsive">Факт</a>
+                  <a class="nav-link h5 h5-responsive" routerLink="/facts/edit">Факт</a>
                 </li>
               </ul>
             </li>
           </ng-container>
+          <ng-container *ngIf="app.isRoot()">
+            <li class="nav-item">
+              <a class="nav-link h5 h5-responsive" routerLink="/users/edit">Управлявай потребители</a>
+            </li>
+          </ng-container>
+          <li class="nav-item">
+            <a class="nav-link h5 h5-responsive" (click)="logout()">Изход</a>
+          </li>
         </ng-container>
-        <li class="nav-item">
-          <a class="nav-link h5 h5-responsive" (click)="logout()">Изход</a>
-        </li>
       </ul>
     </div>
   </nav>

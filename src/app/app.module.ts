@@ -23,6 +23,10 @@ import { LoginComponent } from './login/login.component';
 import { AppService } from './app.service';
 import { RegisterComponent } from './register/register.component';
 import { ActiveLabelDirective } from './active-label.directive';
+import { RegionsComponent } from './regions/regions.component';
+import { UsersComponent } from './users/users.component';
+import { FactsComponent } from './facts/facts.component';
+import { PoiComponent } from './poi/poi.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -44,6 +48,10 @@ export class XhrInterceptor implements HttpInterceptor {
     LoginComponent,
     RegisterComponent,
     ActiveLabelDirective,
+    RegionsComponent,
+    UsersComponent,
+    FactsComponent,
+    PoiComponent,
   ],
   imports: [
     BrowserModule,

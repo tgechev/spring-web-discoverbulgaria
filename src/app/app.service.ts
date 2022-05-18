@@ -9,8 +9,9 @@ import { UserRole } from '../constants';
 })
 export class AppService {
   authenticated = false;
+  loggedInUser: string = '';
+
   private userRole: UserRole = UserRole.User;
-  private username: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,7 +31,7 @@ export class AppService {
 
     this.http.get('user', { headers: headers }).subscribe((response: any) => {
       this.authenticated = !!response['name'];
-      this.username = response.name;
+      this.loggedInUser = response.name;
       response.authorities.forEach((auth: any) => {
         switch (auth.authority) {
           case UserRole.Root:
@@ -55,16 +56,17 @@ export class AppService {
     return this.userRole === UserRole.Root;
   }
 
-  public getUsername(): string {
-    return this.username;
+  public resetLoggedInUserRole(): void {
+    this.userRole = UserRole.User;
+  }
+
+  public getLoggedInUser(): string {
+    return this.loggedInUser;
   }
 
   public toggleMainBackground(): void {
     const mainEl = $('.main');
-    if (
-      this.router.url.endsWith('login') ||
-      this.router.url.endsWith('register')
-    ) {
+    if (!this.router.url.endsWith('home') && !this.router.url.endsWith('all')) {
       if (mainEl.hasClass('main-raised')) {
         mainEl.removeClass('main-raised');
         mainEl.css({ background: 'rgba(0,0,0,0)' });
