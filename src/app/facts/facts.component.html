@@ -36,7 +36,12 @@
 <!--          <th:block th:include="~{fragments/chooseType}" />-->
 
           <!-- Fact region select -->
-<!--          <th:block th:include="~{fragments/selectRegion}" />-->
+          <div class="md-form">
+            <select class="browser-default custom-select" id="select-region"> <!-- th:classappend="${isPost && !editRegion} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
+              <option value="" disabled selected>Избери област</option>
+              <option *ngFor="let region of regions" id="{{region.regionId}}">{{region.name}}</option>
+            </select>
+          </div>
 
           <!-- Fact title -->
           <div class="md-form">

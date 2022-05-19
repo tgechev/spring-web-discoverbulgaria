@@ -1,20 +1,13 @@
 package com.gechev.discoverbulgaria.web.controllers;
 
 import com.gechev.discoverbulgaria.data.models.Type;
-import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
-import com.gechev.discoverbulgaria.services.CardService;
+// import com.gechev.discoverbulgaria.services.CardService;
 import com.gechev.discoverbulgaria.services.PoiService;
-import com.gechev.discoverbulgaria.services.RegionService;
+// import com.gechev.discoverbulgaria.services.RegionService;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import com.gechev.discoverbulgaria.web.models.PoiViewModel;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,13 +16,13 @@ import java.util.Optional;
 public class PoiController {
 
   private final PoiService poiService;
-  private final RegionService regionService;
-  private final CardService cardService;
+  // private final RegionService regionService;
+  // private final CardService cardService;
 
-  public PoiController(PoiService poiService, RegionService regionService, CardService cardService) {
+  public PoiController(PoiService poiService/*, RegionService regionService, CardService cardService*/) {
     this.poiService = poiService;
-    this.regionService = regionService;
-    this.cardService = cardService;
+    // this.regionService = regionService;
+    // this.cardService = cardService;
   }
 
   @ModelAttribute("poiFormViewModel")
@@ -105,12 +98,12 @@ public class PoiController {
 //    }
 
   @GetMapping("/all")
-  public List<CardViewModel> getAllPoi() {
+  public List<PoiViewModel> getAllPoi() {
     return this.poiService.getPoiViewModels();
   }
 
   @GetMapping(value = "/{regionId}")
-  public List<CardViewModel> getPoiForRegion(@PathVariable String regionId, @RequestParam Optional<String> type, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+  public List<PoiViewModel> getPoiForRegion(@PathVariable String regionId, @RequestParam Optional<String> type, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
     if (type.isPresent()) {
       return this.poiService.getPoiByRegionIdAndType(regionId, Type.valueOf(type.get()));
     } else {

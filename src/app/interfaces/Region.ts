@@ -1,6 +1,7 @@
-import { Poi } from "./Poi";
-import { Fact } from "./Fact";
+import { Poi } from './Poi';
+import { Fact } from './Fact';
 export interface Region {
+  id: string;
   regionId: string;
   name: string;
   population: number;

@@ -11,8 +11,8 @@ import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
+import com.gechev.discoverbulgaria.web.models.PoiViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -126,12 +126,12 @@ public class PoiServiceImpl implements PoiService {
     }
   }
 
-  public List<CardViewModel> getPoiViewModels() {
+  public List<PoiViewModel> getPoiViewModels() {
     return this.poiRepository.findAll()
       .stream()
       .sorted(Comparator.comparing(Poi::getTitle))
       .map(poi -> {
-        CardViewModel poiCard = mapper.map(poi, CardViewModel.class);
+        PoiViewModel poiCard = mapper.map(poi, PoiViewModel.class);
         poiCard.setLatitude(poi.getCoordinates().getLatitude());
         poiCard.setLongitude(poi.getCoordinates().getLongitude());
         poiCard.setRegionId(poi.getRegion().getRegionId());
@@ -142,22 +142,22 @@ public class PoiServiceImpl implements PoiService {
   }
 
   @Transactional
-  public List<CardViewModel> getPoiByRegionId(String regionId) {
+  public List<PoiViewModel> getPoiByRegionId(String regionId) {
     Optional<Region> region = this.regionRepository.findByRegionId(regionId);
     return this.mapPoiToViewModelList(poiRepository.findAllByRegion(region.get()));
   }
 
   @Transactional
-  public List<CardViewModel> getPoiByRegionIdAndType(String regionId, Type type) {
+  public List<PoiViewModel> getPoiByRegionIdAndType(String regionId, Type type) {
     Optional<Region> region = this.regionRepository.findByRegionId(regionId);
     return this.mapPoiToViewModelList(poiRepository.findAllByRegionAndType(region.get(), type));
   }
 
-  private List<CardViewModel> mapPoiToViewModelList(Set<Poi> poi) {
+  private List<PoiViewModel> mapPoiToViewModelList(Set<Poi> poi) {
     return poi.stream()
       .sorted(Comparator.comparing(Poi::getTitle))
       .map(p -> {
-        CardViewModel poiCard = this.mapper.map(p, CardViewModel.class);
+        PoiViewModel poiCard = this.mapper.map(p, PoiViewModel.class);
         poiCard.setRegionId(p.getRegion().getRegionId());
         poiCard.setLatitude(p.getCoordinates().getLatitude());
         poiCard.setLongitude(p.getCoordinates().getLongitude());

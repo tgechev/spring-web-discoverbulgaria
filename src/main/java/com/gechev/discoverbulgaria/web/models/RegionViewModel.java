@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RegionViewModel {
+    private String id;
     private String name;
     private String regionId;
     private Double area;

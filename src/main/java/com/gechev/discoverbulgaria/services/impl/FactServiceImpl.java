@@ -13,8 +13,9 @@ import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.FactService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
+import com.gechev.discoverbulgaria.web.models.BaseViewModel;
 import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
+import com.gechev.discoverbulgaria.web.models.FactViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -55,22 +56,22 @@ public class FactServiceImpl implements FactService {
   }
 
   @Transactional
-  public List<CardViewModel> getFactsByRegionId(String regionId) {
+  public List<FactViewModel> getFactsByRegionId(String regionId) {
     Optional<Region> region = this.regionRepository.findByRegionId(regionId);
     return this.mapFactsToViewModelList(factRepository.findAllByRegion(region.get()));
   }
 
   @Transactional
-  public List<CardViewModel> getFactsByRegionIdAndType(String regionId, Type type) {
+  public List<FactViewModel> getFactsByRegionIdAndType(String regionId, Type type) {
     Optional<Region> region = this.regionRepository.findByRegionId(regionId);
     return this.mapFactsToViewModelList(factRepository.findAllByRegionAndType(region.get(), type));
   }
 
-  private List<CardViewModel> mapFactsToViewModelList(Set<Fact> facts) {
+  private List<FactViewModel> mapFactsToViewModelList(Set<Fact> facts) {
     return facts.stream()
       .sorted(Comparator.comparing(Fact::getTitle))
       .map(f -> {
-        CardViewModel factCard = this.mapper.map(f, CardViewModel.class);
+        FactViewModel factCard = this.mapper.map(f, FactViewModel.class);
         factCard.setRegionId(f.getRegion().getRegionId());
         factCard.setImageUrl(Constants.CLOUDINARY_BASE_URL + f.getImageUrl());
         return factCard;
@@ -103,12 +104,12 @@ public class FactServiceImpl implements FactService {
   }
 
   @Override
-  public List<CardViewModel> getFactViewModels() {
+  public List<FactViewModel> getFactViewModels() {
     return this.factRepository.findAll()
       .stream()
       .sorted(Comparator.comparing(Fact::getTitle))
       .map(fact -> {
-        CardViewModel factCard = this.mapper.map(fact, CardViewModel.class);
+        FactViewModel factCard = this.mapper.map(fact, FactViewModel.class);
         factCard.setRegionId(fact.getRegion().getRegionId());
         factCard.setImageUrl(Constants.CLOUDINARY_BASE_URL + fact.getImageUrl());
         return factCard;

@@ -9,8 +9,9 @@ import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
+import com.gechev.discoverbulgaria.web.models.BaseViewModel;
 import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
+import com.gechev.discoverbulgaria.web.models.FactViewModel;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -98,7 +99,7 @@ public class FactServiceTest extends TestBase {
 
         Mockito.when(factRepository.findAll()).thenReturn(facts);
 
-        List<CardViewModel> actualFacts = factService.getFactViewModels();
+        List<FactViewModel> actualFacts = factService.getFactViewModels();
 
         assertEquals(facts.size(), actualFacts.size(), "Sizes do not match");
         assertEquals(facts.get(0).getTitle(), actualFacts.get(2).getTitle());
@@ -112,7 +113,7 @@ public class FactServiceTest extends TestBase {
 
         FactFormViewModel factViewModel1 = new FactFormViewModel("Fact1", "oldFact1", Type.NATURE, "BG-16", "This is my first add fact test", "myFirstFactTestUrl", "Please go to Google to read more facts");
 
-        Fact factByTitle = new Fact("Fact1", "old description", Type.HISTORY, "someUrl", "do not read more", null);
+        Fact factByTitle = new Fact("Fact1", "old description", Type.HISTORY, "someUrl", "do not read more", "test-video-id", null);
         Optional factByTitleOpt = Optional.of(factByTitle);
         Region regionToReturn = new Region("BG-16", "Plovediv", 333000, 232323.3232, "plovdivUrl", null, null);
         Optional regionToReturnOpt = Optional.of(regionToReturn);

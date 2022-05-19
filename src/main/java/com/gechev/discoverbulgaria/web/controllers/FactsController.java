@@ -68,20 +68,12 @@
 package com.gechev.discoverbulgaria.web.controllers;
 
 import com.gechev.discoverbulgaria.data.models.Type;
-import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.services.FactService;
-import com.gechev.discoverbulgaria.services.CardService;
-import com.gechev.discoverbulgaria.services.RegionService;
-import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+// import com.gechev.discoverbulgaria.services.CardService;
+// import com.gechev.discoverbulgaria.services.RegionService;
+import com.gechev.discoverbulgaria.web.models.FactViewModel;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,14 +81,14 @@ import java.util.Optional;
 @RequestMapping("api/facts")
 public class FactsController {
 
-  private final RegionService regionService;
+  // private final RegionService regionService;
   private final FactService factService;
-  private final CardService cardService;
+  // private final CardService cardService;
 
-  public FactsController(RegionService regionService, FactService factService, CardService cardService) {
-    this.regionService = regionService;
+  public FactsController(/*RegionService regionService,*/ FactService factService/*, CardService cardService*/) {
+    // this.regionService = regionService;
     this.factService = factService;
-    this.cardService = cardService;
+    // this.cardService = cardService;
   }
 
 //  @ModelAttribute("factFormViewModel")
@@ -155,12 +147,12 @@ public class FactsController {
 //  }
 
   @GetMapping("/all")
-  public List<CardViewModel> getAllFacts() {
+  public List<FactViewModel> getAllFacts() {
     return this.factService.getFactViewModels();
   }
 
   @GetMapping(value = "/{regionId}")
-  public List<CardViewModel> getFactsForRegion(@PathVariable String regionId, @RequestParam Optional<String> type, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+  public List<FactViewModel> getFactsForRegion(@PathVariable String regionId, @RequestParam Optional<String> type, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
     if (type.isPresent()) {
       return this.factService.getFactsByRegionIdAndType(regionId, Type.valueOf(type.get()));
     } else {

@@ -18,10 +18,9 @@ export class RegionService {
 
   /** GET regions from the server */
   getRegions(): Observable<Region[]> {
-    return this.http.get<Region[]>(`${this.regionsUrl}/all`).pipe(
-      // tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Region[]>('getRegions', [])),
-    );
+    return this.http
+      .get<Region[]>(`${this.regionsUrl}/all`)
+      .pipe(catchError(this.handleError<Region[]>('getRegions', [])));
   }
 
   /**

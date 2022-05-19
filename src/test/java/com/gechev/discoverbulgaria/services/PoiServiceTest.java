@@ -7,8 +7,8 @@ import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
 import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
 import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
+import com.gechev.discoverbulgaria.web.models.PoiViewModel;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +109,7 @@ public class PoiServiceTest extends TestBase {
 
         Mockito.when(poiRepository.findAll()).thenReturn(poi);
 
-        List<CardViewModel> actualPoi = poiService.getPoiViewModels();
+        List<PoiViewModel> actualPoi = poiService.getPoiViewModels();
 
         assertEquals(poi.size(), actualPoi.size(), "Sizes do not match");
         assertEquals(poi.get(0).getTitle(), actualPoi.get(2).getTitle());

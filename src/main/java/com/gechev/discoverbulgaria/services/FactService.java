@@ -2,8 +2,9 @@ package com.gechev.discoverbulgaria.services;
 
 import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
-import com.gechev.discoverbulgaria.web.models.CardViewModel;
+import com.gechev.discoverbulgaria.web.models.BaseViewModel;
 import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
+import com.gechev.discoverbulgaria.web.models.FactViewModel;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ public interface FactService {
 
     void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit);
 
-    List<CardViewModel> getFactViewModels();
+    List<FactViewModel> getFactViewModels();
 
-    List<CardViewModel> getFactsByRegionId(String regionId);
+    List<FactViewModel> getFactsByRegionId(String regionId);
 
-    List<CardViewModel> getFactsByRegionIdAndType(String regionId, Type type);
+    List<FactViewModel> getFactsByRegionIdAndType(String regionId, Type type);
 
     Long getRepositoryCount();
 }

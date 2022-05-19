@@ -31,12 +31,25 @@
 <!--            &lt;!&ndash; Select Poi to edit &ndash;&gt;-->
 <!--            <th:block th:include="~{fragments/selectPoi}" />-->
 <!--          </th:block>-->
+          <ng-container *ngIf="isEdit()">
+            <div class="md-form">
+              <select class="browser-default custom-select" id="add-edit-select"> <!-- th:classappend="${isPost} ? (${#fields.errors('oldTitle').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
+                <option value="" disabled selected>Избери забележителност</option>
+                <option *ngFor="let thePoi of poi" id="{{thePoi.regionId}}">{{thePoi.title}}</option>
+              </select>
+            </div>
+          </ng-container>
 
           <!-- Poi type -->
 <!--          <th:block th:include="~{fragments/chooseType}" />-->
 
           <!-- Poi region select -->
-<!--          <th:block th:include="~{fragments/selectRegion}" />-->
+          <div class="md-form">
+            <select class="browser-default custom-select" id="select-region"> <!-- th:classappend="${isPost && !editRegion} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
+              <option value="" disabled selected>Избери област</option>
+              <option *ngFor="let region of regions" id="{{region.regionId}}">{{region.name}}</option>
+            </select>
+          </div>
 
           <!-- Poi title -->
           <div class="md-form">
