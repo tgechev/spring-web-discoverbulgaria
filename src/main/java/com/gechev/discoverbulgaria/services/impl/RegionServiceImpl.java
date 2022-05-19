@@ -78,16 +78,15 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public boolean editRegion(EditRegionModel editRegionModel) {
+    public boolean editRegion(RegionViewModel editRegionModel) {
 
         RegionServiceModel serviceModel = this.mapper.map(editRegionModel, RegionServiceModel.class);
 
         if(!this.validationService.isValid(serviceModel)){
-
             return false;
         }
 
-        Region regionToUpdate = this.regionRepository.findByRegionId(editRegionModel.getTheId()).orElseThrow(()-> new RegionNotFoundException("Не е намерена област със съвпадащ ID номер, моля опитайте отново."));
+        Region regionToUpdate = this.regionRepository.findById(editRegionModel.getId()).orElseThrow(()-> new RegionNotFoundException("Не е намерена област със съвпадащ ID номер, моля опитайте отново."));
 
         regionToUpdate.setName(serviceModel.getName());
         regionToUpdate.setRegionId(serviceModel.getRegionId());

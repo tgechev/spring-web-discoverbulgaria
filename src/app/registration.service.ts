@@ -20,7 +20,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class RegistrationService {
-  baseUrl = 'http://localhost:8080';
+  // baseUrl = 'http://localhost:8080';
   registrationUrl = '/register';
 
   constructor(private http: HttpClient) {}
@@ -30,7 +30,7 @@ export class RegistrationService {
   ): Observable<ResponseData> {
     return this.http
       .post<ResponseData>(
-        this.baseUrl + this.registrationUrl,
+        this.registrationUrl,
         requestRegistrationDTO,
         httpOptions,
       )

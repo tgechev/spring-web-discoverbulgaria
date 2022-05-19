@@ -10,7 +10,7 @@ import java.util.List;
 public interface RegionService {
     List<RegionServiceModel> findAll();
     void seedRegions(RegionServiceModel[] regionServiceModels) throws IOException;
-    boolean editRegion(EditRegionModel editRegionModel);
+    boolean editRegion(RegionViewModel editRegionModel);
     List<RegionViewModel> getRegionViewModels();
     Long getRepositoryCount();
 }

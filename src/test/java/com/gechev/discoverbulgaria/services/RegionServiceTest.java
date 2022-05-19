@@ -98,7 +98,7 @@ public class RegionServiceTest extends TestBase {
 
     @Test
     void editRegion_whenIncorrectModelIsGiven_shouldReturnFalse(){
-        EditRegionModel editModel = new EditRegionModel("Varna", "BG-3", 23232.0, 213131, "BG-03", "VarnaUrl");
+      RegionViewModel editModel = new RegionViewModel("test-id", "Varna", "BG-3", 213131.0, 213131, "VarnaUrl");
 
         boolean result = regionService.editRegion(editModel);
         assertFalse(result);

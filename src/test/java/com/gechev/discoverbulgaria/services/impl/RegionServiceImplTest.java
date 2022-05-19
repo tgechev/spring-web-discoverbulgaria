@@ -93,9 +93,9 @@ class RegionServiceImplTest {
         blagoevgrad.setArea(6449.47);
         Optional<Region> regionOptional = Optional.of(blagoevgrad);
 
-        EditRegionModel theModel = new EditRegionModel("Благоевград", "BG-1", 6550.0, 323232, "BG-01", "blagoevGrad_url");
+        RegionViewModel theModel = new RegionViewModel("test-id", "Varna", "BG-3", 213131.0, 213131, "VarnaUrl");
 
-        Mockito.when(regionRepository.findByRegionId(theModel.getTheId())).thenReturn(regionOptional);
+        Mockito.when(regionRepository.findByRegionId(theModel.getRegionId())).thenReturn(regionOptional);
 
         boolean result = regionService.editRegion(theModel);
 
