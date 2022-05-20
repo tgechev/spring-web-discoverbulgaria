@@ -30,12 +30,6 @@ public class RegionsController {
         return ResponseEntity.ok(new ResponseData("200", "Region edited."));
       }
       return ResponseEntity.status(500).body(new ResponseData("500", "Region not edited."));
-
-//        if(!bindingResult.hasErrors() && this.regionService.editRegion(editRegionModel)){
-//            modelAndView.addObject("isSuccess", true);
-//        }
-
-        // return super.view("regions/edit.html", modelAndView);
     }
 //
 //    @ExceptionHandler(RegionNotFoundException.class)

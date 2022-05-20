@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserViewModel {
+    private String id;
     private String username;
     private boolean isAdmin;
 }

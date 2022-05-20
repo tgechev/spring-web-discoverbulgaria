@@ -12,10 +12,7 @@ public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = Throwable.class)
-    public ModelAndView handleExceptions(Throwable e){
-        ModelAndView modelAndView = new ModelAndView("global-error");
+    public void handleExceptions(Throwable e){
         LOGGER.error("Global error occurred!", e);
-
-        return modelAndView;
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-    void updateUsersRoles(UserViewModel userViewModel);
+    UserViewModel updateUserRoles(UserViewModel userViewModel);
     UserServiceModel registerUser(UserServiceModel userServiceModel);
     UserServiceModel findUserByUserName(String username);
     void seedUsers(UserServiceModel[] userServiceModels);

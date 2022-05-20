@@ -128,6 +128,9 @@ export class CardDeckComponent implements OnInit {
   }
 
   private getCardsForRegion(currentRegion: CurrentRegion): void {
+    if (!currentRegion.regionId) {
+      return;
+    }
     CardDeckComponent.setActiveRegionCategoryType(
       currentRegion.regionId,
       currentRegion.currentTypeId,

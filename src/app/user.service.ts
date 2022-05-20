@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Region } from './interfaces/Region';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { EditUserDTO } from './dto/edit-user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RegionService {
-  private regionsUrl = 'api/regions'; // URL to web api
+export class UserService {
+  private usersUrl = 'api/users'; // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,11 +16,11 @@ export class RegionService {
 
   constructor(private http: HttpClient) {}
 
-  /** GET regions from the server */
-  getRegions(): Observable<Region[]> {
+  /** GET users from the server */
+  getUsers(): Observable<EditUserDTO[]> {
     return this.http
-      .get<Region[]>(`${this.regionsUrl}/all`, this.httpOptions)
-      .pipe(catchError(this.handleError<Region[]>('getRegions', [])));
+      .get<EditUserDTO[]>(`${this.usersUrl}/all`, this.httpOptions)
+      .pipe(catchError(this.handleError<EditUserDTO[]>('getUsers', [])));
   }
 
   /**
@@ -35,8 +35,6 @@ export class RegionService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

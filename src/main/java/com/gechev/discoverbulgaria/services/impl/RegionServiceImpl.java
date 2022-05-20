@@ -50,14 +50,14 @@ public class RegionServiceImpl implements RegionService {
             //Validate region model and print message if not valid
             if(!this.validationService.isValid(regionServiceModel)){
                 this.validationService.violations(regionServiceModel)
-                        .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
+                        .forEach(v-> System.out.printf("%s %s%n", v.getMessage(), v.getInvalidValue()));
                 continue;
             }
 
             //If region already exists inform the user
             try{
                 Region region = this.regionRepository.findByRegionId(regionServiceModel.getRegionId()).orElseThrow();
-                System.out.println(String.format("Region %s already exists.", region.getName()));
+                System.out.printf("Region %s already exists.%n", region.getName());
             }
 
             //If region does not exist, create it.
@@ -72,7 +72,7 @@ public class RegionServiceImpl implements RegionService {
                 region.setImageUrl(cloudinaryUrl.substring(Constants.CLOUDINARY_BASE_URL.length()));
 
                 this.regionRepository.saveAndFlush(region);
-                System.out.println(String.format("Region %s successfully created.", region.getName()));
+                System.out.printf("Region %s successfully created.%n", region.getName());
             }
         }
     }

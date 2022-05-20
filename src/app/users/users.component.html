@@ -16,14 +16,19 @@
       <!--Card content-->
       <div class="card-body px-lg-5 pt-0">
         <!-- Form -->
-        <form class="text-center" style="color: #757575;"> <!-- th:action="@{/users/roles}" th:method="post" th:object="${userViewModel}"> -->
+        <form (ngSubmit)="onSubmit()" class="text-center" style="color: #757575;"> <!-- th:action="@{/users/roles}" th:method="post" th:object="${userViewModel}"> -->
 
           <!-- User select -->
-<!--          <th:block th:include="~{fragments/selectUser}" />-->
+          <div class="md-form">
+            <select class="browser-default custom-select" id="select-user" [(ngModel)]="selectedUser">
+              <option value="" disabled selected>Избери потребител</option>
+              <option *ngFor="let user of users" [ngValue]="user">{{user.username}}</option>
+            </select>
+          </div>
 
           <!-- isAdmin -->
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="isAdmin"> <!-- th:field="*{admin}" -->
+            <input type="checkbox" class="custom-control-input" id="isAdmin" name="isAdmin" [(ngModel)]="selectedUser.admin"> <!-- th:field="*{admin}" -->
 <!--            <input type="hidden" th:field="*{username}">-->
             <label class="custom-control-label" for="isAdmin">Администратор</label>
           </div>
