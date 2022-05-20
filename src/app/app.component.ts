@@ -47,31 +47,4 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
-
-  @HostListener('window:click', ['$event'])
-  onClick(event: MouseEvent) {
-    if (!this.router.url.endsWith('home')) {
-      const target = event.target as HTMLElement;
-      const tagName: string = target.tagName.toLowerCase();
-      if (tagName !== 'input' && tagName !== 'textarea') {
-        this.disableLabelForEmptyInput();
-      } else if (tagName === 'input' || tagName === 'textarea') {
-        this.disableLabelForEmptyInput();
-        $(`label[for=${target.id}]`).addClass('active');
-      }
-    }
-  }
-
-  private disableLabelForEmptyInput(): void {
-    const activeLabels = $('.active');
-    activeLabels.each(function () {
-      const label = $(this);
-      if (label.html()) {
-        const input = $(`#${label.attr('for')}`);
-        if (!input.val()) {
-          label.removeClass('active');
-        }
-      }
-    });
-  }
 }

@@ -39,7 +39,7 @@
           <!-- Name -->
           <div class="md-form">
             <!-- name attribute is mandatory for 2-way data binding to work! -->
-            <input type="text" id="name" class="form-control" name="name" [(ngModel)]="selectedRegion.name"> <!-- th:field="*{name}" th:classappend="${isPost} ? (${#fields.errors('name').isEmpty()} ? 'is-valid' : 'is-invalid')" -->
+            <input active-label type="text" id="name" class="form-control" name="name" [(ngModel)]="selectedRegion.name"> <!-- th:field="*{name}" th:classappend="${isPost} ? (${#fields.errors('name').isEmpty()} ? 'is-valid' : 'is-invalid')" -->
             <label class="label-edit" for="name">Име <span>*</span></label>
 
 <!--            <div class="invalid-feedback">-->
@@ -49,7 +49,7 @@
 
           <!-- RegionId -->
           <div class="md-form">
-            <input type="text" id="regionId" name="regionId" class="form-control" [(ngModel)]="selectedRegion.regionId"> <!-- th:field="*{regionId}" th:classappend="${isPost} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
+            <input active-label type="text" id="regionId" name="regionId" class="form-control" [(ngModel)]="selectedRegion.regionId"> <!-- th:field="*{regionId}" th:classappend="${isPost} ? (${#fields.errors('regionId').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="regionId">ID номер <span>*</span></label>
 
 <!--            <div class="invalid-feedback">-->
@@ -59,7 +59,7 @@
 
           <!-- Area -->
           <div class="md-form">
-            <input type="number" id="area" class="form-control" name="area"
+            <input active-label type="number" id="area" class="form-control" name="area"
                    [ngModel]="selectedRegion.area === 0 ? '' : selectedRegion.area"
                    (ngModelChange)="selectedRegion.area = $event"> <!-- th:field="*{area}" th:classappend="${isPost} ? (${#fields.errors('area').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="area">Площ в км<sup>2</sup><span> *</span></label>
@@ -71,7 +71,7 @@
 
           <!-- Population -->
           <div class="md-form">
-            <input type="number" id="population" class="form-control" name="population"
+            <input active-label  type="number" id="population" class="form-control" name="population"
                    [ngModel]="selectedRegion.population === 0 ? '' : selectedRegion.population"
                    (ngModelChange)="selectedRegion.population = $event"> <!-- th:field="*{population}" th:classappend="${isPost} ? (${#fields.errors('population').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="population">Население <span>*</span></label>
@@ -85,7 +85,7 @@
 <!--          <input type="hidden" id="isEdit" th:value="${isEdit}">-->
 
           <!-- Add button -->
-          <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Готово</button>
+          <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Редактирай</button>
 
         </form>
         <!-- Form -->

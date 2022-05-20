@@ -1,3 +1,5 @@
+import { CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+
 export enum Type {
   HISTORY = 'HISTORY',
   NATURE = 'NATURE',
@@ -36,3 +38,11 @@ export enum UserRole {
   Admin = 'ROLE_ADMIN',
   User = 'ROLE_USER',
 }
+
+export const cloudinaryConfig: CloudinaryConfiguration = {
+  cloud_name: 'discover-bulgaria',
+  api_key: '345473919759429',
+};
+
+export const cloudinaryBaseUrl =
+  'https://res.cloudinary.com/discover-bulgaria/image/upload/';

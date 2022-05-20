@@ -1,35 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
   HttpResponse,
 } from '@angular/common/http';
 import { UserService } from '../user.service';
-import { EditUserDTO } from '../dto/edit-user';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  }),
-};
+import { User } from '../interfaces/User';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewInit {
   constructor(
     private app: AppService,
     private userService: UserService,
     private http: HttpClient,
   ) {}
 
-  selectedUser: EditUserDTO = { id: '', username: '', admin: false };
+  selectedUser: User = { id: '', username: '', admin: false };
 
-  users: EditUserDTO[] = [];
+  users: User[] = [];
 
   ngOnInit(): void {
     this.app.toggleMainBackground();
@@ -45,11 +38,10 @@ export class UsersComponent implements OnInit {
 
   onSubmit(): void {
     this.http
-      .post<HttpResponse<EditUserDTO>>(
-        'api/users/edit',
-        this.selectedUser,
-        httpOptions,
-      )
+      .post<HttpResponse<User>>('api/users/edit', this.selectedUser, {
+        headers: { 'Content-Type': 'application/json' },
+        observe: 'response',
+      })
       .subscribe({
         next: response => {
           if (response.status == 200) {

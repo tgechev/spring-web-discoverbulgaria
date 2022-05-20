@@ -34,6 +34,6 @@ public class Region extends BaseEntity {
     @OneToMany(mappedBy = "region")
     private Set<Poi> poi;
 
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     private Set<Fact> facts;
 }

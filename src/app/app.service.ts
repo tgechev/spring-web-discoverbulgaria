@@ -69,10 +69,12 @@ export class AppService {
     if (!this.router.url.endsWith('home') && !this.router.url.endsWith('all')) {
       if (mainEl.hasClass('main-raised')) {
         mainEl.removeClass('main-raised');
+        mainEl.removeClass('text-center');
         mainEl.css({ background: 'rgba(0,0,0,0)' });
       }
     } else if (!mainEl.hasClass('main-raised')) {
       mainEl.addClass('main-raised');
+      mainEl.addClass('text-center');
       mainEl.css({ background: '' });
     }
   }

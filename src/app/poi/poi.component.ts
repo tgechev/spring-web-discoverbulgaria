@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { RegionService } from '../region.service';
 import { Region } from '../interfaces/Region';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './poi.component.html',
   styleUrls: ['./poi.component.css'],
 })
-export class PoiComponent implements OnInit {
+export class PoiComponent implements OnInit, AfterViewInit {
   constructor(
     private app: AppService,
     private regionService: RegionService,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EditUserDTO } from './dto/edit-user';
+import { User } from './interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +17,10 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   /** GET users from the server */
-  getUsers(): Observable<EditUserDTO[]> {
+  getUsers(): Observable<User[]> {
     return this.http
-      .get<EditUserDTO[]>(`${this.usersUrl}/all`, this.httpOptions)
-      .pipe(catchError(this.handleError<EditUserDTO[]>('getUsers', [])));
+      .get<User[]>(`${this.usersUrl}/all`, this.httpOptions)
+      .pipe(catchError(this.handleError<User[]>('getUsers', [])));
   }
 
   /**

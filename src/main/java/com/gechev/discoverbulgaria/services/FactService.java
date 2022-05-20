@@ -14,7 +14,7 @@ public interface FactService {
 
     void seedFacts(FactServiceModel[] factServiceModels);
 
-    void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit);
+  FactViewModel addOrEditFact(FactViewModel factViewModel, boolean isEdit);
 
     List<FactViewModel> getFactViewModels();
 

@@ -1,11 +1,11 @@
 import { Type } from '../../constants';
 
 export interface Card {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   type: Type;
-  imageUrl: string;
+  imageUrl?: string;
   readMore: string;
   regionId: string;
   videoId?: string;

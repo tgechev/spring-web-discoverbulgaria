@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
@@ -12,6 +10,8 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
+import { FileUploadModule } from 'ng2-file-upload';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -27,6 +27,8 @@ import { RegionsComponent } from './regions/regions.component';
 import { UsersComponent } from './users/users.component';
 import { FactsComponent } from './facts/facts.component';
 import { PoiComponent } from './poi/poi.component';
+import * as cloudinary from 'cloudinary-core';
+import { cloudinaryConfig } from '../constants';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -61,12 +63,8 @@ export class XhrInterceptor implements HttpInterceptor {
     HttpClientModule,
     YouTubePlayerModule,
     ReactiveFormsModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    // HttpClientInMemoryWebApiModule.forRoot(
-    //   InMemoryDataService, { dataEncapsulation: false }
-    // )
+    CloudinaryModule.forRoot(cloudinary, cloudinaryConfig),
+    FileUploadModule,
   ],
   providers: [
     AppService,

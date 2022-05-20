@@ -80,27 +80,27 @@ public class FactServiceImpl implements FactService {
   }
 
   @Override
-  public void addOrEditFact(FactFormViewModel factFormViewModel, boolean isEdit) {
+  @Transactional
+  public FactViewModel addOrEditFact(FactViewModel factViewModel, boolean isEdit) {
     Fact fact;
 
     if (isEdit) {
-      fact = this.factRepository.findByTitle(factFormViewModel.getOldTitle()).orElseThrow(() -> new FactNotFoundException("Фактът за редакция не бе намерен, моля опитайте отново."));
+      fact = this.factRepository.findById(factViewModel.getId()).orElseThrow(() -> new FactNotFoundException("Фактът за редакция не бе намерен, моля опитайте отново."));
 
-      fact.setTitle(factFormViewModel.getTitle());
-      fact.setDescription(factFormViewModel.getDescription());
-      fact.setType(factFormViewModel.getType());
-      fact.setImageUrl(factFormViewModel.getImageUrl());
-      fact.setReadMore(factFormViewModel.getReadMore());
+      fact.setTitle(factViewModel.getTitle());
+      fact.setDescription(factViewModel.getDescription());
+      fact.setType(factViewModel.getType());
+      fact.setImageUrl(factViewModel.getImageUrl());
+      fact.setReadMore(factViewModel.getReadMore());
     } else {
-      fact = this.mapper.map(factFormViewModel, Fact.class);
+      fact = this.mapper.map(factViewModel, Fact.class);
     }
 
-    Region region = this.regionRepository.findByRegionId(factFormViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на този факт не бе намерена."));
+    Region region = this.regionRepository.findByRegionId(factViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на този факт не бе намерена."));
     fact.setRegion(region);
 
     this.factRepository.save(fact);
-
-    this.applicationEventPublisher.publishEvent(new FactEvent(this));
+    return factViewModel;
   }
 
   @Override

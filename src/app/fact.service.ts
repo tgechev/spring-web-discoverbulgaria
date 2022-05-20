@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { Fact } from './interfaces/Fact';
 import { Type } from '../constants';
 
@@ -11,23 +11,37 @@ import { Type } from '../constants';
 export class FactService {
   private factsUrl = 'api/facts';
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-
   constructor(private http: HttpClient) {}
 
+  addFact(fact: Fact): Observable<HttpResponse<Fact>> {
+    return this.http.post<Fact>('api/facts/add', fact, {
+      headers: { 'Content-Type': 'application/json' },
+      observe: 'response',
+    });
+  }
+
+  editFact(fact: Fact): Observable<HttpResponse<Fact>> {
+    return this.http.post<Fact>('api/facts/edit', fact, {
+      headers: { 'Content-Type': 'application/json' },
+      observe: 'response',
+    });
+  }
+
   /** GET regions from the server */
-  getFactsByRegion(regionId: string, type?: Type): Observable<Fact[]> {
+  getFactsByRegion(
+    regionId: string,
+    type?: Type,
+  ): Observable<HttpResponse<Fact[]>> {
     let url: string;
     if (type && type !== Type.ALL) {
       url = `${this.factsUrl}/${regionId}?type=${type}`;
     } else {
       url = `${this.factsUrl}/${regionId}`;
     }
-    return this.http
-      .get<Fact[]>(url, this.httpOptions)
-      .pipe(catchError(this.handleError<Fact[]>('getFactsByRegion', [])));
+    return this.http.get<Fact[]>(url, {
+      headers: { 'Content-Type': 'application/json' },
+      observe: 'response',
+    });
   }
 
   getAllFacts(): Observable<Fact[]> {

@@ -17,6 +17,8 @@ import { Poi } from '../interfaces/Poi';
 import * as $ from 'jquery';
 import { YouTubePlayer } from '@angular/youtube-player';
 import { AppService } from '../app.service';
+import { HttpResponse } from '@angular/common/http';
+import { Fact } from '../interfaces/Fact';
 
 const commonAnimStyleProps = {
   position: 'fixed',
@@ -140,8 +142,8 @@ export class CardDeckComponent implements OnInit {
       if (currentRegion.category === Category.FACT) {
         this.factService
           .getFactsByRegion(currentRegion.regionId, currentRegion.type)
-          .subscribe(facts => {
-            this.cards = facts;
+          .subscribe((factsResp: HttpResponse<Fact[]>) => {
+            this.cards = factsResp.body ?? [];
             this.loading = false;
           });
       } else {
@@ -155,11 +157,11 @@ export class CardDeckComponent implements OnInit {
     } else {
       this.factService
         .getFactsByRegion(currentRegion.regionId, currentRegion.type)
-        .subscribe(facts => {
+        .subscribe((factsResp: HttpResponse<Fact[]>) => {
           this.poiService
             .getPoiByRegion(currentRegion.regionId, currentRegion.type)
             .subscribe(poi => {
-              this.cards = [...facts, ...poi];
+              this.cards = [...(factsResp.body ?? []), ...poi];
               this.loading = false;
             });
         });

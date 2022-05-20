@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { RegionService } from '../region.service';
 import { Region } from '../interfaces/Region';
@@ -17,7 +17,7 @@ const httpOptions = {
   templateUrl: './regions.component.html',
   styleUrls: ['./regions.component.css'],
 })
-export class RegionsComponent implements OnInit {
+export class RegionsComponent implements OnInit, AfterViewInit {
   regions: Region[] = [];
   selectedRegion: Region = {
     id: '',
@@ -27,7 +27,6 @@ export class RegionsComponent implements OnInit {
     population: 0,
     imageUrl: '',
   };
-
   constructor(
     private app: AppService,
     private regionService: RegionService,
