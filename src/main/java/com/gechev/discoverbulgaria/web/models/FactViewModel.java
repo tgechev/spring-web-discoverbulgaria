@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FactViewModel extends BaseViewModel {
+public class FactViewModel extends CommonViewModel {
 }

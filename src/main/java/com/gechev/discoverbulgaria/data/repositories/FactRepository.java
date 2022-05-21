@@ -15,4 +15,7 @@ public interface FactRepository extends JpaRepository<Fact, String> {
     Set<Fact> findAllByRegionAndType(Region region, Type type);
     Set<Fact> findAllByType(Type type);
     Optional<Fact> findByTitle(String name);
+
+    @Override
+    void deleteById(String id);
 }

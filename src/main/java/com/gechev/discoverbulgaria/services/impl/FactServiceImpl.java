@@ -7,14 +7,13 @@ import com.gechev.discoverbulgaria.data.models.Region;
 import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.data.repositories.FactRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
-import com.gechev.discoverbulgaria.events.FactEvent;
 import com.gechev.discoverbulgaria.exceptions.FactNotFoundException;
 import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.FactService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.FactServiceModel;
 import com.gechev.discoverbulgaria.web.models.BaseViewModel;
-import com.gechev.discoverbulgaria.web.models.FactFormViewModel;
+import com.gechev.discoverbulgaria.web.models.DeleteModel;
 import com.gechev.discoverbulgaria.web.models.FactViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
@@ -77,6 +76,15 @@ public class FactServiceImpl implements FactService {
         return factCard;
       })
       .collect(Collectors.toList());
+  }
+
+  @Override
+  @Transactional
+  public DeleteModel deleteFact(BaseViewModel factDeleteModel) {
+    this.factRepository.deleteById(factDeleteModel.getId());
+    DeleteModel deletedFact = new DeleteModel(true);
+    deletedFact.setId(factDeleteModel.getId());
+    return deletedFact;
   }
 
   @Override

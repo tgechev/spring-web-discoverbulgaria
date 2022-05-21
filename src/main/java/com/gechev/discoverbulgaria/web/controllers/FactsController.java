@@ -69,6 +69,8 @@ package com.gechev.discoverbulgaria.web.controllers;
 
 import com.gechev.discoverbulgaria.data.models.Type;
 import com.gechev.discoverbulgaria.services.FactService;
+import com.gechev.discoverbulgaria.web.models.BaseViewModel;
+import com.gechev.discoverbulgaria.web.models.DeleteModel;
 import com.gechev.discoverbulgaria.web.models.FactViewModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,6 +95,11 @@ public class FactsController {
   @PostMapping("/edit")
   public ResponseEntity<FactViewModel> editFact(@RequestBody FactViewModel factViewModel){
     return ResponseEntity.ok(this.factService.addOrEditFact(factViewModel, true));
+  }
+
+  @PostMapping("/delete")
+  public ResponseEntity<DeleteModel> deleteFact(@RequestBody BaseViewModel factDeleteModel){
+    return ResponseEntity.ok(this.factService.deleteFact(factDeleteModel));
   }
 
   @GetMapping("/all")

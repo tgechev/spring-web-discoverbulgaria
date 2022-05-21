@@ -8,13 +8,12 @@
 <!--      </button>-->
 <!--    </div>-->
 
-<!--    <div th:if="${isSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">-->
-<!--      <strong th:if="${isEdit}" >Фактът бе успешно редактиран!</strong>-->
-<!--      <strong th:unless="${isEdit}" >Фактът бе успешно добавен!</strong>-->
-<!--      <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--        <span aria-hidden="true">&times;</span>-->
-<!--      </button>-->
-<!--    </div>-->
+    <div *ngIf="factSaved || factDeleted" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Фактът бе успешно {{ isEdit ? factDeleted ? 'изтрит' : 'редактиран' : 'добавен' }}!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="dismissAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
 
     <!-- Material form fact -->
     <div class="card user-form">
@@ -34,7 +33,6 @@
                     [ngModel]="currentFact"
                     (ngModelChange)="assignSelectedFact($event)"
                     (click)="onSelectFact()">
-              <option disabled selected>Избери факт</option>
               <option *ngFor="let fact of facts" [ngValue]="fact">{{fact.title}}</option>
             </select>
           </div>
@@ -137,8 +135,14 @@
 <!--          <input type="hidden" id="delete_token">-->
 
           <!-- Add button -->
-          <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">{{ isEdit ? 'Редактирай' : 'Добави' }}</button>
-
+          <div class="row">
+            <div *ngIf="isEdit" class="md-form col-sm-6">
+              <button class="btn btn-outline-danger btn-rounded btn-block my-4 waves-effect z-depth-0" (click)="deleteSelectedFact()">Изтрий</button>
+            </div>
+            <div class="md-form" [ngClass]="{'col-sm-6': isEdit, 'col-sm-12': !isEdit}">
+              <button class="btn btn-outline-success btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">{{ isEdit ? 'Редактирай' : 'Добави' }}</button>
+            </div>
+          </div>
         </form>
         <!-- Form -->
       </div>

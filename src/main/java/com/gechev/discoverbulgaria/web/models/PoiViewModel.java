@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PoiViewModel extends BaseViewModel {
+public class PoiViewModel extends CommonViewModel {
   private String address;
 
   private Double longitude;

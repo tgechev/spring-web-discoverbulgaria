@@ -46,3 +46,5 @@ export const cloudinaryConfig: CloudinaryConfiguration = {
 
 export const cloudinaryBaseUrl =
   'https://res.cloudinary.com/discover-bulgaria/image/upload/';
+
+export const chooseFactTitle = 'Избери факт';

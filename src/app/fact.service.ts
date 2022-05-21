@@ -27,6 +27,19 @@ export class FactService {
     });
   }
 
+  deleteFactById(
+    factId: string,
+  ): Observable<HttpResponse<{ id: string; deleted: boolean }>> {
+    return this.http.post<{ id: string; deleted: boolean }>(
+      'api/facts/delete',
+      { id: factId },
+      {
+        headers: { 'Content-Type': 'application/json' },
+        observe: 'response',
+      },
+    );
+  }
+
   /** GET regions from the server */
   getFactsByRegion(
     regionId: string,

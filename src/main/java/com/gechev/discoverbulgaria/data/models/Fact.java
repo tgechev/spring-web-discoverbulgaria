@@ -34,7 +34,7 @@ public class Fact extends BaseEntity {
   @Column
   private String videoId;
 
-  @ManyToOne(targetEntity = Region.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToOne(targetEntity = Region.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "region_id", referencedColumnName = "id")
   private Region region;
 }

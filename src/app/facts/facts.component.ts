@@ -1,7 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppService } from '../app.service';
 import { RegionService } from '../region.service';
+import { FactService } from '../fact.service';
+import { ImageService } from '../image.service';
 import { Region } from '../interfaces/Region';
+import { Fact } from '../interfaces/Fact';
 import {
   FileItem,
   FileUploader,
@@ -9,16 +14,8 @@ import {
   ParsedResponseHeaders,
 } from 'ng2-file-upload';
 import { Cloudinary } from '@cloudinary/angular-5.x';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
 import * as $ from 'jquery';
-import { Fact } from '../interfaces/Fact';
-import { cloudinaryBaseUrl, Type } from "../../constants";
-import { Router } from '@angular/router';
-import { FactService } from '../fact.service';
+import { chooseFactTitle, cloudinaryBaseUrl, Type } from "../../constants";
 
 @Component({
   selector: 'app-facts',
@@ -30,6 +27,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
     private app: AppService,
     private regionService: RegionService,
     private factService: FactService,
+    private imageService: ImageService,
     private cloudinary: Cloudinary,
     private http: HttpClient,
     private router: Router,
@@ -38,18 +36,24 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
   regions: Region[] = [];
   facts: Fact[] = [];
   isEdit = false;
+  factSaved = false;
+  factDeleted = false;
 
-  currentFact: Fact = {
-    title: '',
-    description: '',
-    readMore: '',
-    regionId: '',
-    type: Type.HISTORY,
-  };
+  currentFact: Fact = this.initFact();
 
   uploader!: FileUploader;
 
   private uploadedImageResponse?: any;
+
+  initFact(): Fact {
+    return {
+      title: '',
+      description: '',
+      readMore: '',
+      regionId: '',
+      type: Type.HISTORY,
+    };
+  }
 
   ngOnInit(): void {
     this.app.toggleMainBackground();
@@ -57,25 +61,9 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isEdit = true;
     }
 
-    // Create the file uploader, wire it to upload to your account
-    const uploaderOptions: FileUploaderOptions = {
-      url: `https://api.cloudinary.com/v1_1/${
-        this.cloudinary.config().cloud_name
-      }/upload`,
-      // Upload files automatically upon addition to upload queue
-      autoUpload: true,
-      // Use xhrTransport in favor of iframeTransport
-      isHTML5: true,
-      // Calculate progress independently for each uploaded file
-      removeAfterUpload: true,
-      // XHR request headers
-      headers: [
-        {
-          name: 'X-Requested-With',
-          value: 'XMLHttpRequest',
-        },
-      ],
-    };
+    const uploaderOptions: FileUploaderOptions =
+      this.imageService.getImageUploadOptions();
+
     this.uploader = new FileUploader(uploaderOptions);
 
     this.uploader.onBuildItemForm = (
@@ -142,10 +130,22 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFacts(): void {
-    this.factService.getAllFacts().subscribe(facts => (this.facts = facts));
+    this.factService.getAllFacts().subscribe(facts => {
+      this.facts = [];
+      const dummyFact = this.initFact();
+      dummyFact.title = chooseFactTitle;
+      this.facts.push(dummyFact);
+      this.facts.push(...facts);
+    });
   }
 
-  assignSelectedFact(event: Region): void {
+  assignSelectedFact(event: Fact): void {
+    if (event.title === chooseFactTitle) {
+      if (this.currentFact.regionId !== '') {
+        this.currentFact = this.initFact();
+      }
+      return;
+    }
     Object.assign(this.currentFact, event);
   }
 
@@ -162,28 +162,18 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // Delete an uploaded image
-  // Requires setting "Return delete token" to "Yes" in your upload preset configuration
-  // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
   deleteImage(data: any): void {
-    const url = `https://api.cloudinary.com/v1_1/${
-      this.cloudinary.config().cloud_name
-    }/delete_by_token`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-      }),
-    };
-    const body = {
-      token: data.delete_token,
-    };
-    this.http.post(url, body, httpOptions).subscribe((response: any) => {
-      console.log(`Deleted image - ${data.public_id} ${response.result}`);
-    });
+    this.imageService
+      .deleteImage(this.uploadedImageResponse)
+      .subscribe((response: any) => {
+        console.log(`Deleted image - ${data.public_id} ${response.result}`);
+      });
   }
 
   onSubmit(): void {
+    if (this.currentFact.regionId === '') {
+      return;
+    }
     if (this.currentFact.imageUrl?.startsWith('https')) {
       this.currentFact.imageUrl = this.currentFact.imageUrl?.substring(
         cloudinaryBaseUrl.length,
@@ -193,8 +183,10 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.factService.editFact(this.currentFact).subscribe({
         next: response => {
           if (response.status == 200) {
-            console.log(`success add fact`);
+            console.log(`success edit fact`);
             this.uploadedImageResponse = null;
+            this.factSaved = true;
+            this.getFacts();
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -207,6 +199,8 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
           if (response.status == 200) {
             console.log(`success add fact`);
             this.uploadedImageResponse = null;
+            this.factSaved = true;
+            this.currentFact = this.initFact();
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -214,5 +208,29 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       });
     }
+  }
+
+  dismissAlert(): void {
+    this.factSaved = this.factSaved ? !this.factSaved : this.factSaved;
+    this.factDeleted = this.factDeleted ? !this.factDeleted : this.factDeleted;
+  }
+
+  deleteSelectedFact(): void {
+    if (!this.isEdit) {
+      return;
+    }
+
+    this.factService.deleteFactById(this.currentFact.id as string).subscribe({
+      next: response => {
+        if (response.status === 200 && response.body?.deleted) {
+          this.factDeleted = true;
+          this.currentFact = this.initFact();
+          this.getFacts();
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log('An Error Occurred ' + error.message);
+      },
+    });
   }
 }
