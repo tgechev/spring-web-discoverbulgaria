@@ -1,13 +1,6 @@
 <div class="row db-form-row">
   <div class="col-md-7 mx-auto">
 
-<!--    <div th:if="${poiError != null}" class="alert alert-danger alert-dismissible fade show" role="alert">-->
-<!--      <strong>Грешка!</strong><span th:text="${poiError}"></span>-->
-<!--      <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--        <span aria-hidden="true">&times;</span>-->
-<!--      </button>-->
-<!--    </div>-->
-
     <div *ngIf="poiSaved || poiDeleted" class="alert alert-success alert-dismissible fade show" role="alert">
       <strong>Забележителността бе успешно {{ isEdit ? poiDeleted ? 'изтритa' : 'редактиранa' : 'добавенa' }}!</strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="dismissAlert()">
@@ -19,7 +12,6 @@
     <div class="card user-form">
       <h5 class="card-header success-color-dark white-text text-center py-4">
         <strong>{{ isEdit ? 'Редактирай' : 'Добави' }} забележителност</strong>
-        {{ currentPoi | json }}
       </h5>
       <!--Card content-->
       <div class="card-body px-lg-5 pt-0" id="direct_upload" ng2FileDrop [uploader]="uploader">
@@ -70,10 +62,6 @@
                    name="title"
                    [(ngModel)]="currentPoi.title"> <!-- th:field="*{title}" th:classappend="${isPost} ? (${#fields.errors('title').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="title">Заглавие <span>*</span></label>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <!-- Poi address -->
@@ -82,10 +70,6 @@
                    name="address"
                    [(ngModel)]="currentPoi.address"> <!-- th:field="*{address}" th:classappend="${isPost} ? (${#fields.errors('address').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="address">Адрес</label>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('address')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <!-- Poi latitude -->
@@ -95,10 +79,6 @@
                    [ngModel]="currentPoi.latitude !== 0 ? currentPoi.latitude : ''"
                    (ngModelChange)="currentPoi.latitude=$event"> <!-- th:field="*{latitude}" th:classappend="${isPost} ? (${#fields.errors('latitude').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="latitude">Геогр. ширина <span>*</span></label>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('latitude')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <!-- Poi longitude -->
@@ -108,10 +88,6 @@
                    [ngModel]="currentPoi.longitude !== 0 ? currentPoi.longitude : ''"
                    (ngModelChange)="currentPoi.longitude=$event"> <!-- th:field="*{longitude}" th:classappend="${isPost} ? (${#fields.errors('longitude').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="longitude">Геогр. дължина <span>*</span></label>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('longitude')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <!-- Poi Description -->
@@ -122,10 +98,6 @@
                       name="description"
                       [(ngModel)]="currentPoi.description"></textarea> <!-- rows="3" th:field="*{description}" th:classappend="${isPost} ? (${#fields.errors('description').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="description">Описание <span>*</span></label>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <!-- Read More link -->
@@ -133,10 +105,6 @@
             <input active-label type="text" id="readMore" class="form-control"
                    name="readMore" [(ngModel)]="currentPoi.readMore"> <!-- th:field="*{readMore}" th:classappend="${isPost} ? (${#fields.errors('readMore').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
             <label class="label-edit" for="readMore">Връзка "Прочети повече"</label>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('readMore')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <div class="md-form">
@@ -165,12 +133,7 @@
                   </div>
                 </div>
               </div>
-
             </div>
-
-<!--            <div class="invalid-feedback">-->
-<!--              <span th:each="error : ${#fields.errors('imageUrl')}" th:text="${error}"></span>-->
-<!--            </div>-->
           </div>
 
           <!-- Add button -->

@@ -115,7 +115,6 @@ public class UserServiceImpl implements UserService {
           User user = this.mapper.map(userServiceModel, User.class);
           user.setAuthorities(roles);
           user.setPassword(this.hashService.hash(userServiceModel.getPassword()));
-          //user.setPassword(userServiceModel.getPassword());
           this.userRepository.saveAndFlush(user);
           System.out.printf("User %s successfully added.%n", user.getUsername());
         }

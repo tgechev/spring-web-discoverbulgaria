@@ -24,6 +24,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   users: User[] = [];
 
+  userSaved = false;
+
   ngOnInit(): void {
     this.app.toggleMainBackground();
   }
@@ -36,6 +38,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.userService.getUsers().subscribe(users => (this.users = users));
   }
 
+  dismissAlert(): void {
+    this.userSaved = !this.userSaved;
+  }
+
   onSubmit(): void {
     this.http
       .post<HttpResponse<User>>('api/users/edit', this.selectedUser, {
@@ -45,7 +51,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: response => {
           if (response.status == 200) {
-            console.log(`success edit user`);
+            this.userSaved = true;
           }
         },
         error: (error: HttpErrorResponse) => {

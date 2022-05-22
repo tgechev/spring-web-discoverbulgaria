@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { UserRole } from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,12 @@ export class RoleGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectedRole = route.data['expectedRole'];
     if (!this.auth.authenticated) {
-      console.log(`not authenticated`);
       this.router.navigate(['login']);
       return false;
-    } else if (this.auth.userRole !== expectedRole) {
-      console.log(`role missing go home`);
+    } else if (
+      this.auth.userRole !== UserRole.Root &&
+      this.auth.userRole !== expectedRole
+    ) {
       this.router.navigate(['home']);
       return false;
     }
