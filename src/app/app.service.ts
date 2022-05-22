@@ -1,68 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
-import { UserRole } from '../constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
-  authenticated = false;
-  loggedInUser: string = '';
-
-  private userRole: UserRole = UserRole.User;
-
   constructor(private http: HttpClient, private router: Router) {}
-
-  authenticate(
-    credentials?: { username: string; password: string },
-    callback?: () => any,
-  ) {
-    const headers = new HttpHeaders(
-      credentials
-        ? {
-            authorization:
-              'Basic ' +
-              btoa(credentials.username + ':' + credentials.password),
-          }
-        : {},
-    );
-
-    this.http.get('user', { headers: headers }).subscribe((response: any) => {
-      this.authenticated = !!response['name'];
-      this.loggedInUser = response.name;
-      response.authorities.forEach((auth: any) => {
-        switch (auth.authority) {
-          case UserRole.Root:
-            this.userRole = UserRole.Root;
-            break;
-          case UserRole.Admin:
-            if (this.userRole !== UserRole.Root) {
-              this.userRole = UserRole.Admin;
-            }
-            break;
-        }
-      });
-      return callback && callback();
-    });
-  }
-
-  public isAdmin(): boolean {
-    return this.userRole === UserRole.Root || this.userRole === UserRole.Admin;
-  }
-
-  public isRoot(): boolean {
-    return this.userRole === UserRole.Root;
-  }
-
-  public resetLoggedInUserRole(): void {
-    this.userRole = UserRole.User;
-  }
-
-  public getLoggedInUser(): string {
-    return this.loggedInUser;
-  }
 
   public toggleMainBackground(): void {
     const mainEl = $('.main');
@@ -77,5 +22,37 @@ export class AppService {
       mainEl.addClass('text-center');
       mainEl.css({ background: '' });
     }
+  }
+
+  public toggleAddEditImageLoader(itemName?: string): void {
+    const loader = $('#loader');
+    if (loader.hasClass('d-none')) {
+      loader.removeClass('d-none');
+      loader.addClass('d-flex');
+      loader.css({ 'padding-top': 0 });
+      $('.file-path-wrapper').addClass('d-none');
+    } else if (itemName) {
+      loader.removeClass('d-flex');
+      loader.addClass('d-none');
+      $('.file-path-wrapper').removeClass('d-none');
+      $('input.file-path').attr('value', itemName);
+    }
+  }
+
+  public toggleLabels(addOrDelete?: boolean): void {
+    this.toggleActiveClass($('input.form-control'), addOrDelete);
+    this.toggleActiveClass($('textarea.form-control'), addOrDelete);
+  }
+
+  private toggleActiveClass(el: JQuery, addOrDelete?: boolean): void {
+    el.each(function () {
+      const label = $(`label[for=${this.id}]`);
+      const currentEl = $(this);
+      if (currentEl.val() && currentEl.val() !== '' && !addOrDelete) {
+        label.addClass('active');
+      } else {
+        label.removeClass('active');
+      }
+    });
   }
 }

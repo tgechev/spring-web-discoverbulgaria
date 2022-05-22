@@ -81,8 +81,4 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.app.toggleMainBackground();
   }
-
-  // setSubmitted(submitted: boolean) {
-  //   this.submitted = submitted;
-  // }
 }

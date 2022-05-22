@@ -11,10 +11,10 @@ import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.PoiServiceModel;
-import com.gechev.discoverbulgaria.web.models.PoiFormViewModel;
+import com.gechev.discoverbulgaria.web.models.BaseViewModel;
+import com.gechev.discoverbulgaria.web.models.DeleteModel;
 import com.gechev.discoverbulgaria.web.models.PoiViewModel;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,15 +31,13 @@ public class PoiServiceImpl implements PoiService {
   private final RegionRepository regionRepository;
   private final PoiRepository poiRepository;
   private final Cloudinary cloudinary;
-  private final ApplicationEventPublisher applicationEventPublisher;
 
-  public PoiServiceImpl(ModelMapper mapper, ValidationService validationService, RegionRepository regionRepository, PoiRepository poiRepository, Cloudinary cloudinary, ApplicationEventPublisher applicationEventPublisher) {
+  public PoiServiceImpl(ModelMapper mapper, ValidationService validationService, RegionRepository regionRepository, PoiRepository poiRepository, Cloudinary cloudinary) {
     this.mapper = mapper;
     this.validationService = validationService;
     this.regionRepository = regionRepository;
     this.poiRepository = poiRepository;
     this.cloudinary = cloudinary;
-    this.applicationEventPublisher = applicationEventPublisher;
   }
 
   @Override
@@ -53,38 +51,46 @@ public class PoiServiceImpl implements PoiService {
   }
 
   @Override
-  public void addOrEditPoi(PoiFormViewModel poiFormViewModel, boolean isEdit) {
+  @Transactional
+  public DeleteModel deletePoi(BaseViewModel poiDeleteModel) {
+    this.poiRepository.deleteById(poiDeleteModel.getId());
+    DeleteModel deletedPoi = new DeleteModel(true);
+    deletedPoi.setId(poiDeleteModel.getId());
+    return deletedPoi;
+  }
+
+  @Override
+  public PoiViewModel addOrEditPoi(PoiViewModel poiViewModel, boolean isEdit) {
     Poi poi;
 
     if (isEdit) {
-      poi = this.poiRepository.findByTitle(poiFormViewModel.getOldTitle()).orElseThrow(() -> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
+      poi = this.poiRepository.findById(poiViewModel.getId()).orElseThrow(() -> new PoiNotFoundException("Забележителността за редакция не бе намерена, моля опитайте отново."));
 
-      poi.setTitle(poiFormViewModel.getTitle());
-      poi.setAddress(poiFormViewModel.getAddress());
-      poi.setDescription(poiFormViewModel.getDescription());
-      poi.setType(poiFormViewModel.getType());
-      poi.setImageUrl(poiFormViewModel.getImageUrl());
-      poi.setReadMore(poiFormViewModel.getReadMore());
+      poi.setTitle(poiViewModel.getTitle());
+      poi.setAddress(poiViewModel.getAddress());
+      poi.setDescription(poiViewModel.getDescription());
+      poi.setType(poiViewModel.getType());
+      poi.setImageUrl(poiViewModel.getImageUrl());
+      poi.setReadMore(poiViewModel.getReadMore());
 
       Coordinates poiCoords = poi.getCoordinates();
-      poiCoords.setLatitude(poiFormViewModel.getLatitude());
-      poiCoords.setLongitude(poiFormViewModel.getLongitude());
+      poiCoords.setLatitude(poiViewModel.getLatitude());
+      poiCoords.setLongitude(poiViewModel.getLongitude());
 
     } else {
-      poi = this.mapper.map(poiFormViewModel, Poi.class);
+      poi = this.mapper.map(poiViewModel, Poi.class);
 
-      Coordinates poiCoordinates = new Coordinates(poiFormViewModel.getLatitude(), poiFormViewModel.getLongitude());
+      Coordinates poiCoordinates = new Coordinates(poiViewModel.getLatitude(), poiViewModel.getLongitude());
 
       poi.setCoordinates(poiCoordinates);
     }
 
-    Region poiRegion = this.regionRepository.findByRegionId(poiFormViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на тази забележителност не бе намерена."));
+    Region poiRegion = this.regionRepository.findByRegionId(poiViewModel.getRegionId()).orElseThrow(() -> new RegionNotFoundException("Областта на тази забележителност не бе намерена."));
 
     poi.setRegion(poiRegion);
 
     this.poiRepository.save(poi);
-
-    this.applicationEventPublisher.publishEvent(new PoiEvent(this));
+    return poiViewModel;
   }
 
   @Override

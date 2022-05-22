@@ -11,8 +11,14 @@ import java.util.Set;
 
 @Repository
 public interface PoiRepository extends JpaRepository<Poi, String> {
-    Set<Poi> findAllByType(Type type);
-    Set<Poi> findAllByRegion(Region region);
-    Set<Poi> findAllByRegionAndType(Region region, Type type);
-    Optional<Poi> findByTitle(String name);
+  Set<Poi> findAllByType(Type type);
+
+  Set<Poi> findAllByRegion(Region region);
+
+  Set<Poi> findAllByRegionAndType(Region region, Type type);
+
+  Optional<Poi> findByTitle(String name);
+
+  @Override
+  void deleteById(String id);
 }

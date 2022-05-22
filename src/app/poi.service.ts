@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Poi } from './interfaces/Poi';
 import { Type } from '../constants';
+import { Fact } from './interfaces/Fact';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,33 @@ export class PoiService {
   };
 
   constructor(private http: HttpClient) {}
+
+  addPoi(poi: Poi): Observable<HttpResponse<Poi>> {
+    return this.http.post<Poi>('api/poi/add', poi, {
+      headers: { 'Content-Type': 'application/json' },
+      observe: 'response',
+    });
+  }
+
+  editPoi(poi: Poi): Observable<HttpResponse<Poi>> {
+    return this.http.post<Poi>('api/poi/edit', poi, {
+      headers: { 'Content-Type': 'application/json' },
+      observe: 'response',
+    });
+  }
+
+  deletePoiById(
+    poiId: string,
+  ): Observable<HttpResponse<{ id: string; deleted: boolean }>> {
+    return this.http.post<{ id: string; deleted: boolean }>(
+      'api/poi/delete',
+      { id: poiId },
+      {
+        headers: { 'Content-Type': 'application/json' },
+        observe: 'response',
+      },
+    );
+  }
 
   /** GET regions from the server */
   getPoiByRegion(regionId: string, type?: Type): Observable<Poi[]> {

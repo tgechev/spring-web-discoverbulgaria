@@ -48,3 +48,10 @@ export const cloudinaryBaseUrl =
   'https://res.cloudinary.com/discover-bulgaria/image/upload/';
 
 export const chooseFactTitle = 'Избери факт';
+
+export const choosePoiTitle = 'Избери забележителност';
+
+export const cloudinaryPresets = {
+  facts: 'v6pqytxh',
+  poi: 'sgfh2nld',
+};

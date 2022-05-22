@@ -31,7 +31,7 @@ public class Region extends BaseEntity {
     @Column(nullable = false)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     private Set<Poi> poi;
 
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)

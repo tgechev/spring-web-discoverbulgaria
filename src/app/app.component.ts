@@ -1,10 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ROUTE_TO_NAV_ID } from '../constants';
-import { AppService } from './app.service';
 import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs';
 import * as $ from 'jquery';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +15,11 @@ export class AppComponent implements OnInit {
   title = 'discover-bulgaria';
 
   constructor(
-    public app: AppService,
     private router: Router,
     private http: HttpClient,
+    public authService: AuthService,
   ) {
-    this.app.authenticate();
+    this.authService.authenticate();
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const endEvent = event as NavigationEnd;
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   }
 
   public isAuthenticated(): boolean {
-    return this.app.authenticated;
+    return this.authService.authenticated;
   }
 
   logout() {
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
       .post('logout', {})
       .pipe(
         finalize(() => {
-          this.app.authenticated = false;
-          this.app.resetLoggedInUserRole();
+          this.authService.authenticated = false;
+          this.authService.resetLoggedInUserRole();
           this.router.navigateByUrl('/login');
         }),
       )

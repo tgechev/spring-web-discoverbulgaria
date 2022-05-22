@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,11 @@ export class LoginComponent implements OnInit {
     private app: AppService,
     private http: HttpClient,
     private router: Router,
+    private authService: AuthService,
   ) {}
 
   login() {
-    this.app.authenticate(this.credentials, () => {
+    this.authService.authenticate(this.credentials, () => {
       this.router.navigateByUrl('/');
     });
     return false;

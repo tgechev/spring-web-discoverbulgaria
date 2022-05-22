@@ -11,11 +11,14 @@ import java.util.Set;
 
 @Repository
 public interface FactRepository extends JpaRepository<Fact, String> {
-    Set<Fact> findAllByRegion(Region region);
-    Set<Fact> findAllByRegionAndType(Region region, Type type);
-    Set<Fact> findAllByType(Type type);
-    Optional<Fact> findByTitle(String name);
+  Set<Fact> findAllByRegion(Region region);
 
-    @Override
-    void deleteById(String id);
+  Set<Fact> findAllByRegionAndType(Region region, Type type);
+
+  Set<Fact> findAllByType(Type type);
+
+  Optional<Fact> findByTitle(String name);
+
+  @Override
+  void deleteById(String id);
 }

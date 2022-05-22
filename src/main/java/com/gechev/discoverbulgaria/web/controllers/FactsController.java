@@ -108,7 +108,7 @@ public class FactsController {
   }
 
   @GetMapping(value = "/{regionId}")
-  public List<FactViewModel> getFactsForRegion(@PathVariable String regionId, @RequestParam Optional<String> type, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+  public List<FactViewModel> getFactsForRegion(@PathVariable String regionId, @RequestParam Optional<String> type) {
     if (type.isPresent()) {
       return this.factService.getFactsByRegionIdAndType(regionId, Type.valueOf(type.get()));
     } else {

@@ -21,7 +21,7 @@
         <strong>{{ isEdit ? 'Редактирай' : 'Добави' }} факт</strong>
       </h5>
       <!--Card content-->
-      <div class="card-body px-lg-5 pt-0"  id="direct_upload" ng2FileDrop [uploader]="uploader">
+      <div class="card-body px-lg-5 pt-0" id="direct_upload" ng2FileDrop [uploader]="uploader">
         <!-- Form -->
         <form (ngSubmit)="onSubmit()" style="color: #757575;"> <!-- th:id="${isEdit} ? 'edit-fact-form' : 'fact-form'" th:action="${isEdit} ? @{/facts/edit} : @{/facts/add}" th:method="post" th:object="${factFormViewModel}"> -->
 
@@ -32,8 +32,10 @@
                     name="currentFact"
                     [ngModel]="currentFact"
                     (ngModelChange)="assignSelectedFact($event)"
-                    (click)="onSelectFact()">
-              <option *ngFor="let fact of facts" [ngValue]="fact">{{fact.title}}</option>
+                    (click)="this.toggleLabels()">
+              <option [disabled]="fact.title === 'Избери факт'"
+                      [selected]="fact.title === 'Избери факт'"
+                      *ngFor="let fact of facts" [ngValue]="fact">{{fact.title}}</option>
             </select>
           </div>
           </ng-container>
@@ -76,7 +78,8 @@
           <div class="md-form">
 
             <i class="fas fa-pencil-alt prefix"></i>
-            <textarea active-label id="description" name="description" class="md-textarea form-control" rows="3" [(ngModel)]="currentFact.description"></textarea> <!--  th:field="*{description}" th:classappend="${isPost} ? (${#fields.errors('description').isEmpty()} ? 'is-valid' : 'is-invalid')" -->
+            <textarea active-label id="description" name="description" class="md-textarea form-control" rows="3"
+                      [(ngModel)]="currentFact.description"></textarea> <!--  th:field="*{description}" th:classappend="${isPost} ? (${#fields.errors('description').isEmpty()} ? 'is-valid' : 'is-invalid')" -->
             <label class="label-edit" for="description">Описание <span>*</span></label>
 
 <!--            <div class="invalid-feedback">-->
@@ -127,12 +130,6 @@
 <!--              <span th:each="error : ${#fields.errors('imageUrl')}" th:text="${error}"></span>-->
 <!--            </div>-->
           </div>
-
-<!--          <input type="hidden" id="regionId" th:field="*{regionId}">-->
-<!--          <input type="hidden" id="imageUrl" th:field="*{imageUrl}">-->
-<!--          <input type="hidden" id="oldTitle" th:field="*{oldTitle}">-->
-<!--          <input type="hidden" id="isSubmit" value="false">-->
-<!--          <input type="hidden" id="delete_token">-->
 
           <!-- Add button -->
           <div class="row">

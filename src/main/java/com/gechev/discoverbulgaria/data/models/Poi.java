@@ -39,7 +39,7 @@ public class Poi extends BaseEntity {
   @JoinColumn(name = "coordinates_id", referencedColumnName = "id")
   private Coordinates coordinates;
 
-  @ManyToOne(targetEntity = Region.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToOne(targetEntity = Region.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "region_id", referencedColumnName = "id")
   private Region region;
 }

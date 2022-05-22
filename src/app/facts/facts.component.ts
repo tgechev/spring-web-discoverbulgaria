@@ -15,7 +15,12 @@ import {
 } from 'ng2-file-upload';
 import { Cloudinary } from '@cloudinary/angular-5.x';
 import * as $ from 'jquery';
-import { chooseFactTitle, cloudinaryBaseUrl, Type } from "../../constants";
+import {
+  chooseFactTitle,
+  cloudinaryBaseUrl,
+  cloudinaryPresets,
+  Type,
+} from '../../constants';
 
 @Component({
   selector: 'app-facts',
@@ -35,7 +40,6 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   regions: Region[] = [];
   facts: Fact[] = [];
-  isEdit = false;
   factSaved = false;
   factDeleted = false;
 
@@ -55,11 +59,12 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
+  get isEdit() {
+    return this.router.url.endsWith('edit');
+  }
+
   ngOnInit(): void {
     this.app.toggleMainBackground();
-    if (this.router.url.endsWith('edit')) {
-      this.isEdit = true;
-    }
 
     const uploaderOptions: FileUploaderOptions =
       this.imageService.getImageUploadOptions();
@@ -71,7 +76,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
       form: FormData,
     ): any => {
       // Add Cloudinary's unsigned upload preset to the upload form
-      form.append('upload_preset', 'v6pqytxh');
+      form.append('upload_preset', cloudinaryPresets.facts);
       form.append('callback', '/cloudinary/cloudinary_cors.html');
       // Add file to upload
       form.append('file', fileItem as any);
@@ -81,13 +86,9 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     this.uploader.onBeforeUploadItem = (item: FileItem) => {
       if (this.uploadedImageResponse) {
-        this.deleteImage(this.uploadedImageResponse);
+        this.deleteImage();
       }
-      const loader = $('#loader');
-      loader.removeClass('d-none');
-      loader.addClass('d-flex');
-      loader.css({ 'padding-top': 0 });
-      $('.file-path-wrapper').addClass('d-none');
+      this.app.toggleAddEditImageLoader();
     };
 
     // Update model on completion of uploading a file
@@ -97,11 +98,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
       status: number,
       headers: ParsedResponseHeaders,
     ) => {
-      const loader = $('#loader');
-      loader.removeClass('d-flex');
-      loader.addClass('d-none');
-      $('.file-path-wrapper').removeClass('d-none');
-      $('input.file-path').attr('value', item.file.name);
+      this.app.toggleAddEditImageLoader(item.file.name);
       this.uploadedImageResponse = JSON.parse(response);
       this.currentFact.imageUrl =
         this.uploadedImageResponse.secure_url.substring(
@@ -112,14 +109,14 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.getRegions();
-    if (this.router.url.endsWith('edit')) {
+    if (this.isEdit) {
       this.getFacts();
     }
   }
 
   ngOnDestroy(): void {
     if (this.uploadedImageResponse) {
-      this.deleteImage(this.uploadedImageResponse);
+      this.deleteImage();
     }
   }
 
@@ -149,25 +146,12 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
     Object.assign(this.currentFact, event);
   }
 
-  onSelectFact(): void {
-    this.setActiveLabels($('input'));
-    this.setActiveLabels($('textarea'));
+  public toggleLabels(addOrDelete?: boolean): void {
+    this.app.toggleLabels(addOrDelete);
   }
 
-  setActiveLabels(el: JQuery): void {
-    el.each(function () {
-      if ($(this).val()) {
-        $(`label[for=${this.id}]`).addClass('active');
-      }
-    });
-  }
-
-  deleteImage(data: any): void {
-    this.imageService
-      .deleteImage(this.uploadedImageResponse)
-      .subscribe((response: any) => {
-        console.log(`Deleted image - ${data.public_id} ${response.result}`);
-      });
+  deleteImage(): void {
+    this.imageService.deleteImage(this.uploadedImageResponse).subscribe();
   }
 
   onSubmit(): void {
@@ -179,6 +163,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
         cloudinaryBaseUrl.length,
       );
     }
+    $('input.file-path').attr('value', '');
     if (this.isEdit) {
       this.factService.editFact(this.currentFact).subscribe({
         next: response => {
@@ -201,6 +186,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.uploadedImageResponse = null;
             this.factSaved = true;
             this.currentFact = this.initFact();
+            this.toggleLabels(true);
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -226,6 +212,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.factDeleted = true;
           this.currentFact = this.initFact();
           this.getFacts();
+          this.toggleLabels(true);
         }
       },
       error: (error: HttpErrorResponse) => {
