@@ -5,7 +5,6 @@ import com.gechev.discoverbulgaria.constants.Constants;
 import com.gechev.discoverbulgaria.data.models.*;
 import com.gechev.discoverbulgaria.data.repositories.PoiRepository;
 import com.gechev.discoverbulgaria.data.repositories.RegionRepository;
-import com.gechev.discoverbulgaria.events.PoiEvent;
 import com.gechev.discoverbulgaria.exceptions.PoiNotFoundException;
 import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.PoiService;

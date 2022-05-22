@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class ResponseData implements Serializable {
-  private static final long serialVersionUID = -8524185686815426024L;
   private String responseCode;
   private String responseMsg;
 }

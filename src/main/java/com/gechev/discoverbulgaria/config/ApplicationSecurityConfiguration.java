@@ -37,25 +37,6 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
       .anyRequest().authenticated().and().csrf()
       .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
   }
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//            .cors().disable()
-//            .csrf().disable()
-//            .authorizeRequests()
-//            .antMatchers("/js/**", "/css/**", "/font/**").permitAll()
-//            .antMatchers("/", "/users/register", "/users/login").anonymous()
-//            .anyRequest().authenticated()
-//            .and()
-//            .formLogin()
-//            .loginPage("/users/login")
-//            .usernameParameter("username")
-//            .passwordParameter("password")
-//            .defaultSuccessUrl("/home", true)
-//            .and()
-//            .logout()
-//                .deleteCookies("JSESSIONID")
-//            .logoutSuccessUrl("/users/login?logout").permitAll();
-//    }
 
   @Bean
   @Override

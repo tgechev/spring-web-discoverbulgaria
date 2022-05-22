@@ -8,7 +8,6 @@ import com.gechev.discoverbulgaria.exceptions.RegionNotFoundException;
 import com.gechev.discoverbulgaria.services.RegionService;
 import com.gechev.discoverbulgaria.services.ValidationService;
 import com.gechev.discoverbulgaria.services.models.RegionServiceModel;
-import com.gechev.discoverbulgaria.web.models.EditRegionModel;
 import com.gechev.discoverbulgaria.web.models.RegionViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

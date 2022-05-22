@@ -46,21 +46,21 @@ public class RoleServiceImpl implements RoleService {
             //Validate role model and print message if not valid
             if(!this.validationService.isValid(roleServiceModel)){
                 this.validationService.violations(roleServiceModel)
-                        .forEach(v-> System.out.println(String.format("%s %s", v.getMessage(), v.getInvalidValue())));
+                        .forEach(v-> System.out.printf("%s %s%n", v.getMessage(), v.getInvalidValue()));
                 continue;
             }
 
             //If role already exists inform the user
             try{
                 Role role = this.roleRepository.findByAuthority(roleServiceModel.getAuthority()).orElseThrow();
-                System.out.println(String.format("Role %s already exists.", role.getAuthority()));
+                System.out.printf("Role %s already exists.%n", role.getAuthority());
             }
 
             //If role does not exist, create it.
             catch (NoSuchElementException e){
                 Role role = this.mapper.map(roleServiceModel, Role.class);
                 this.roleRepository.saveAndFlush(role);
-                System.out.println(String.format("Role %s successfully created.", role.getAuthority()));
+                System.out.printf("Role %s successfully created.%n", role.getAuthority());
             }
         }
     }
