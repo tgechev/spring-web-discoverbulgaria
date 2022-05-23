@@ -37,4 +37,7 @@ public class FactServiceModel extends BaseServiceModel {
 
     @Expose
     private String readMore;
+
+    @Expose
+    private String videoId;
 }

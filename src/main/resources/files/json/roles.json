@@ -1,0 +1,7 @@
+[
+  {"authority": "ROLE_USER"},
+  {"authority": "ROLE_ADMIN"},
+  {"authority": "ROLE_ROOT"},
+  {"authority": "ROLE_ROOT"},
+  {"authority": "ROLE_RO"}
+]

@@ -1,0 +1,312 @@
+[
+  {
+    "title": "Името България и град Плиска",
+    "readMore": "https://bg.wikipedia.org/wiki/%D0%9F%D0%BB%D0%B8%D1%81%D0%BA%D0%B0",
+    "description": "България е най-старата държава в Европа, която не е променяла името си след своето основаване през 681 г. Първата столица на Дунавска България - Плиска се намира в община Каспичан, област Шумен.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-27"
+    },
+    "imageUrl" : "files/img/facts/bulgaria.png",
+    "videoId": "PBVQsEMx1Ng"
+
+  },
+  {
+    "title": "Дан Колов",
+    "readMore": "https://bg.wikipedia.org/wiki/%D0%94%D0%B0%D0%BD_%D0%9A%D0%BE%D0%BB%D0%BE%D0%B2",
+    "description": "Първият борец в света с 1500 победи и 3 загуби е българинът Дончо Колев Данев, по-известен като Дан Колов. Хората го наричат също Кинг Конг, Царят на борбата и Българският лъв. Дан Колов е родом от с. Сенник, община Севлиево, област Габрово.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-07"
+    },
+    "imageUrl" : "files/img/facts/dan_kolov.jpg"
+  },
+  {
+    "title": "Розово масло",
+    "readMore": "https://epis.bg/razni/nepovtorimoto-balgarsko-rozovo-maslo/",
+    "description": "Българското розово масло се използва за направата на едни от най-известните марки парфюми. За един грам розово масло са нужни 1000 розови венчелистчета. Град Казанлък, считан за столица на розовата долина се намира в област Стара Загора.",
+    "type": "NATURE",
+    "region": {
+      "regionId" : "BG-24"
+    },
+    "imageUrl" : "files/img/facts/rose_oil.jpg",
+    "videoId": "tR4o9zlT1Ow"
+  },
+  {
+    "title": "Четиньова могила",
+    "readMore": "https://www.bulgariatravel.org/article/details/55#map=6/42.750/25.380",
+    "description": "Над 15 000 тракийски гробници са открити на българска територия, повечето от тях са все още неизследвани. Една от тях е гробницата в село Старосел, община Хисаря, област Пловдив.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-16"
+    },
+    "imageUrl" : "files/img/facts/starosel.jpg",
+    "videoId": "xx4iUCL9OzE"
+  },
+  {
+    "title": "Най-старото обработено злато",
+    "readMore": "https://visit.varna.bg/bg/sights/preview/293.html",
+    "description": "Златното съкровище, открито във Варненския некропол е най-старото в света. То датира от 4400 г. преди Христа. То се смята и за най-старото обработено злато.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-03"
+    },
+    "imageUrl" : "files/img/facts/necropolis.jpg"
+  },
+  {
+    "title": "Археологични открития",
+    "readMore": "https://www.flashnews.bg/10-fakta-za-panagyurskoto-zlatno-sakrovishte/",
+    "description": "България е третата страна в Европа с най-ценните археологични открития на своя територия. Преди нея са Гърция и Италия. Най-известното, Панагюрско златно съкровище, е открито на 2 км от гр. Панагюрище, област Пазарджик.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-13"
+    },
+    "imageUrl" : "files/img/facts/panagyursko-sakrovishte.jpg"
+  },
+  {
+    "title": "Хилядолетна София",
+    "readMore": "https://www.sofia.bg/web/tourism-in-sofia/history-of-sofia",
+    "description": "Столицата на България - София съществува от 7000 години, което я прави един от най-старите градове в Европа.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-23"
+    },
+    "imageUrl" : "files/img/facts/saint_sofia.jpg",
+    "videoId": "seiQLbch2Fs"
+  },
+  {
+    "title": "Разходка във Витоша",
+    "readMore": "http://www.navitosha.bg/%D0%BF%D0%BE%D0%B4%D1%85%D0%BE%D0%B4%D1%8F%D1%89%D0%B8-%D0%BC%D0%B5%D1%81%D1%82%D0%B0-%D0%B7%D0%B0-%D1%80%D0%B0%D0%B7%D1%85%D0%BE%D0%B4%D0%BA%D0%B0-%D0%BD%D0%B0-%D0%B2%D0%B8%D1%82%D0%BE%D1%88%D0%B0/",
+    "description": "София е единственият голям град в Европа, който се намира на 15 минути от планина. Ето защо Витоша е любимо място за отдих за много от гражданите й.",
+    "type": "NATURE",
+    "region": {
+      "regionId" : "BG-23"
+    },
+    "imageUrl" : "files/img/facts/sofia_vitosha.jpg"
+  },
+  {
+    "title": "Битката при Клокотница",
+    "readMore": "https://bulgarianhistory.org/klokotnica-bitka-ivan-asen/",
+    "description": "Българската армия никога не е губила флаг в битка, въпреки множеството войни, в които е участвала. Такава е и битката при Клокотница, област Хасково, където през 1230г. Иван Асен II побеждава убедително Теодор Комнин.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-26"
+    },
+    "imageUrl" : "files/img/facts/klokotnica.jpg"
+  },
+  {
+    "title": "Българска песен в космоса",
+    "readMore": "http://bnr.bg/horizont/post/100932063/istoriata-na-edna-pesen-izlel-e-delyo-haidutin",
+    "description": "След изстрелването на Вояджър 1 и 2 през 1977г., българската народна песен \"Излел е Делю Хайдутин\", изпълнявана от Валя Балканска, звучи в космоса заедно с най-великите творби на Бах и Моцарт. Валя Балканска е родом от с. Арда, област Смолян.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-21"
+    },
+    "imageUrl" : "files/img/facts/valya_balkanska.jpg"
+  },
+  {
+    "title": "Компютър на Атанасов-Бери",
+    "readMore": "https://www.chr.bg/istorii/tehno/dzhon-atanasov-istinskiyat-sazdatel-na-kompyutara/",
+    "description": "Първият компютър е дело на български потомък. В периода 1937-1942г. Джон Атанасов, син на българин и ирландка заедно с Клифърд Бери създават първия дигитален компютър. Бащата на Джон Атанасов - Иван Атанасов е родом от област Ямбол",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-28"
+    },
+    "imageUrl" : "files/img/facts/john_atanasoff.jpg"
+  },
+  {
+    "title": "Петър Петров",
+    "readMore": "http://bnr.bg/radiobulgaria/post/100274167/petyr-petrov-edin-ot-nai-produktivnite-izobretateli-na-hh-vek",
+    "description": "Първият цифров часовник е дело на българин. Името му е Петър Петров, който е родом от с. Брестовица, област Пловдив",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-16"
+    },
+    "imageUrl" : "files/img/facts/petar_petrov.jpg",
+    "videoId": "0ihT1Ce4Rck"
+  },
+  {
+    "title": "Киселото мляко",
+    "readMore": "https://bulgarianhistory.org/kiseloto-mlqko/",
+    "description": "Несъмнено, българското кисело мляко е единствено по рода си. Това се дължи на бактерията Lactobacillus Bulgaricus, открита от Стамен Григоров през 1905г. Стамен Григоров е български микробиолог и лекар, родом от с. Студен Извор, област Перник.",
+    "type": "NATURE",
+    "region": {
+      "regionId" : "BG-14"
+    },
+    "imageUrl" : "files/img/facts/yoghurt.jpg"
+  },
+  {
+    "title": "Евксиноград",
+    "readMore": "https://bulgarianhistory.org/evksinovgrad/",
+    "description": "Съществуват солидни доказателства за това, че вино се произвежда на българска територия от самата каменна епоха. През годините България се е доказала като световен производител на вино. Най-старата винарна на име Евксиноград се намира в област Варна.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-03"
+    },
+    "imageUrl" : "files/img/facts/evksinograd.jpg"
+  },
+  {
+    "title": "Минерални бани",
+    "readMore": "http://www.nasamnatam.com/statia/Sapareva_bania_nai_goreshtite_mineralni_izvori_v_ciala_Evropa-2276.html",
+    "description": "България е страната с най-голям брой естествени минерални извори в централна Европа - над 600. В град Сапарева Баня, област Кюстендил се намират на горещите от тях.",
+    "type": "NATURE",
+    "region": {
+      "regionId" : "BG-10"
+    },
+    "imageUrl" : "files/img/facts/hisaria.jpg"
+  },
+  {
+    "title": "Райна Касабова",
+    "readMore": "https://bulgarianhistory.org/raina-kasabova/",
+    "description": "Райна Касабова е първата жена, която взема участие във военен полет. На 30 октомври 1912г., на 15 годишна възраст, по време на Първата Балканска война, тя се присъединява към Българските ВВС и лети над Одрин като разпръсква пропагандни писма на турски. Ледникът Касабова на бряг Дейвис в Земя Греъм на Антарктическия полуостров е именуван на Райна Касабова.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-16"
+    },
+    "imageUrl" : "files/img/facts/rayna_kasabova.jpg"
+  },
+  {
+    "title": "Иван Ценов",
+    "readMore": "http://mmib.math.bas.bg/?page_id=1344",
+    "description": "Българите заемат второ място в света на международния IQ тест. Пример за това е математикът Иван Ценов, родом от Враца.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-06"
+    },
+    "imageUrl" : "files/img/facts/Ivan_Cenov.jpg"
+  },
+  {
+    "title": "Рафаилов кръст",
+    "readMore": "https://www.lifebites.bg/rafailoviat-kryst/",
+    "description": "Рафаиловият кръст, съхраняван в Рилския манастир, област Кюстендил, е кръст с повече от 100 микроскопични сцени от Библията. Това е едно от най-деликатните произведения на изкуството в света. За направата му са били необходими 12 години.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-10"
+    },
+    "imageUrl" : "files/img/facts/cross.jpg"
+  },
+  {
+    "title": "Димитър Пешев",
+    "readMore": "https://bulgarianhistory.org/pismo-evrei/",
+    "description": "Димитър Пешев е български политик родом от Кюстендил, чието протестно писмо изиграва важна роля за спасяването на българските евреи по време на Холокоста, освен България единствено Дания също спасява своите евреи.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-10"
+    },
+    "imageUrl" : "files/img/facts/Dimitar_Peshev.jpg"
+  },
+  {
+    "title": "Лавандулово масло",
+    "readMore": "https://www.webcafe.bg/id_1769139282",
+    "description": "Преди години България е била малко зад лидера по износ на лавандулово масло - Франция. Българското лавандулово масло има траен, фин аромат и е достоен конкурент сред останалите масла в света. В област Добрич има близо 72 200 декара лавандулови насаждения.",
+    "type": "NATURE",
+    "region": {
+      "regionId" : "BG-19"
+    },
+    "imageUrl" : "files/img/facts/lavender.jpg"
+  },
+  {
+    "title": "Лонгоз",
+    "readMore": "http://www.nasamnatam.com/statia/Rezervat_Kamchiia_i_nai_goliamata_vekovna_krairechna_gora_v_Bylgariia-2406.html",
+    "description": "Над една трета от територията на България се състои от гори. В края на 2013г. това са около 37.7% според Министерството на земеделието, храните и горите. Край река Камчия, област Варна се намира най-голямата вековна гора на име Лонгоз.",
+    "type": "NATURE",
+    "region": {
+      "regionId" : "BG-03"
+    },
+    "imageUrl" : "files/img/facts/forest.jpg"
+  },
+  {
+    "title": "Древен български календар",
+    "readMore": "https://historybg.info/%D0%B4%D1%80%D0%B5%D0%B2%D0%B5%D0%BD-%D0%B1%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D1%81%D0%BA%D0%B8-%D0%BA%D0%B0%D0%BB%D0%B5%D0%BD%D0%B4%D0%B0%D1%80/",
+    "description": "През 1976г. Древният български календар е обявен за най-точен в света от ЮНЕСКО. Вариант на календара може да бъде видян в централния парк в град Разлог, област Благоевград.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-01"
+    },
+    "imageUrl" : "files/img/facts/calendar.png"
+  },
+  {
+    "title": "Стефка Костадинова",
+    "readMore": "https://www.24chasa.bg/sport/article/6419794",
+    "description": "Стефка Костадинова, родом от Пловдив, е жената с най-висок скок на планетата. На 30 Август 1987г. по време на световно първенство по лека атлетика в Рим, тя поставя уникалния световен рекорд във висок скок - 209см. Рекордът не е подобрен и до днес.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-16"
+    },
+    "imageUrl" : "files/img/facts/jump.jpg",
+    "videoId": "vCSWOruPXiQ"
+  },
+  {
+    "title": "Йордан Йовчев",
+    "readMore": "https://www.bgonair.bg/a/149-deset/53081-deset-saveta-za-uspeh-v-sporta-ot-yordan-yovchev",
+    "description": "Невероятният Йордан Йовчев от Пловдив е единственият гимнастик в историята, който участва шест пъти в Олимпийски игри. Той е четирикратен световен шампион и европейски шампион.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-16"
+    },
+    "imageUrl" : "files/img/facts/yordan_yovchev.jpg",
+    "videoId": "PQJ42eDcVuQ"
+  },
+  {
+    "title": "Христо Явашев - Кристо",
+    "readMore": "https://christojeanneclaude.net/projects/wrapped-reichstag",
+    "description": "През последните няколко години арт техника наречена \"опаковане\" придоби значителна популярност. Неин автор е, роденият в Габрово, Христо Явашев - Кристо. Едни от най-известните му проекти са опаковането на Райхстага в Берлин и Понт Ньов в Париж.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-07"
+    },
+    "imageUrl" : "files/img/facts/reichstag.jpg"
+  },
+  {
+    "title": "Българската гайда",
+    "readMore": "http://bnr.bg/post/101081709",
+    "description": "Каба гайдата е един от най-отличаващите се символи на народната музика в България. Нейният репертоар съдържа тонове и песни от девни времена. Естествените материали, използвани за направата й и начинът на изработка са причините за отличителнияй глас и вибрация. На снимката: Дафо Трендафилов (1919 - 2010) е музикант, майстор-гайдар и преподавател от село Гела, област Смолян.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-21"
+    },
+    "imageUrl" : "files/img/facts/Bai_Dafo.jpg"
+  },
+  {
+    "title": "Мъжко хоро",
+    "readMore": "http://kalofer.bg/?p=799",
+    "description": "Всяка година на Йордановден в град Калофер, област Пловдив се провежда традиционното мъжко хоро в ледените води на река Тунджа.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-16"
+    },
+    "imageUrl" : "files/img/facts/kalofer_horo.jpg"
+  },
+  {
+    "title": "Бащата на авиацията",
+    "readMore": "https://bulgarianhistory.org/bashtata-na-aviatsiyata-asen-jordanov/",
+    "description": "Първата въздушна възглавница в света, предназначена да предпазва пилоти и автомобилисти е създадена през 1957г. от българина Асен Йорданов от София.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-23"
+    },
+    "imageUrl" : "files/img/facts/asen_yordanov.png",
+    "videoId": "OWZ_Ul_LvRU"
+  },
+  {
+    "title": "Духлата",
+    "readMore": "https://www.bulgariatravel.org/article/details/84#map=6/42.750/25.380",
+    "description": "Най-дългата пещера (над 15 км) на име \"Духлата\" е близо до село Боснек, област Перник. Шест подземни реки са издълбали лабиринти в нейните галерии. Около 4000 пещери са изследвани и картографирани в България.",
+    "type": "NATURE",
+    "region": {
+      "regionId": "BG-14"
+    },
+    "imageUrl" : "files/img/facts/cave.jpg"
+  },
+
+  {
+    "title": "Дан Колов",
+    "readMore": "",
+    "description": "Първият борец в света с 1500 победи и 3 загуби е българинът Дончо Колев Данев, по-известен като Дан Колов. Хората го наричат също Кинг Конг, Царят на борбата и Българският лъв. Дан Колов е родом от с. Сенник, община Севлиево, област Габрово.",
+    "type": "HISTORY",
+    "region": {
+      "regionId" : "BG-7"
+    },
+    "imageUrl" : "files/img/facts/dan_kolov.jpg"
+  }
+]

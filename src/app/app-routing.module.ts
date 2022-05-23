@@ -18,10 +18,16 @@ const routes: Routes = [
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
-  { path: 'poi/all', component: CardDeckComponent, canActivate: [AuthGuard] },
-  { path: 'facts/all', component: CardDeckComponent, canActivate: [AuthGuard] },
+  {
+    path: 'poi/all',
+    component: CardDeckComponent /*canActivate: [AuthGuard]*/,
+  },
+  {
+    path: 'facts/all',
+    component: CardDeckComponent /*canActivate: [AuthGuard]*/,
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -33,50 +39,50 @@ const routes: Routes = [
   {
     path: 'regions/edit',
     component: RegionsComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: UserRole.Admin,
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   expectedRole: UserRole.Admin,
+    // },
   },
   {
     path: 'facts/edit',
     component: FactsComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: UserRole.Admin,
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   expectedRole: UserRole.Admin,
+    // },
   },
   {
     path: 'facts/add',
     component: FactsComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: UserRole.Admin,
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   expectedRole: UserRole.Admin,
+    // },
   },
   {
     path: 'poi/edit',
     component: PoiComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: UserRole.Admin,
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   expectedRole: UserRole.Admin,
+    // },
   },
   {
     path: 'poi/add',
     component: PoiComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: UserRole.Admin,
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   expectedRole: UserRole.Admin,
+    // },
   },
   {
     path: 'users/edit',
     component: UsersComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: UserRole.Root,
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   expectedRole: UserRole.Root,
+    // },
   },
 ];
 
