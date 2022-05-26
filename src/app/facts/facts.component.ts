@@ -56,6 +56,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
       readMore: '',
       regionId: '',
       type: Type.HISTORY,
+      videoId: '',
     };
   }
 
@@ -172,6 +173,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.uploadedImageResponse = null;
             this.factSaved = true;
             this.getFacts();
+            window.scroll(0, 0);
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -187,6 +189,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.factSaved = true;
             this.currentFact = this.initFact();
             this.toggleLabels(true);
+            window.scroll(0, 0);
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -213,6 +216,7 @@ export class FactsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.currentFact = this.initFact();
           this.getFacts();
           this.toggleLabels(true);
+          window.scroll(0, 0);
         }
       },
       error: (error: HttpErrorResponse) => {

@@ -107,6 +107,12 @@
             <label class="label-edit" for="readMore">Връзка "Прочети повече"</label>
           </div>
 
+          <!-- YouTube Video Id -->
+          <div class="md-form">
+            <input active-label type="text" id="videoId" name="videoId" class="form-control" [(ngModel)]="currentPoi.videoId">
+            <label class="label-edit" for="videoId">YouTube Видео ID</label>
+          </div>
+
           <div class="md-form">
             <div class="file-field form-control"> <!-- th:classappend="${isPost} ? (${#fields.errors('imageUrl').isEmpty()} ? 'is-valid' : 'is-invalid')"> -->
               <div class="btn btn-primary btn-sm float-left">

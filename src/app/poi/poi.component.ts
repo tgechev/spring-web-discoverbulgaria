@@ -57,6 +57,7 @@ export class PoiComponent implements OnInit, AfterViewInit, OnDestroy {
       address: '',
       longitude: 0,
       latitude: 0,
+      videoId: '',
     };
   }
 
@@ -172,6 +173,7 @@ export class PoiComponent implements OnInit, AfterViewInit, OnDestroy {
           this.currentPoi = this.initPoi();
           this.getPoi();
           this.toggleLabels();
+          window.scroll(0, 0);
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -198,6 +200,7 @@ export class PoiComponent implements OnInit, AfterViewInit, OnDestroy {
             this.uploadedImageResponse = null;
             this.poiSaved = true;
             this.getPoi();
+            window.scroll(0, 0);
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -213,6 +216,7 @@ export class PoiComponent implements OnInit, AfterViewInit, OnDestroy {
             this.poiSaved = true;
             this.currentPoi = this.initPoi();
             this.toggleLabels();
+            window.scroll(0, 0);
           }
         },
         error: (error: HttpErrorResponse) => {
