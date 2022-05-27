@@ -16,6 +16,12 @@ export const ROUTE_TO_NAV_ID: { [key: string]: string } = {
   '/facts/all': 'facts-all',
   '/poi/all': 'poi-all',
   '/home': 'home',
+  '/facts/edit': 'edit-menu',
+  '/poi/edit': 'edit-menu',
+  '/regions/edit': 'edit-menu',
+  '/facts/add': 'add-menu',
+  '/poi/add': 'add-menu',
+  '/users/edit': 'edit-users',
 };
 
 export const CARD_CAT_TYPE_ID_TO_ENUM: { [key: string]: Type | Category } = {
